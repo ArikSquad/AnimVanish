@@ -1,0 +1,11 @@
+# This is the config of AnimVanish
+# Config version: 1
+
+# Prefix used in the messages sent to users.
+prefix: "AnimVanish"
+
+# Change to night when using invis.
+night: true
+
+# EvRithing version. This does nothing but is here.
+version: 1

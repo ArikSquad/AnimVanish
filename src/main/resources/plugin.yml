@@ -1,0 +1,19 @@
+name: AnimVanish
+version: '${project.version}'
+main: eu.mikart.animvanish.Main
+api-version: 1.18
+authors: [ ArikSquad ]
+description: Vanish addon for extra effects
+website: https://youtube.com/c/ArikChannel
+depend: [SuperVanish, PremiumVanish]
+
+commands:
+  animvanish:
+    description: "Manage the plugin."
+    usage: /<command>
+  invis:
+    description: "Go invisible with an effect."
+    usage: /<command>
+    aliases:
+      - invisible
+      - herobrine
