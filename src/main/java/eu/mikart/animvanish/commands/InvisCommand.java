@@ -10,10 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Calendar;
-
-import static java.util.Calendar.SECOND;
-
 public class InvisCommand implements CommandExecutor {
 
 	@Override
@@ -38,10 +34,7 @@ public class InvisCommand implements CommandExecutor {
 				if (Main.instance.getConfig().getBoolean("night")) {
 					player.getWorld().setTime(14000);
 
-					Calendar c = Calendar.getInstance();
-					int s = c.get(SECOND) % 5 + 5;
-					while (s > c.get(SECOND) % 5) {}
-					player.getWorld().setTime(old_time);
+					Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(old_time), 100);
 				}
 			} else {
 				player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + "You must have SuperVanish or PremiumVanish installed to use this command.");

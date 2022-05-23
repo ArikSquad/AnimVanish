@@ -12,6 +12,8 @@ import java.util.List;
 
 public class AnimVanishCommand implements TabExecutor {
 
+	private static Main plugin;
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (!(sender instanceof Player)) {
@@ -32,6 +34,10 @@ public class AnimVanishCommand implements TabExecutor {
 				}
 			} else if (args[0].equalsIgnoreCase("author")) {
 				player.sendMessage(Main.instance.getPrefix() + "Plugin author is " + Main.instance.getDescription().getAuthors());
+			} else if (args[0].equalsIgnoreCase("help")) {
+				player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Available commands:");
+				player.sendMessage(ChatColor.GREEN + "/animvanish reload" + ChatColor.GRAY + " - Reloads the plugin config");
+				player.sendMessage(ChatColor.GREEN + "/animvanish author" + ChatColor.GRAY + " - Shows the plugin author");
 			}
 		} else {
 			player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Version 1.0");

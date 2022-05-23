@@ -3,6 +3,7 @@ package eu.mikart.animvanish;
 
 import eu.mikart.animvanish.commands.AnimVanishCommand;
 import eu.mikart.animvanish.commands.InvisCommand;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,11 +15,15 @@ public final class Main extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 
-		getCommand("animvanish").setExecutor(new AnimVanishCommand());
-		getCommand("invis").setExecutor(new InvisCommand());
+		// bStats
+		int pluginId = 14993;
+		Metrics metrics = new Metrics(this, pluginId);
 
 		getConfig().options().copyDefaults();
 		saveDefaultConfig();
+
+		getCommand("animvanish").setExecutor(new AnimVanishCommand());
+		getCommand("invis").setExecutor(new InvisCommand());
 	}
 
 	@Override
