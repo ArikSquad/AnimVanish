@@ -5,9 +5,6 @@ ___
 - We give effects to vanishing.
 
 ### Current effects
-- Herobrine effect
+- Lightning strike
 ### Current issues
-- The SuperVanish hideplayer doesn't work.
-
-___
-WORK IN PROGRESS - WORK IN PROGRESS - WORK IN PROGRESS
+- None
