@@ -35,9 +35,16 @@ public class AnimVanishCommand implements TabExecutor {
 			} else if (args[0].equalsIgnoreCase("author")) {
 				player.sendMessage(Main.instance.getPrefix() + "Plugin author is " + Main.instance.getDescription().getAuthors());
 			} else if (args[0].equalsIgnoreCase("help")) {
-				player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Available commands:");
-				player.sendMessage(ChatColor.GREEN + "/animvanish reload" + ChatColor.GRAY + " - Reloads the plugin config");
-				player.sendMessage(ChatColor.GREEN + "/animvanish author" + ChatColor.GRAY + " - Shows the plugin author");
+				if (sender.hasPermission("animvanish.help")) {
+					player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Available commands:");
+
+					// AnimVanish
+					player.sendMessage(ChatColor.GREEN + "/animvanish reload" + ChatColor.GRAY + " - Reloads the plugin config");
+					player.sendMessage(ChatColor.GREEN + "/animvanish author" + ChatColor.GRAY + " - Shows the plugin author");
+
+					// Invis
+					player.sendMessage(ChatColor.GREEN + "/invis [herobrine|particle]" + ChatColor.GRAY + " - Shows the plugin author");
+				}
 			}
 		} else {
 			player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Version 1.0");
@@ -51,6 +58,7 @@ public class AnimVanishCommand implements TabExecutor {
 			List<String> arguments = new ArrayList<>();
 			arguments.add("reload");
 			arguments.add("author");
+			arguments.add("help");
 
 			return arguments;
 		}

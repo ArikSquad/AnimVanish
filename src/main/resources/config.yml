@@ -1,11 +1,17 @@
-# This is the config of AnimVanish
-# Config version: 1
+# Configuration file of AnimVanish #
+# -------------------------------- #
 
-# Prefix used in the messages sent to users.
+# ---- GENERAL ---- #
 prefix: "AnimVanish"
 
-# Change to night when using invis.
-night: true
 
-# EvRithing version. This does nothing but is here.
-version: 1
+# ---- EFFECTS ---- #
+
+herobrine:
+  night: true
+
+
+particle:
+  # You can find types here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html#enum-constant-summary
+  type: DRAGON_BREATH
+
