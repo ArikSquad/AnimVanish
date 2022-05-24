@@ -1,8 +1,6 @@
 # AnimVanish (an addon for SuperVanish)
 ___
-
-### Why AnimVanish?
-- Plugin that provides large library of pre-made effects to your vanish
+Plugin that provides large library of pre-made effects to your vanish
 
 ### Current effects
 - Herobrine effect
