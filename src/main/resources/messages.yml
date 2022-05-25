@@ -1,0 +1,22 @@
+# Configuration file of AnimVanish #
+# -------------------------------- #
+# The colours are not changeable.
+
+
+# ---- COMMANDS ---- #
+
+not_player: "You must be a player to use this command."
+reload: "Successfully reloaded!"
+no_permission: "You don't have permission to use this command."
+invalid_args: "Invalid arguments."
+
+invis:
+  invalid_config: "Invalid particle configuration."
+  invalid_particle: "That particle doesn't exist or it isn't supported."
+  blinded: "You saw something and you now feel dizzy"
+
+dependency:
+  no_citizens: "Citizens is not installed."
+  no_vanish: "You must have SuperVanish or PremiumVanish installed to use this command."
+
+

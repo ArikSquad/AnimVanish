@@ -12,10 +12,10 @@ softdepend:
 
 commands:
   animvanish:
-    description: Manage the plugin.
+    description: Main command for control
     usage: /<command> [reload|author|help]
   invis:
-    description: Go invisible with an effect.
+    description: Go invisible with an effect
     usage: /<command> [herobrine|particle|tnt|npc|zombie]
 
 permissions:

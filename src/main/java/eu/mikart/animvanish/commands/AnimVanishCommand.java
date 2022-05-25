@@ -1,6 +1,7 @@
 package eu.mikart.animvanish.commands;
 
 import eu.mikart.animvanish.Main;
+import eu.mikart.animvanish.config.MessageManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -12,12 +13,12 @@ import java.util.List;
 
 public class AnimVanishCommand implements TabExecutor {
 
-	private static Main plugin;
+	MessageManager messages = Main.instance.messages;
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "You must be a player to use this command.");
+			sender.sendMessage(ChatColor.RED + messages.getMessage("not_player"));
 			return true;
 		}
 
@@ -26,14 +27,18 @@ public class AnimVanishCommand implements TabExecutor {
 		if (args.length > 0) {
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (sender.hasPermission("animvanish.reload")) {
+
+					// Reload configs
 					Main.instance.reloadConfig();
-					player.sendMessage(Main.instance.getPrefix() + "Successfully reloaded");
+					Main.instance.messages.reloadConfig();
+
+					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("reload"));
 					return true;
 				} else {
-					player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + "You don't have required permissions to run this command. " + ChatColor.GREEN + "(animvanish.reload)");
+					player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.reload)");
 				}
 			} else if (args[0].equalsIgnoreCase("author")) {
-				player.sendMessage(Main.instance.getPrefix() + "Plugin author is " + Main.instance.getDescription().getAuthors());
+				player.sendMessage(Main.instance.getPrefix() + "Plugin author is " + ChatColor.GOLD + Main.instance.getDescription().getAuthors());
 			} else if (args[0].equalsIgnoreCase("help")) {
 				if (sender.hasPermission("animvanish.help")) {
 					player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Available commands:");
@@ -43,11 +48,15 @@ public class AnimVanishCommand implements TabExecutor {
 					player.sendMessage(ChatColor.GREEN + "/animvanish author" + ChatColor.GRAY + " - Shows the plugin author");
 
 					// Invis
-					player.sendMessage(ChatColor.GREEN + "/invis [herobrine|particle]" + ChatColor.GRAY + " - Shows the plugin author");
+					player.sendMessage(ChatColor.GREEN + "/invis [effect]" + ChatColor.GRAY + " - Vanishes with an effect");
+				} else {
+					player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.help)");
 				}
+			} else {
+				player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("invalid_args"));
 			}
 		} else {
-			player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Version 1.0");
+			player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "AnimVanish version " + ChatColor.GOLD + Main.instance.getDescription().getVersion());
 		}
 		return true;
 	}

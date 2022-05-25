@@ -15,3 +15,14 @@ particle:
   # You can find types here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html#enum-constant-summary
   type: DRAGON_BREATH
 
+npc:
+  # How many seconds until the NPC disappears. Default: 3
+  despawn_after: 3
+
+zombie:
+  # How many seconds until the zombie disappears. Default: 3
+  despawn_after: 3
+
+blindness:
+    # How many seconds until the blindness disappears. Default: 3
+    effect_last: 3
