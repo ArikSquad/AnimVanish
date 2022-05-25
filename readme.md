@@ -1,10 +1,10 @@
 # AnimVanish (an addon for SuperVanish)
 ___
-
-### Why AnimVanish?
-- We give effects to vanishing.
+Plugin that provides large library of pre-made effects to your vanish
 
 ### Current effects
-- Lightning strike
-### Current issues
-- None
+- Herobrine effect
+- Particle effect
+- Tnt effect
+- Npc effect (requires citizens)
+- Zombie effect
