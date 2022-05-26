@@ -1,4 +1,4 @@
-my amazing image with light background in dark theme :D
+# Main page at [here.](https://www.spigotmc.org/resources/animvanish-1-18-animated-vanishing.102183/)
 ![Title](docs/title.png)
 ___
 Our plugin makes your vanishing look great with a large library of pre-made effects on your vanish.
