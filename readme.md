@@ -1,7 +1,7 @@
 my amazing image with light background in dark theme :D
 ![Title](docs/title.png)
 ___
-Plugin that provides large library of pre-made effects to your vanish
+Our plugin makes your vanishing look great with a large library of pre-made effects on your vanish.
 
 ### Current effects
 - Herobrine effect (Lightning strike and night)
