@@ -18,7 +18,7 @@ public class AnimVanishCommand implements TabExecutor {
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + messages.getMessage("not_player"));
+			sender.sendMessage(messages.getMessage("not_player"));
 			return true;
 		}
 
@@ -35,7 +35,7 @@ public class AnimVanishCommand implements TabExecutor {
 					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("reload"));
 					return true;
 				} else {
-					player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.reload)");
+					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.reload)");
 				}
 			} else if (args[0].equalsIgnoreCase("author")) {
 				player.sendMessage(Main.instance.getPrefix() + "Plugin author is " + ChatColor.GOLD + Main.instance.getDescription().getAuthors());
@@ -50,10 +50,10 @@ public class AnimVanishCommand implements TabExecutor {
 					// Invis
 					player.sendMessage(ChatColor.GREEN + "/invis [effect]" + ChatColor.GRAY + " - Vanishes with an effect");
 				} else {
-					player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.help)");
+					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.help)");
 				}
 			} else {
-				player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("invalid_args"));
+				player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invalid_args"));
 			}
 		} else {
 			player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "AnimVanish version " + ChatColor.GOLD + Main.instance.getDescription().getVersion());

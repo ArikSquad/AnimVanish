@@ -1,28 +1,36 @@
 # Configuration file of AnimVanish #
 # -------------------------------- #
 
-# ---- GENERAL ---- #
-prefix: "AnimVanish"
-
 
 # ---- EFFECTS ---- #
 
-herobrine:
-  night: true
+effects:
+  herobrine:
+    # Will the time set to night with the effect? Default: True
+    night: true
+    # How long the effect will last? Default: 3
+    time: 3
 
+  particle:
+    # What particle will be used when using particle as the effect. Default: DRAGON_BREATH
+    # You can find types here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html#enum-constant-summary
+    type: DRAGON_BREATH
+    # How many particles will be spawned. Default: 50
+    amount: 50
 
-particle:
-  # You can find types here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html#enum-constant-summary
-  type: DRAGON_BREATH
+  npc:
+    # How many seconds the NPC will last. Default: 3
+    despawn_after: 3
 
-npc:
-  # How many seconds until the NPC disappears. Default: 3
-  despawn_after: 3
+  zombie:
+    # How many seconds the zombie will last. Default: 3
+    despawn_after: 3
 
-zombie:
-  # How many seconds until the zombie disappears. Default: 3
-  despawn_after: 3
+  blindness:
+      # How many seconds the blindness effect will last. Default: 3
+      effect_last: 3
 
-blindness:
-    # How many seconds until the blindness disappears. Default: 3
-    effect_last: 3
+  sound:
+    # What sound the player will hear. Default: BLOCK_ANVIL_BREAK
+    # You can find types here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html#enum-constant-summary
+    type: BLOCK_ANVIL_FALL

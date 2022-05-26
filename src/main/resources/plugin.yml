@@ -23,6 +23,7 @@ permissions:
     children:
       animvanish.invis: true
       animvanish.reload: true
+      animvanish.help: true
     description: Grants you all the permissions in AnimVanish
   animvanish.invis:
     description: Allows you to go invisible with an effect

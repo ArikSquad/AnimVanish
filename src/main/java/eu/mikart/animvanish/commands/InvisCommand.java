@@ -8,6 +8,7 @@ import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -56,10 +57,10 @@ public class InvisCommand implements TabExecutor {
 					// Herobrine effect
 					if (args[0].equalsIgnoreCase("herobrine")) {
 						player.getWorld().strikeLightningEffect(player.getLocation());
-						if (Main.instance.getConfig().getBoolean("herobrine.night")) {
+						if (Main.instance.getConfig().getBoolean("effects.herobrine.night")) {
 							player.getWorld().setTime(14000);
 
-							Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(time_before), 20 * 3);
+							Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(time_before), 20 * Main.instance.getConfig().getLong("effects.herobrine.time"));
 						}
 					}
 
@@ -67,17 +68,17 @@ public class InvisCommand implements TabExecutor {
 					// Particle effect
 					else if (args[0].equalsIgnoreCase("particle") && args.length == 1) {
 						try {
-							player.spawnParticle(Particle.valueOf(Main.instance.getConfig().getString("particle.type")), player.getEyeLocation().add(0, 2, 0), 50);
+							player.spawnParticle(Particle.valueOf(Main.instance.getConfig().getString("effects.particle.type")), player.getEyeLocation().add(0, 2, 0), Main.instance.getConfig().getInt("effects.particle.amount"));
 						} catch (Exception e) {
-							player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("invis.invalid_config"));
-							Main.instance.getLogger().severe(ChatColor.RED + messages.getMessage("invis.invalid_config"));
-							player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0), 50);
+							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.particle.invalid_config"));
+							Main.instance.getLogger().severe(messages.getMessage("invis.particle.invalid_config"));
+							player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0), Main.instance.getConfig().getInt("effects.particle.amount"));
 						}
 					} else if (args[0].equalsIgnoreCase("particle") && args.length == 2) {
 						try {
 							player.spawnParticle(Particle.valueOf(args[1].toUpperCase()), player.getEyeLocation().add(0, 2, 0), 50);
 						} catch (Exception e) {
-							player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("invis.invalid_particle"));
+							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.invalid_particle"));
 							player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0), 50);
 						}
 					}
@@ -98,10 +99,10 @@ public class InvisCommand implements TabExecutor {
 								NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, player.getDisplayName());
 								npc.spawn(player.getLocation());
 
-								Bukkit.getScheduler().runTaskLater(Main.instance, () -> npc.destroy(), 20 * Main.instance.getConfig().getLong("npc.despawn_after"));
+								Bukkit.getScheduler().runTaskLater(Main.instance, () -> npc.destroy(), 20 * Main.instance.getConfig().getLong("effects.npc.despawn_after"));
 							}
 						} else {
-							player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("dependency.no_citizens"));
+							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("dependency.no_citizens"));
 							return true;
 						}
 					}
@@ -114,7 +115,7 @@ public class InvisCommand implements TabExecutor {
 							Bukkit.getScheduler().runTaskLater(Main.instance, () -> {
 								player.spawnParticle(Particle.HEART, zombie.getLocation(), 3);
 								zombie.remove();
-							}, 20 * Main.instance.getConfig().getLong("zombie.despawn_after"));
+							}, 20 * Main.instance.getConfig().getLong("effects.zombie.despawn_after"));
 						}
 					}
 
@@ -123,31 +124,40 @@ public class InvisCommand implements TabExecutor {
 						for (Entity ps : player.getNearbyEntities(10, 10, 10)) {
 							if (ps instanceof Player) {
 								Player p = (Player) ps;
-								p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * Main.instance.getConfig().getInt("blindness.effect_last"), 1));
-								p.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("invis.blinded"));
+								p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * Main.instance.getConfig().getInt("effects.blindness.effect_last"), 1));
+								p.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.blindness.message"));
 							}
+						}
+					}
+
+					// Sound effect
+					else if (args[0].equalsIgnoreCase("sound")) {
+						if (args.length == 1) {
+							player.playSound(player.getLocation(), Sound.valueOf(Main.instance.getConfig().getString("effects.sound.type")), 1, 1);
+						} else if (args.length == 2) {
+							player.playSound(player.getLocation(), Sound.valueOf(args[1].toUpperCase()), 1, 1);
 						}
 					}
 
 
 					else {
-						player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("invalid_args"));
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invalid_args"));
 					}
 
 					// Default effect (Herobrine)
 				} else {
 					player.getWorld().strikeLightningEffect(player.getLocation());
-					if (Main.instance.getConfig().getBoolean("herobrine.night")) {
+					if (Main.instance.getConfig().getBoolean("effects.herobrine.night")) {
 						player.getWorld().setTime(14000);
 
-						Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(time_before), 20 * 3);
+						Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(time_before), 20 * Main.instance.getConfig().getLong("effects.herobrine.time"));
 					}
 				}
 			} else {
-				player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("dependency.no_vanish"));
+				player.sendMessage(Main.instance.getPrefix() + messages.getMessage("dependency.no_vanish"));
 			}
 		} else {
-			player.sendMessage(Main.instance.getPrefix() + ChatColor.RED + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis)");
+			player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis)");
 		}
 
 		return true;
@@ -163,12 +173,20 @@ public class InvisCommand implements TabExecutor {
 			arguments.add("npc");
 			arguments.add("zombie");
 			arguments.add("blindness");
+			arguments.add("sound");
 
 			return arguments;
 		} else if (args.length == 2 && args[0].equalsIgnoreCase("particle")) {
 			List<String> arguments = new ArrayList<>();
 			for (Particle particle : EnumSet.allOf(Particle.class)) {
 				arguments.add(particle.name());
+			}
+
+			return arguments;
+		} else if (args.length == 2 && args[0].equalsIgnoreCase("sound")) {
+			List<String> arguments = new ArrayList<>();
+			for (Sound s : EnumSet.allOf(Sound.class)) {
+				arguments.add(s.name());
 			}
 
 			return arguments;
