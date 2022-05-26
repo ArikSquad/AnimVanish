@@ -13,7 +13,7 @@ Plugin that provides large library of pre-made effects to your vanish
 - Sound effect
 
 ![Title](docs/config.png)
-config.yml: 
+### config.yml: 
 ```yaml
 # Configuration file of AnimVanish #
 # -------------------------------- #
@@ -53,7 +53,7 @@ effects:
     type: BLOCK_ANVIL_FALL
 
 ```
-messages.yml:
+### messages.yml:
 ```yaml
 # Configuration file of AnimVanish #
 # -------------------------------- #
