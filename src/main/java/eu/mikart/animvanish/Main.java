@@ -9,7 +9,6 @@ import eu.mikart.animvanish.commands.InvisCommand;
 import eu.mikart.animvanish.config.MessageManager;
 import eu.mikart.animvanish.utils.Settings;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
