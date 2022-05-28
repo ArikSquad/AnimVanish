@@ -3,8 +3,7 @@ package eu.mikart.animvanish.commands;
 import de.myzelyam.api.vanish.VanishAPI;
 import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.config.MessageManager;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPC;
+import eu.mikart.animvanish.utils.Effects;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Particle;
@@ -13,8 +12,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.*;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,136 +25,157 @@ public class InvisCommand implements TabExecutor {
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + messages.getMessage("not_player"));
+			sender.sendMessage(messages.getMessage("not_player"));
 			return true;
 		}
 
 
 		Player player = (Player) sender;
-		long time_before = player.getWorld().getTime();
 
 
-		if (player.hasPermission("animvanish.invis")) {
+		// SuperVanish and PremiumVanish supported effects
+		if (Bukkit.getPluginManager().isPluginEnabled("SuperVanish") || Bukkit.getPluginManager().isPluginEnabled("PremiumVanish")) {
 
-			// SuperVanish and PremiumVanish supported effects
-			if (Bukkit.getPluginManager().isPluginEnabled("SuperVanish") || Bukkit.getPluginManager().isPluginEnabled("PremiumVanish")) {
-				// Vanish
-				boolean vanishing = true;
-				if (VanishAPI.isInvisible(player)) {
-					VanishAPI.showPlayer(player);
-					vanishing = false;
-				} else {
-					VanishAPI.hidePlayer(player);
+			// noinspection ConstantConditions
+			boolean vanishing = !VanishAPI.isInvisible(player);
+
+			if (args.length > 0) {
+				// Herobrine effect, that strikes a lightning effect on the player
+				if (args[0].equalsIgnoreCase("herobrine")) {
+					if (player.hasPermission("animvanish.invis.herobrine")) {
+
+						Effects.herobrine(player, player.getWorld().getTime());
+					} else {
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.herobrine)");
+						return true;
+					}
 				}
 
-				if (args.length > 0) {
 
-					// Herobrine effect
-					if (args[0].equalsIgnoreCase("herobrine")) {
-						player.getWorld().strikeLightningEffect(player.getLocation());
-						if (Main.instance.getConfig().getBoolean("effects.herobrine.night")) {
-							player.getWorld().setTime(14000);
-
-							Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(time_before), 20 * Main.instance.getConfig().getLong("effects.herobrine.time"));
+				// Particle effect using config values or args
+				else if (args[0].equalsIgnoreCase("particle")) {
+					if (player.hasPermission("animvanish.invis.particle")) {
+						if (args.length == 1) {
+							Effects.particleFromConfig(player);
+						} else if (args.length == 2) {
+							Effects.particle(player, args[1].toUpperCase());
 						}
+					} else {
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.tnt)");
+						return true;
 					}
+				}
 
 
-					// Particle effect
-					else if (args[0].equalsIgnoreCase("particle") && args.length == 1) {
-						try {
-							player.spawnParticle(Particle.valueOf(Main.instance.getConfig().getString("effects.particle.type")), player.getEyeLocation().add(0, 2, 0), Main.instance.getConfig().getInt("effects.particle.amount"));
-						} catch (Exception e) {
-							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.particle.invalid_config"));
-							Main.instance.getLogger().severe(messages.getMessage("invis.particle.invalid_config"));
-							player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0), Main.instance.getConfig().getInt("effects.particle.amount"));
-						}
-					} else if (args[0].equalsIgnoreCase("particle") && args.length == 2) {
-						try {
-							player.spawnParticle(Particle.valueOf(args[1].toUpperCase()), player.getEyeLocation().add(0, 2, 0), 50);
-						} catch (Exception e) {
-							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.invalid_particle"));
-							player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0), 50);
-						}
-					}
-
-
-					// Tnt effect
-					else if (args[0].equalsIgnoreCase("tnt")) {
+				// TNT effect spawns a tnt, that does no damage
+				else if (args[0].equalsIgnoreCase("tnt")) {
+					if (player.hasPermission("animvanish.invis.tnt")) {
+						// noinspection ConstantConditions
 						if (vanishing) {
-							player.getWorld().spawn(player.getLocation(), TNTPrimed.class, (tnt) -> tnt.setYield(0));
+							Effects.tnt(player);
+						} else {
+							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.only_to_vanish"));
 						}
+					} else {
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.tnt)");
+						return true;
 					}
+				}
 
 
-					// NPC effect
-					else if (args[0].equalsIgnoreCase("npc")) {
+				// NPC effect (Citizens)
+				else if (args[0].equalsIgnoreCase("npc")) {
+					if (player.hasPermission("animvanish.invis.npc")) {
 						if (Bukkit.getPluginManager().isPluginEnabled("Citizens")) {
+							// noinspection ConstantConditions
 							if (vanishing) {
-								NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, player.getDisplayName());
-								npc.spawn(player.getLocation());
-
-								Bukkit.getScheduler().runTaskLater(Main.instance, () -> npc.destroy(), 20 * Main.instance.getConfig().getLong("effects.npc.despawn_after"));
+								Effects.npc(player);
+							} else {
+								player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.only_to_vanish"));
 							}
 						} else {
 							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("dependency.no_citizens"));
 							return true;
 						}
-					}
-
-					// Zombie effect
-					else if (args[0].equalsIgnoreCase("zombie")) {
-						if (vanishing) {
-							Zombie zombie = (Zombie) player.getWorld().spawnEntity(player.getLocation(), EntityType.ZOMBIE);
-							zombie.setAI(false);
-							Bukkit.getScheduler().runTaskLater(Main.instance, () -> {
-								player.spawnParticle(Particle.HEART, zombie.getLocation(), 3);
-								zombie.remove();
-							}, 20 * Main.instance.getConfig().getLong("effects.zombie.despawn_after"));
-						}
-					}
-
-					// Blindness effect
-					else if (args[0].equalsIgnoreCase("blindness")) {
-						for (Entity ps : player.getNearbyEntities(10, 10, 10)) {
-							if (ps instanceof Player) {
-								Player p = (Player) ps;
-								p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * Main.instance.getConfig().getInt("effects.blindness.effect_last"), 1));
-								p.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.blindness.message"));
-							}
-						}
-					}
-
-					// Sound effect
-					else if (args[0].equalsIgnoreCase("sound")) {
-						if (args.length == 1) {
-							player.playSound(player.getLocation(), Sound.valueOf(Main.instance.getConfig().getString("effects.sound.type")), 1, 1);
-						} else if (args.length == 2) {
-							player.playSound(player.getLocation(), Sound.valueOf(args[1].toUpperCase()), 1, 1);
-						}
-					}
-
-
-					else {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invalid_args"));
-					}
-
-					// Default effect (Herobrine)
-				} else {
-					player.getWorld().strikeLightningEffect(player.getLocation());
-					if (Main.instance.getConfig().getBoolean("effects.herobrine.night")) {
-						player.getWorld().setTime(14000);
-
-						Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(time_before), 20 * Main.instance.getConfig().getLong("effects.herobrine.time"));
+					} else {
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.npc)");
+						return true;
 					}
 				}
+
+				// Zombie effect spawns a NO AI zombie
+				else if (args[0].equalsIgnoreCase("zombie")) {
+					if (player.hasPermission("animvanish.invis.zombie")) {
+						// noinspection ConstantConditions
+						if (vanishing) {
+							Effects.zombie(player);
+						} else {
+							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.only_to_vanish"));
+						}
+					} else {
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.zombie)");
+						return true;
+					}
+				}
+
+				// Blindness effect for the surrounding players
+				else if (args[0].equalsIgnoreCase("blindness")) {
+					if (player.hasPermission("animvanish.invis.blindness")) {
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.blindness.author"));
+						Effects.blindness(player);
+					} else {
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.blindness)");
+						return true;
+					}
+				}
+
+				// Sound effect, plays a sound from config or from args
+				else if (args[0].equalsIgnoreCase("sound")) {
+					if (player.hasPermission("animvanish.invis.sound")) {
+						if (args.length == 1) {
+							Effects.soundFromConfig(player);
+						} else if (args.length == 2) {
+							Effects.sound(player, args[1].toUpperCase());
+						}
+					} else {
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.sound)");
+						return true;
+					}
+				}
+
+				// Turn effect, turns player
+				else if (args[0].equalsIgnoreCase("turn")) {
+					if (player.hasPermission("animvanish.invis.turn")) {
+						Effects.turn(player);
+					} else {
+						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.turn)");
+						return true;
+					}
+				} else {
+					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invalid_args"));
+					return true;
+				}
+
+				// Default effect (Herobrine)
 			} else {
-				player.sendMessage(Main.instance.getPrefix() + messages.getMessage("dependency.no_vanish"));
+				if (player.hasPermission("animvanish.invis.herobrine")) {
+					Effects.herobrine(player, player.getWorld().getTime());
+				} else {
+					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.herobrine)");
+					return true;
+				}
 			}
+
+			// noinspection ConstantConditions
+			if (vanishing) {
+				VanishAPI.hidePlayer(player);
+			} else {
+				VanishAPI.showPlayer(player);
+			}
+
 		} else {
-			player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis)");
+			player.sendMessage(Main.instance.getPrefix() + messages.getMessage("dependency.no_vanish"));
 		}
 
 		return true;
@@ -167,29 +185,51 @@ public class InvisCommand implements TabExecutor {
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (args.length == 1) {
 			List<String> arguments = new ArrayList<>();
-			arguments.add("herobrine");
-			arguments.add("particle");
-			arguments.add("tnt");
-			arguments.add("npc");
-			arguments.add("zombie");
-			arguments.add("blindness");
-			arguments.add("sound");
-
-			return arguments;
-		} else if (args.length == 2 && args[0].equalsIgnoreCase("particle")) {
-			List<String> arguments = new ArrayList<>();
-			for (Particle particle : EnumSet.allOf(Particle.class)) {
-				arguments.add(particle.name());
+			if (sender.hasPermission("animvanish.invis.herobrine")) {
+				arguments.add("herobrine");
+			}
+			if (sender.hasPermission("animvanish.invis.particle")) {
+				arguments.add("particle");
+			}
+			if (sender.hasPermission("animvanish.invis.tnt")) {
+				arguments.add("tnt");
+			}
+			if (sender.hasPermission("animvanish.invis.npc")) {
+				arguments.add("npc");
+			}
+			if (sender.hasPermission("animvanish.invis.zombie")) {
+				arguments.add("zombie");
+			}
+			if (sender.hasPermission("animvanish.invis.blindness")) {
+				arguments.add("blindness");
+			}
+			if (sender.hasPermission("animvanish.invis.sound")) {
+				arguments.add("sound");
+			}
+			if (sender.hasPermission("animvanish.invis.turn")) {
+				arguments.add("turn");
 			}
 
 			return arguments;
-		} else if (args.length == 2 && args[0].equalsIgnoreCase("sound")) {
-			List<String> arguments = new ArrayList<>();
-			for (Sound s : EnumSet.allOf(Sound.class)) {
-				arguments.add(s.name());
-			}
+		} else if (args.length == 2) {
+			// Particle args
+			if (args[0].equalsIgnoreCase("particle")) {
+				List<String> arguments = new ArrayList<>();
+				for (Particle particle : EnumSet.allOf(Particle.class)) {
+					arguments.add(particle.name());
+				}
 
-			return arguments;
+				return arguments;
+
+				// Sound args
+			} else if (args[0].equalsIgnoreCase("sound")) {
+				List<String> arguments = new ArrayList<>();
+				for (Sound s : EnumSet.allOf(Sound.class)) {
+					arguments.add(s.name());
+				}
+
+				return arguments;
+			}
 		}
 
 		return null;

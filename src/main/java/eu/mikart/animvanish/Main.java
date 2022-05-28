@@ -35,14 +35,17 @@ public final class Main extends JavaPlugin {
 
 		// Update configs
 		File configFile = new File(getDataFolder(), "config.yml");
+		File messagesFile = new File(getDataFolder(), "messages.yml");
 
 		try {
 			ConfigUpdater.update(this, "config.yml", configFile);
+			ConfigUpdater.update(this, "messages.yml", messagesFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		reloadConfig();
+		messages.reloadConfig();
 
 		// Register commands
 		getCommand("animvanish").setExecutor(new AnimVanishCommand());
@@ -62,7 +65,7 @@ public final class Main extends JavaPlugin {
 	}
 
 	public String getPrefix() {
-		return messages.getConfig().getString("prefix");
+		return messages.getMessage("prefix");
 	}
 
 

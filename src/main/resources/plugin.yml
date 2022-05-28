@@ -26,7 +26,32 @@ permissions:
       animvanish.help: true
     description: Grants you all the permissions in AnimVanish
   animvanish.invis:
-    description: Allows you to go invisible with an effect
+    children:
+      animvanish.invis.herobrine: true
+      animvanish.invis.particle: true
+      animvanish.invis.tnt: true
+      animvanish.invis.npc: true
+      animvanish.invis.zombie: true
+      animvanish.invis.blindness: true
+      animvanish.invis.sound: true
+      animvanish.invis.turn: true
+    description: Allows you to vanish with an effect
+  animvanish.invis.herobrine:
+    description: Allows you to vanish with herobrine effect
+  animvanish.invis.particle:
+    description: Allows you to vanish with a particle effect
+  animvanish.invis.tnt:
+    description: Allows you to vanish with a tnt effect
+  animvanish.invis.npc:
+    description: Allows you to vanish with an npc effect
+  animvanish.invis.zombie:
+    description:  Allows you to vanish with a zombie effect
+  animvanish.invis.blindness:
+    description: Allows you to vanish with a blindness effect
+  animvanish.invis.sound:
+    description: Allows you to vanish with a sound effect
+  animvanish.invis.turn:
+    description: Allows you to vanish with a spin effect
   animvanish.reload:
     description: Allows you to reload the plugin
   animvanish.help:

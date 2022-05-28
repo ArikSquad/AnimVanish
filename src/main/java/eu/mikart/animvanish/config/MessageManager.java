@@ -1,6 +1,7 @@
 package eu.mikart.animvanish.config;
 
 import eu.mikart.animvanish.Main;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -41,7 +42,12 @@ public class MessageManager {
 	}
 
 	public String getMessage(String name) {
-		return getConfig().getString(name);
+		try {
+			return ChatColor.translateAlternateColorCodes('&', getConfig().getString(name));
+		}
+		catch (Exception e) {
+			return getConfig().getString(name);
+		}
 	}
 
 	public void saveConfig() {

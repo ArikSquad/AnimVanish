@@ -4,7 +4,6 @@ import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.config.MessageManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,13 +16,6 @@ public class AnimVanishCommand implements TabExecutor {
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-		if (!(sender instanceof Player)) {
-			sender.sendMessage(messages.getMessage("not_player"));
-			return true;
-		}
-
-		Player player = (Player) sender;
-
 		if (args.length > 0) {
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (sender.hasPermission("animvanish.reload")) {
@@ -32,31 +24,32 @@ public class AnimVanishCommand implements TabExecutor {
 					Main.instance.reloadConfig();
 					Main.instance.messages.reloadConfig();
 
-					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("reload"));
+					sender.sendMessage(Main.instance.getPrefix() + messages.getMessage("reload"));
+					Main.instance.getLogger().info("Configs have been reloaded!");
 					return true;
 				} else {
-					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.reload)");
+					sender.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.reload)");
 				}
 			} else if (args[0].equalsIgnoreCase("author")) {
-				player.sendMessage(Main.instance.getPrefix() + "Plugin author is " + ChatColor.GOLD + Main.instance.getDescription().getAuthors());
+				sender.sendMessage(Main.instance.getPrefix() + "Plugin author is " + ChatColor.GOLD + Main.instance.getDescription().getAuthors());
 			} else if (args[0].equalsIgnoreCase("help")) {
 				if (sender.hasPermission("animvanish.help")) {
-					player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Available commands:");
+					sender.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Available commands:");
 
 					// AnimVanish
-					player.sendMessage(ChatColor.GREEN + "/animvanish reload" + ChatColor.GRAY + " - Reloads the plugin config");
-					player.sendMessage(ChatColor.GREEN + "/animvanish author" + ChatColor.GRAY + " - Shows the plugin author");
+					sender.sendMessage(ChatColor.GREEN + "/animvanish reload" + ChatColor.GRAY + " - Reloads the plugin config");
+					sender.sendMessage(ChatColor.GREEN + "/animvanish author" + ChatColor.GRAY + " - Shows the plugin author");
 
 					// Invis
-					player.sendMessage(ChatColor.GREEN + "/invis [effect]" + ChatColor.GRAY + " - Vanishes with an effect");
+					sender.sendMessage(ChatColor.GREEN + "/invis [effect]" + ChatColor.GRAY + " - Vanishes with an effect");
 				} else {
-					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.help)");
+					sender.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.help)");
 				}
 			} else {
-				player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invalid_args"));
+				sender.sendMessage(Main.instance.getPrefix() + messages.getMessage("invalid_args"));
 			}
 		} else {
-			player.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "AnimVanish version " + ChatColor.GOLD + Main.instance.getDescription().getVersion());
+			sender.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "AnimVanish version " + ChatColor.GOLD + Main.instance.getDescription().getVersion());
 		}
 		return true;
 	}
@@ -65,9 +58,13 @@ public class AnimVanishCommand implements TabExecutor {
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (args.length == 1) {
 			List<String> arguments = new ArrayList<>();
-			arguments.add("reload");
+			if (sender.hasPermission("animvanish.reload")) {
+				arguments.add("reload");
+			}
 			arguments.add("author");
-			arguments.add("help");
+			if (sender.hasPermission("animvanish.help")) {
+				arguments.add("help");
+			}
 
 			return arguments;
 		}

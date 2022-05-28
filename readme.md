@@ -11,6 +11,7 @@ Our plugin makes your vanishing look great with a large library of pre-made effe
 - Zombie effect
 - Blindness effect
 - Sound effect
+- Turn effect
 
 ![Title](docs/config.png)
 ### config.yml: 

@@ -1,30 +1,35 @@
 # Configuration file of AnimVanish #
 # -------------------------------- #
+# Remember to add a space after prefix
 # You can edit the colors using this instruction: https://www.digminecraft.com/lists/color_list_pc.php
 
 
 # ---- GENERAL ---- #
-prefix: "[&bAnimVanish&f]"
+prefix: '[&bAnimVanish&f] '
 
 # ---- COMMANDS ---- #
 
-not_player: "&cYou must be a player to use this command."
+not_player: '&cYou must be a player to use this command.'
 no_permission: "&cYou don't have permission to use this command."
-invalid_args: "&cInvalid arguments."
+invalid_args: '&cInvalid arguments.'
 
-reload: "&aSuccessfully reloaded!"
+reload: '&aSuccessfully reloaded!'
 
 
 invis:
+  only_to_vanish: '&cThis effect only applies when going into vanish.'
+
   particle:
-    invalid_config: "&cInvalid particle configuration."
+    invalid_config: '&cInvalid particle configuration. Ask an administrator to check config file.'
     invalid_particle: "&cThat particle doesn't exist or it isn't supported."
   blindness:
-    message: "&eYou saw something and you now feel dizzy"
+    message: '&eYou saw something and you now feel dizzy'
+    author: '&aYou blinded all the players around you.'
+  sound:
+    invalid_config: '&cInvalid sound configuration. Ask an administrator to check config file.'
+    invalid_sound: "&cThat sound doesn't exist or it isn't supported."
 
 
 dependency:
-  no_citizens: "&cCitizens is not installed."
-  no_vanish: "&cYou must have SuperVanish or PremiumVanish installed to use this command."
-
-
+  no_citizens: '&cCitizens is not installed.'
+  no_vanish: '&cYou must have SuperVanish or PremiumVanish installed to use this command.'

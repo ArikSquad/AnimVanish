@@ -8,7 +8,7 @@ effects:
   herobrine:
     # Will the time set to night with the effect? Default: True
     night: true
-    # How long the effect will last? Default: 3
+    # How long the night will last? Default: 3
     time: 3
 
   particle:
@@ -31,6 +31,6 @@ effects:
       effect_last: 3
 
   sound:
-    # What sound the player will hear. Default: BLOCK_ANVIL_BREAK
+    # What sound the player will hear. Default: BLOCK_AMETHYST_BLOCK_HIT
     # You can find types here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html#enum-constant-summary
-    type: BLOCK_ANVIL_FALL
+    type: BLOCK_AMETHYST_BLOCK_HIT
