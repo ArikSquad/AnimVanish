@@ -15,7 +15,7 @@ commands:
     description: Main command for control
     usage: /<command> [reload|author|help]
   invis:
-    description: Go invisible with an effect
+    description: Vanish using an effect
     usage: /<command> [herobrine|particle|tnt|npc|zombie]
 
 permissions:

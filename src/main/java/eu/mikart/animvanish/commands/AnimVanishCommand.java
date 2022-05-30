@@ -2,6 +2,8 @@ package eu.mikart.animvanish.commands;
 
 import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.config.MessageManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.jetbrains.annotations.NotNull;
@@ -24,32 +26,26 @@ public class AnimVanishCommand implements TabExecutor {
 					Main.instance.reloadConfig();
 					Main.instance.messages.reloadConfig();
 
-					sender.sendMessage(Main.instance.getPrefix() + messages.getMessage("reload"));
-					Main.instance.getLogger().info("Configs have been reloaded!");
+					Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("reload"));
+					Main.instance.adventure().console().sendMessage(messages.getMessage("reload"));
 					return true;
 				} else {
-					sender.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.reload)");
+					Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("animvanish.reload.no_permission"));
 				}
 			} else if (args[0].equalsIgnoreCase("author")) {
-				sender.sendMessage(Main.instance.getPrefix() + "Plugin author is " + ChatColor.GOLD + Main.instance.getDescription().getAuthors());
+				Main.instance.adventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(messages.getMessage("prefix") + "The plugin author is <gold>" + Main.instance.getDescription().getAuthors() + "</gold>"));
 			} else if (args[0].equalsIgnoreCase("help")) {
 				if (sender.hasPermission("animvanish.help")) {
-					sender.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "Available commands:");
-
-					// AnimVanish
-					sender.sendMessage(ChatColor.GREEN + "/animvanish reload" + ChatColor.GRAY + " - Reloads the plugin config");
-					sender.sendMessage(ChatColor.GREEN + "/animvanish author" + ChatColor.GRAY + " - Shows the plugin author");
-
-					// Invis
-					sender.sendMessage(ChatColor.GREEN + "/invis [effect]" + ChatColor.GRAY + " - Vanishes with an effect");
+					Component message = MiniMessage.miniMessage().deserialize("<color:#5f5f5>Available commands:</color> <color:#212121>| <hover:show_text:'Like this!'>Hover to see permissions</hover></color>\n<green><hover:show_text:'animvanish.reload'><click:suggest_command:'/animvanish reload'>/animvanish reload</click></hover></green> <gray>- Reloads the plugin config</gray>\n<green><click:suggest_command:'/animvanish author'>/animvanish author</click></green> <gray>- Shows the plugin author</gray>\n<green><hover:show_text:'animvanish.help'><click:suggest_command:'/animvanish help'>/animvanish help</click></hover></green> <gray>- Shows this help message</gray>\n\n<green><hover:show_text:'animvanish.invis.[effect]'><click:suggest_command:'/invis'>/invis [effect]</click></hover></green> <gray>- Vanishes using an effect</gray>");
+					Main.instance.adventure().sender(sender).sendMessage(message);
 				} else {
-					sender.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.help)");
+					Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("animvanish.help.no_permission"));
 				}
 			} else {
-				sender.sendMessage(Main.instance.getPrefix() + messages.getMessage("invalid_args"));
+				Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("invalid_args"));
 			}
 		} else {
-			sender.sendMessage(Main.instance.getPrefix() + ChatColor.GREEN + "AnimVanish version " + ChatColor.GOLD + Main.instance.getDescription().getVersion());
+			Main.instance.adventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(messages.getMessage("prefix") + "The plugin version is " + Main.instance.getDescription().getVersion() + "</gold>"));
 		}
 		return true;
 	}

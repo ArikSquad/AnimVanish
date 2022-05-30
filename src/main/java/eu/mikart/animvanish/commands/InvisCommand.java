@@ -4,8 +4,8 @@ import de.myzelyam.api.vanish.VanishAPI;
 import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.config.MessageManager;
 import eu.mikart.animvanish.utils.Effects;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -26,13 +26,12 @@ public class InvisCommand implements TabExecutor {
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(messages.getMessage("not_player"));
+			Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("not_player"));
 			return true;
 		}
 
 
 		Player player = (Player) sender;
-
 
 		// SuperVanish and PremiumVanish supported effects
 		if (Bukkit.getPluginManager().isPluginEnabled("SuperVanish") || Bukkit.getPluginManager().isPluginEnabled("PremiumVanish")) {
@@ -47,7 +46,7 @@ public class InvisCommand implements TabExecutor {
 
 						Effects.herobrine(player, player.getWorld().getTime());
 					} else {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.herobrine)");
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.herobrine.no_permission"));
 						return true;
 					}
 				}
@@ -62,7 +61,7 @@ public class InvisCommand implements TabExecutor {
 							Effects.particle(player, args[1].toUpperCase());
 						}
 					} else {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.tnt)");
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.particle.no_permission"));
 						return true;
 					}
 				}
@@ -75,10 +74,10 @@ public class InvisCommand implements TabExecutor {
 						if (vanishing) {
 							Effects.tnt(player);
 						} else {
-							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.only_to_vanish"));
+							Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.only_to_vanish"));
 						}
 					} else {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.tnt)");
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.tnt.no_permission"));
 						return true;
 					}
 				}
@@ -92,14 +91,14 @@ public class InvisCommand implements TabExecutor {
 							if (vanishing) {
 								Effects.npc(player);
 							} else {
-								player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.only_to_vanish"));
+								Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.only_to_vanish"));
 							}
 						} else {
-							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("dependency.no_citizens"));
+							Main.instance.adventure().player(player).sendMessage(messages.getMessage("dependency.no_citizens"));
 							return true;
 						}
 					} else {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.npc)");
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.npc.no_permission"));
 						return true;
 					}
 				}
@@ -111,10 +110,10 @@ public class InvisCommand implements TabExecutor {
 						if (vanishing) {
 							Effects.zombie(player);
 						} else {
-							player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.only_to_vanish"));
+							Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.only_to_vanish"));
 						}
 					} else {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.zombie)");
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.zombie.no_permission"));
 						return true;
 					}
 				}
@@ -122,10 +121,10 @@ public class InvisCommand implements TabExecutor {
 				// Blindness effect for the surrounding players
 				else if (args[0].equalsIgnoreCase("blindness")) {
 					if (player.hasPermission("animvanish.invis.blindness")) {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.blindness.author"));
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.blindness.author"));
 						Effects.blindness(player);
 					} else {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.blindness)");
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.blindness.no_permission"));
 						return true;
 					}
 				}
@@ -139,7 +138,7 @@ public class InvisCommand implements TabExecutor {
 							Effects.sound(player, args[1].toUpperCase());
 						}
 					} else {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.sound)");
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.sound.no_permission"));
 						return true;
 					}
 				}
@@ -149,11 +148,11 @@ public class InvisCommand implements TabExecutor {
 					if (player.hasPermission("animvanish.invis.turn")) {
 						Effects.turn(player);
 					} else {
-						player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.turn)");
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.turn.no_permission"));
 						return true;
 					}
 				} else {
-					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invalid_args"));
+					Main.instance.adventure().player(player).sendMessage(messages.getMessage("invalid_args"));
 					return true;
 				}
 
@@ -162,7 +161,7 @@ public class InvisCommand implements TabExecutor {
 				if (player.hasPermission("animvanish.invis.herobrine")) {
 					Effects.herobrine(player, player.getWorld().getTime());
 				} else {
-					player.sendMessage(Main.instance.getPrefix() + messages.getMessage("no_permission") + ChatColor.GREEN + " (animvanish.invis.herobrine)");
+					Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.herobrine.no_permission"));
 					return true;
 				}
 			}
@@ -175,7 +174,7 @@ public class InvisCommand implements TabExecutor {
 			}
 
 		} else {
-			player.sendMessage(Main.instance.getPrefix() + messages.getMessage("dependency.no_vanish"));
+			Main.instance.adventure().player(player).sendMessage(messages.getMessage("dependency.no_vanish"));
 		}
 
 		return true;

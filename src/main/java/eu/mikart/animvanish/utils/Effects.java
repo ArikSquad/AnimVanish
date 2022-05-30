@@ -30,8 +30,8 @@ public class Effects {
 			player.spawnParticle(Particle.valueOf(Main.instance.getConfig().getString("effects.particle.type")),
 					player.getEyeLocation().add(0, 2, 0), Main.instance.getConfig().getInt("effects.particle.amount"));
 		} catch (Exception e) {
-			player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.particle.invalid_config"));
-			Main.instance.getLogger().severe(messages.getMessage("invis.particle.invalid_config"));
+			Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.particle.invalid_config"));
+			Main.instance.adventure().console().sendMessage(messages.getMessage("invis.particle.invalid_config"));
 			player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0),
 					Main.instance.getConfig().getInt("effects.particle.amount"));
 		}
@@ -41,7 +41,7 @@ public class Effects {
 		try {
 			player.spawnParticle(Particle.valueOf(effect), player.getEyeLocation().add(0, 2, 0), 50);
 		} catch (Exception e) {
-			player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.invalid_particle"));
+			Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.invalid_particle"));
 			player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0), 50);
 		}
 	}
@@ -71,7 +71,7 @@ public class Effects {
 			if (ps instanceof Player) {
 				Player p = (Player) ps;
 				p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * Main.instance.getConfig().getInt("effects.blindness.effect_last"), 1));
-				p.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.blindness.message"));
+				Main.instance.adventure().player(p).sendMessage(messages.getMessage("invis.blindness.message"));
 			}
 		}
 	}
@@ -81,7 +81,7 @@ public class Effects {
 			player.playSound(player.getLocation(), Sound.valueOf(Main.instance.getConfig().getString("effects.sound.type")), 1, 1);
 		} catch (Exception e) {
 			player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 1, 1);
-			player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.sound.invalid_config"));
+			Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.sound.invalid_config"));
 		}
 	}
 
@@ -90,7 +90,7 @@ public class Effects {
 			player.playSound(player.getLocation(), Sound.valueOf(sound), 1, 1);
 		} catch (Exception e) {
 			player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 1, 1);
-			player.sendMessage(Main.instance.getPrefix() + messages.getMessage("invis.sound.invalid_sound"));
+			Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.sound.invalid_sound"));
 		}
 	}
 

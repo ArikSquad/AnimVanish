@@ -1,7 +1,7 @@
 package eu.mikart.animvanish.config;
 
 import eu.mikart.animvanish.Main;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 
 public class MessageManager {
 
@@ -41,13 +43,8 @@ public class MessageManager {
 		return this.config;
 	}
 
-	public String getMessage(String name) {
-		try {
-			return ChatColor.translateAlternateColorCodes('&', getConfig().getString(name));
-		}
-		catch (Exception e) {
-			return getConfig().getString(name);
-		}
+	public Component getMessage(String name) {
+		return miniMessage().deserialize(getConfig().getString("prefix") + getConfig().getString(name));
 	}
 
 	public void saveConfig() {

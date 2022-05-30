@@ -8,6 +8,7 @@ import eu.mikart.animvanish.commands.AnimVanishCommand;
 import eu.mikart.animvanish.commands.InvisCommand;
 import eu.mikart.animvanish.config.MessageManager;
 import eu.mikart.animvanish.utils.Settings;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,13 +17,16 @@ import java.io.IOException;
 
 public final class Main extends JavaPlugin {
 
-	public MessageManager messages;
 	public static Main instance;
+	public MessageManager messages;
+	private BukkitAudiences adventure;
+
 
 	@Override
 	public void onEnable() {
 		instance = this;
 		this.messages = new MessageManager(this);
+		this.adventure = BukkitAudiences.create(this);
 
 		// bStats
 		int pluginId = 14993;
@@ -58,14 +62,20 @@ public final class Main extends JavaPlugin {
 				.checkNow();
 	}
 
+	public BukkitAudiences adventure() {
+		if(this.adventure == null) {
+			throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+		}
+		return this.adventure;
+	}
+
 	@Override
 	public void onDisable() {
 		instance = null;
+		if(this.adventure != null) {
+			this.adventure.close();
+			this.adventure = null;
+		}
 	}
-
-	public String getPrefix() {
-		return messages.getMessage("prefix");
-	}
-
 
 }

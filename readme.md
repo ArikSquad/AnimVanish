@@ -26,7 +26,7 @@ effects:
   herobrine:
     # Will the time set to night with the effect? Default: True
     night: true
-    # How long the effect will last? Default: 3
+    # How long the night will last? Default: 3
     time: 3
 
   particle:
@@ -49,46 +49,75 @@ effects:
     effect_last: 3
 
   sound:
-    # What sound the player will hear. Default: BLOCK_ANVIL_BREAK
+    # What sound the player will hear. Default: BLOCK_AMETHYST_BLOCK_HIT
     # You can find types here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html#enum-constant-summary
-    type: BLOCK_ANVIL_FALL
-
+    type: BLOCK_AMETHYST_BLOCK_HIT
 ```
 ### messages.yml:
 ```yaml
 # Configuration file of AnimVanish #
 # -------------------------------- #
-# You can edit the colors using this instruction: https://www.digminecraft.com/lists/color_list_pc.php
+# Remember to add a space after prefix
 
 
 # ---- GENERAL ---- #
-prefix: "[&bAnimVanish&f]"
+prefix: '[<color:#AFEEEE>AnimVanish</color>] '
 
 # ---- COMMANDS ---- #
-
-not_player: "&cYou must be a player to use this command."
-no_permission: "&cYou don't have permission to use this command."
-invalid_args: "&cInvalid arguments."
-
-reload: "&aSuccessfully reloaded!"
+invalid_args: '<red>Invalid arguments.</red>'
+not_player: '<red>You must be a player.</red>'
+reload: '<color:#b0ff5c>Reloaded configs</color>'
 
 
 invis:
+  only_to_vanish: '<red>This effect only applies when going into vanish.</red>'
+
+  herobrine:
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.herobrine)</green>"
+
   particle:
-    invalid_config: "&cInvalid particle configuration."
-    invalid_particle: "&cThat particle doesn't exist or it isn't supported."
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.particle)</green>"
+    invalid_config: '<red>Invalid particle configuration. Ask an administrator to check config file.</red>'
+    invalid_particle: "<red>That particle doesn't exist or it isn't supported.</red>"
+
+  tnt:
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.tnt)</green>"
+
+  npc:
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.npc)</green>"
+
+  zombie:
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.zombie)</green>"
+
   blindness:
-    message: "&eYou saw something and you now feel dizzy"
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.blindness)</green>"
+    message: '<yellow>You saw something and you now feel dizzy</yellow>'
+    author: '<green>You blinded all the players around you.</green>'
+
+  sound:
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.sound)</green>"
+    invalid_config: '<red>Invalid sound configuration. Ask an administrator to check config file.</red>'
+    invalid_sound: "<red>That sound doesn't exist or it isn't supported.</red>"
+
+  turn:
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.turn)</green>"
+
+animvanish:
+  help:
+    no_permission: "<red>You don't have permission to use this command.</red> <green>(animvanish.help)</green>"
+  reload:
+    no_permission: "<red>You don't have permission to use this command.</red> <green>(animvanish.reload)</green>"
 
 
 dependency:
-  no_citizens: "&cCitizens is not installed."
-  no_vanish: "&cYou must have SuperVanish or PremiumVanish installed to use this command."
+  no_citizens: '<red>Citizens is not installed.</red>'
+  no_vanish: '<red>You must have SuperVanish or PremiumVanish installed to use this command.</red>'
 ```
 ![Title](docs/permissions.png)
 ```txt
 animvanish.* - All permissions in one
 animvanish.invis - This permission allows vanishing with effects
+animvanish.invis.[effect] - This permissions allows vanishing with a specific effect
 animvanish.reload - This permission can reload the plugin
 animvanish.help - This permissions can see help for the plugin
 ```
