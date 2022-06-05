@@ -151,12 +151,22 @@ public class InvisCommand implements TabExecutor {
 						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.turn.no_permission"));
 						return true;
 					}
+				}
+				// Firework effect, spawns a firework
+				else if (args[0].equalsIgnoreCase("firework")) {
+					if (player.hasPermission("animvanish.invis.firework")) {
+						Effects.firework(player);
+					} else {
+						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.firework.no_permission"));
+						return true;
+					}
 				} else {
 					Main.instance.adventure().player(player).sendMessage(messages.getMessage("invalid_args"));
 					return true;
 				}
 
-				// Default effect (Herobrine)
+
+			// Default effect (Herobrine)
 			} else {
 				if (player.hasPermission("animvanish.invis.herobrine")) {
 					Effects.herobrine(player, player.getWorld().getTime());
@@ -208,6 +218,9 @@ public class InvisCommand implements TabExecutor {
 			if (sender.hasPermission("animvanish.invis.turn")) {
 				arguments.add("turn");
 			}
+			if (sender.hasPermission("animvanish.invis.firework")) {
+				arguments.add("firework");
+			}
 
 			return arguments;
 		} else if (args.length == 2) {
@@ -220,7 +233,7 @@ public class InvisCommand implements TabExecutor {
 
 				return arguments;
 
-				// Sound args
+			// Sound args
 			} else if (args[0].equalsIgnoreCase("sound")) {
 				List<String> arguments = new ArrayList<>();
 				for (Sound s : EnumSet.allOf(Sound.class)) {

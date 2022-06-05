@@ -52,6 +52,8 @@ permissions:
     description: Allows you to vanish with a sound effect
   animvanish.invis.turn:
     description: Allows you to vanish with a spin effect
+  animvanish.invis.firework:
+    description: Allows you to vanish with a firework effect
   animvanish.reload:
     description: Allows you to reload the plugin
   animvanish.help:

@@ -7,6 +7,7 @@ import com.tchristofferson.configupdater.ConfigUpdater;
 import eu.mikart.animvanish.commands.AnimVanishCommand;
 import eu.mikart.animvanish.commands.InvisCommand;
 import eu.mikart.animvanish.config.MessageManager;
+import eu.mikart.animvanish.listeners.NoDamage;
 import eu.mikart.animvanish.utils.Settings;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
@@ -53,6 +54,9 @@ public final class Main extends JavaPlugin {
 		// Register commands
 		getCommand("animvanish").setExecutor(new AnimVanishCommand());
 		getCommand("invis").setExecutor(new InvisCommand());
+
+		// Register listeners
+		getServer().getPluginManager().registerEvents(new NoDamage(), this);
 
 		// Check for updates
 		new UpdateChecker(this, UpdateCheckSource.SPIGET, Settings.PLUGIN_STR)

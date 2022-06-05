@@ -45,6 +45,9 @@ invis:
   turn:
     no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.turn)</green>"
 
+  firework:
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.firework)</green>"
+
 animvanish:
   help:
     no_permission: "<red>You don't have permission to use this command.</red> <green>(animvanish.help)</green>"

@@ -6,8 +6,11 @@ import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.*;
 import org.bukkit.entity.*;
+import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 public class Effects {
 
@@ -25,24 +28,27 @@ public class Effects {
 		}
 	}
 
+	/**
+	 * Particle effect from config, which will send particles.
+	 */
 	public static void particleFromConfig(Player player) {
 		try {
-			player.spawnParticle(Particle.valueOf(Main.instance.getConfig().getString("effects.particle.type")),
+			player.getWorld().spawnParticle(Particle.valueOf(Main.instance.getConfig().getString("effects.particle.type")),
 					player.getEyeLocation().add(0, 2, 0), Main.instance.getConfig().getInt("effects.particle.amount"));
 		} catch (Exception e) {
 			Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.particle.invalid_config"));
 			Main.instance.adventure().console().sendMessage(messages.getMessage("invis.particle.invalid_config"));
-			player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0),
+			player.getWorld().spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0),
 					Main.instance.getConfig().getInt("effects.particle.amount"));
 		}
 	}
 
 	public static void particle(Player player, String effect) {
 		try {
-			player.spawnParticle(Particle.valueOf(effect), player.getEyeLocation().add(0, 2, 0), 50);
+			player.getWorld().spawnParticle(Particle.valueOf(effect), player.getEyeLocation().add(0, 2, 0), 50);
 		} catch (Exception e) {
 			Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.invalid_particle"));
-			player.spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0), 50);
+			player.getWorld().spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0), 50);
 		}
 	}
 
@@ -60,6 +66,8 @@ public class Effects {
 	public static void zombie(Player player) {
 		Zombie zombie = (Zombie) player.getWorld().spawnEntity(player.getLocation(), EntityType.ZOMBIE);
 		zombie.setAI(false);
+		zombie.setAdult();
+		zombie.setInvulnerable(true);
 		Bukkit.getScheduler().runTaskLater(Main.instance, () -> {
 			player.spawnParticle(Particle.HEART, zombie.getLocation(), 3);
 			zombie.remove();
@@ -78,18 +86,18 @@ public class Effects {
 
 	public static void soundFromConfig(Player player) {
 		try {
-			player.playSound(player.getLocation(), Sound.valueOf(Main.instance.getConfig().getString("effects.sound.type")), 1, 1);
+			player.getWorld().playSound(player.getLocation(), Sound.valueOf(Main.instance.getConfig().getString("effects.sound.type")), 1, 1);
 		} catch (Exception e) {
-			player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 1, 1);
+			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 1, 1);
 			Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.sound.invalid_config"));
 		}
 	}
 
 	public static void sound(Player player, String sound) {
 		try {
-			player.playSound(player.getLocation(), Sound.valueOf(sound), 1, 1);
+			player.getWorld().playSound(player.getLocation(), Sound.valueOf(sound), 1, 1);
 		} catch (Exception e) {
-			player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 1, 1);
+			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 1, 1);
 			Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.sound.invalid_sound"));
 		}
 	}
@@ -104,4 +112,17 @@ public class Effects {
 		}
 	}
 
+	public static void firework(Player player) {
+		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+		FireworkMeta fwm = fw.getFireworkMeta();
+		fwm.setPower(1);
+		fwm.addEffect(FireworkEffect.builder().with(FireworkEffect.Type.BURST).withColor(Color.RED).build());
+		fwm.addEffect(FireworkEffect.builder().with(FireworkEffect.Type.BURST).withColor(Color.GREEN).build());
+		fwm.addEffect(FireworkEffect.builder().with(FireworkEffect.Type.BURST).withColor(Color.BLUE).build());
+		fw.setVelocity(new Vector(0, 2, 0));
+		fw.setMetadata("nodamage", new FixedMetadataValue(Main.instance, true));
+		fw.setFireworkMeta(fwm);
+
+		Bukkit.getScheduler().runTaskLater(Main.instance, fw::detonate, 20 * Main.instance.getConfig().getLong("effects.firework.despawn_after"));
+	}
 }
