@@ -4,7 +4,6 @@ import de.myzelyam.api.vanish.VanishAPI;
 import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.config.MessageManager;
 import eu.mikart.animvanish.utils.Effects;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.Sound;

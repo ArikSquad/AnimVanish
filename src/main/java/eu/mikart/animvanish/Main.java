@@ -63,6 +63,7 @@ public final class Main extends JavaPlugin {
 				.checkEveryXHours(24)
 				.setNotifyOpsOnJoin(false)
 				.setFreeDownloadLink(Settings.PLUGIN_URL)
+				.suppressUpToDateMessage(true)
 				.checkNow();
 	}
 

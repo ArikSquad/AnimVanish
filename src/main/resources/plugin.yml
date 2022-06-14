@@ -12,10 +12,10 @@ softdepend:
 
 commands:
   animvanish:
-    description: Main command for control
+    description: Command for information about the plugin
     usage: /<command> [reload|author|help]
   invis:
-    description: Vanish using an effect
+    description: Command for invisibility with an effect
     usage: /<command> [herobrine|particle|tnt|npc|zombie]
 
 permissions:
@@ -35,25 +35,26 @@ permissions:
       animvanish.invis.blindness: true
       animvanish.invis.sound: true
       animvanish.invis.turn: true
-    description: Allows you to vanish with an effect
+      animvanish.invis.firework: true
+    description: Grants all the invisibility effects
   animvanish.invis.herobrine:
-    description: Allows you to vanish with herobrine effect
+    description: Grants you the ability to vanish with an amazing lightning strike
   animvanish.invis.particle:
-    description: Allows you to vanish with a particle effect
+    description: Grants you the ability to vanish with customizable particles
   animvanish.invis.tnt:
-    description: Allows you to vanish with a tnt effect
+    description: Grants you the ability to vanish with an explosion
   animvanish.invis.npc:
-    description: Allows you to vanish with an npc effect
+    description: Grants you the ability to vanish with an NPC taking your place
   animvanish.invis.zombie:
-    description:  Allows you to vanish with a zombie effect
+    description: Grants you the ability to vanish with a zombie taking your place
   animvanish.invis.blindness:
-    description: Allows you to vanish with a blindness effect
+    description: Grants you the ability to vanish with making players around you blind
   animvanish.invis.sound:
-    description: Allows you to vanish with a sound effect
+    description: Grants you the ability to vanish with a sound effect
   animvanish.invis.turn:
-    description: Allows you to vanish with a spin effect
+    description: Grants you the ability to vanish and making people around you turn away
   animvanish.invis.firework:
-    description: Allows you to vanish with a firework effect
+    description: Grants you the ability to vanish with colorful fireworks
   animvanish.reload:
     description: Allows you to reload the plugin
   animvanish.help:
