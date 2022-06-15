@@ -16,7 +16,7 @@ commands:
     usage: /<command> [reload|author|help]
   invis:
     description: Command for invisibility with an effect
-    usage: /<command> [herobrine|particle|tnt|npc|zombie]
+    usage: /<command> [effect]
 
 permissions:
   animvanish.*:
@@ -36,6 +36,7 @@ permissions:
       animvanish.invis.sound: true
       animvanish.invis.turn: true
       animvanish.invis.firework: true
+      animvanish.invis.blood: true
     description: Grants all the invisibility effects
   animvanish.invis.herobrine:
     description: Grants you the ability to vanish with an amazing lightning strike
@@ -55,6 +56,8 @@ permissions:
     description: Grants you the ability to vanish and making people around you turn away
   animvanish.invis.firework:
     description: Grants you the ability to vanish with colorful fireworks
+  animvanish.invis.blood:
+    description: Grants you the ability to vanish with blood
   animvanish.reload:
     description: Allows you to reload the plugin
   animvanish.help:

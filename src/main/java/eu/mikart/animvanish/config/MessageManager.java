@@ -2,6 +2,7 @@ package eu.mikart.animvanish.config;
 
 import eu.mikart.animvanish.Main;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -44,7 +45,14 @@ public class MessageManager {
 	}
 
 	public Component getMessage(String name) {
-		return miniMessage().deserialize(getConfig().getString("prefix") + getConfig().getString(name));
+		String prefix = getConfig().getString("prefix");
+		String message = getConfig().getString(name);
+		return miniMessage().deserialize(prefix + message);
+	}
+
+	public Component getMessage(String name, String placeholder, String value) {
+		String message = getConfig().getString(name);
+		return miniMessage().deserialize(message, Placeholder.component(placeholder, Component.text(value)));
 	}
 
 	public void saveConfig() {

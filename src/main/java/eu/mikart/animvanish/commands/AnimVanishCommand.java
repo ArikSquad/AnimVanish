@@ -4,6 +4,7 @@ import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.config.MessageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -25,27 +26,27 @@ public class AnimVanishCommand implements TabExecutor {
 					Main.instance.reloadConfig();
 					Main.instance.messages.reloadConfig();
 
-					Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("reload"));
-					Main.instance.adventure().console().sendMessage(messages.getMessage("reload"));
+					sender.sendMessage(messages.getMessage("reload"));
+					Bukkit.getConsoleSender().sendMessage(messages.getMessage("reload"));
 					return true;
 				} else {
-					Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("animvanish.reload.no_permission"));
+					sender.sendMessage(messages.getMessage("animvanish.reload.no_permission"));
 				}
 			} else if (args[0].equalsIgnoreCase("author")) {
-				Main.instance.adventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(messages.getConfig().getString("prefix") + "The plugin author is <gold>" + Main.instance.getDescription().getAuthors() + "</gold>"));
+				sender.sendMessage(MiniMessage.miniMessage().deserialize(messages.getConfig().getString("prefix") + "The plugin author is <gold>" + Main.instance.getDescription().getAuthors() + "</gold>"));
 			} else if (args[0].equalsIgnoreCase("help")) {
 				if (sender.hasPermission("animvanish.help")) {
 					Component message = MiniMessage.miniMessage().deserialize("<color:#5f5f5>Available commands:</color> <color:#212121>| <hover:show_text:'Like this!'>Hover to see permissions</hover></color>\n<green><hover:show_text:'animvanish.reload'><click:suggest_command:'/animvanish reload'>/animvanish reload</click></hover></green> <gray>- Reloads the plugin config</gray>\n<green><click:suggest_command:'/animvanish author'>/animvanish author</click></green> <gray>- Shows the plugin author</gray>\n<green><hover:show_text:'animvanish.help'><click:suggest_command:'/animvanish help'>/animvanish help</click></hover></green> <gray>- Shows this help message</gray>\n\n<green><hover:show_text:'animvanish.invis.[effect]'><click:suggest_command:'/invis'>/invis [effect]</click></hover></green> <gray>- Vanishes using an effect</gray>");
-					Main.instance.adventure().sender(sender).sendMessage(message);
+					sender.sendMessage(message);
 				} else {
-					Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("animvanish.help.no_permission"));
+					sender.sendMessage(messages.getMessage("animvanish.help.no_permission"));
 				}
 			} else {
-				Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("invalid_args"));
+				sender.sendMessage(messages.getMessage("invalid_args"));
 			}
 		} else {
 			Component message = MiniMessage.miniMessage().deserialize(messages.getConfig().getString("prefix") + "The plugin version is " + Main.instance.getDescription().getVersion());
-			Main.instance.adventure().sender(sender).sendMessage(message);
+			sender.sendMessage(message);
 		}
 		return true;
 	}

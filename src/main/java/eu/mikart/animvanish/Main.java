@@ -4,12 +4,12 @@ package eu.mikart.animvanish;
 import com.jeff_media.updatechecker.UpdateCheckSource;
 import com.jeff_media.updatechecker.UpdateChecker;
 import com.tchristofferson.configupdater.ConfigUpdater;
+import de.slikey.effectlib.EffectManager;
 import eu.mikart.animvanish.commands.AnimVanishCommand;
 import eu.mikart.animvanish.commands.InvisCommand;
 import eu.mikart.animvanish.config.MessageManager;
 import eu.mikart.animvanish.listeners.NoDamage;
 import eu.mikart.animvanish.utils.Settings;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,18 +20,17 @@ public final class Main extends JavaPlugin {
 
 	public static Main instance;
 	public MessageManager messages;
-	private BukkitAudiences adventure;
+	public EffectManager effectManager;
 
 
 	@Override
 	public void onEnable() {
 		instance = this;
 		this.messages = new MessageManager(this);
-		this.adventure = BukkitAudiences.create(this);
+		this.effectManager = new EffectManager(this);
 
 		// bStats
-		int pluginId = 14993;
-		Metrics metrics = new Metrics(this, pluginId);
+		new Metrics(this, Settings.bStats);
 
 		// Load configs
 		getConfig().options().copyDefaults();
@@ -67,20 +66,9 @@ public final class Main extends JavaPlugin {
 				.checkNow();
 	}
 
-	public BukkitAudiences adventure() {
-		if(this.adventure == null) {
-			throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
-		}
-		return this.adventure;
-	}
-
 	@Override
 	public void onDisable() {
 		instance = null;
-		if(this.adventure != null) {
-			this.adventure.close();
-			this.adventure = null;
-		}
 	}
 
 }

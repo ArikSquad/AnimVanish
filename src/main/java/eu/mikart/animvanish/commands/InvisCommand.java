@@ -24,13 +24,10 @@ public class InvisCommand implements TabExecutor {
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-		if (!(sender instanceof Player)) {
-			Main.instance.adventure().sender(sender).sendMessage(messages.getMessage("not_player"));
+		if (!(sender instanceof Player player)) {
+			sender.sendMessage(messages.getMessage("not_player"));
 			return true;
 		}
-
-
-		Player player = (Player) sender;
 
 		// SuperVanish and PremiumVanish supported effects
 		if (Bukkit.getPluginManager().isPluginEnabled("SuperVanish") || Bukkit.getPluginManager().isPluginEnabled("PremiumVanish")) {
@@ -45,7 +42,7 @@ public class InvisCommand implements TabExecutor {
 
 						Effects.herobrine(player, player.getWorld().getTime());
 					} else {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.herobrine.no_permission"));
+						player.sendMessage(messages.getMessage("invis.herobrine.no_permission"));
 						return true;
 					}
 				}
@@ -60,7 +57,7 @@ public class InvisCommand implements TabExecutor {
 							Effects.particle(player, args[1].toUpperCase());
 						}
 					} else {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.particle.no_permission"));
+						player.sendMessage(messages.getMessage("invis.particle.no_permission"));
 						return true;
 					}
 				}
@@ -73,10 +70,10 @@ public class InvisCommand implements TabExecutor {
 						if (vanishing) {
 							Effects.tnt(player);
 						} else {
-							Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.only_to_vanish"));
+							player.sendMessage(messages.getMessage("invis.only_to_vanish"));
 						}
 					} else {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.tnt.no_permission"));
+						player.sendMessage(messages.getMessage("invis.tnt.no_permission"));
 						return true;
 					}
 				}
@@ -90,14 +87,14 @@ public class InvisCommand implements TabExecutor {
 							if (vanishing) {
 								Effects.npc(player);
 							} else {
-								Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.only_to_vanish"));
+								player.sendMessage(messages.getMessage("invis.only_to_vanish"));
 							}
 						} else {
-							Main.instance.adventure().player(player).sendMessage(messages.getMessage("dependency.no_citizens"));
+							player.sendMessage(messages.getMessage("dependency.no_citizens"));
 							return true;
 						}
 					} else {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.npc.no_permission"));
+						player.sendMessage(messages.getMessage("invis.npc.no_permission"));
 						return true;
 					}
 				}
@@ -109,10 +106,10 @@ public class InvisCommand implements TabExecutor {
 						if (vanishing) {
 							Effects.zombie(player);
 						} else {
-							Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.only_to_vanish"));
+							player.sendMessage(messages.getMessage("invis.only_to_vanish"));
 						}
 					} else {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.zombie.no_permission"));
+						player.sendMessage(messages.getMessage("invis.zombie.no_permission"));
 						return true;
 					}
 				}
@@ -120,10 +117,10 @@ public class InvisCommand implements TabExecutor {
 				// Blindness effect for the surrounding players
 				else if (args[0].equalsIgnoreCase("blindness")) {
 					if (player.hasPermission("animvanish.invis.blindness")) {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.blindness.author"));
+						player.sendMessage(messages.getMessage("invis.blindness.author"));
 						Effects.blindness(player);
 					} else {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.blindness.no_permission"));
+						player.sendMessage(messages.getMessage("invis.blindness.no_permission"));
 						return true;
 					}
 				}
@@ -137,7 +134,7 @@ public class InvisCommand implements TabExecutor {
 							Effects.sound(player, args[1].toUpperCase());
 						}
 					} else {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.sound.no_permission"));
+						player.sendMessage(messages.getMessage("invis.sound.no_permission"));
 						return true;
 					}
 				}
@@ -147,7 +144,7 @@ public class InvisCommand implements TabExecutor {
 					if (player.hasPermission("animvanish.invis.turn")) {
 						Effects.turn(player);
 					} else {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.turn.no_permission"));
+						player.sendMessage(messages.getMessage("invis.turn.no_permission"));
 						return true;
 					}
 				}
@@ -156,11 +153,22 @@ public class InvisCommand implements TabExecutor {
 					if (player.hasPermission("animvanish.invis.firework")) {
 						Effects.firework(player);
 					} else {
-						Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.firework.no_permission"));
+						player.sendMessage(messages.getMessage("invis.firework.no_permission"));
 						return true;
 					}
+				}
+
+				// Blood effect, spawns red particles
+				else if (args[0].equalsIgnoreCase("blood")) {
+					if (player.hasPermission("animvanish.invis.blood")) {
+						Effects.blood(player);
+					} else {
+						player.sendMessage(messages.getMessage("invis.blood.no_permission"));
+						return true;
+					}
+
 				} else {
-					Main.instance.adventure().player(player).sendMessage(messages.getMessage("invalid_args"));
+					player.sendMessage(messages.getMessage("invalid_args"));
 					return true;
 				}
 
@@ -170,7 +178,7 @@ public class InvisCommand implements TabExecutor {
 				if (player.hasPermission("animvanish.invis.herobrine")) {
 					Effects.herobrine(player, player.getWorld().getTime());
 				} else {
-					Main.instance.adventure().player(player).sendMessage(messages.getMessage("invis.herobrine.no_permission"));
+					player.sendMessage(messages.getMessage("invis.herobrine.no_permission"));
 					return true;
 				}
 			}
@@ -183,7 +191,7 @@ public class InvisCommand implements TabExecutor {
 			}
 
 		} else {
-			Main.instance.adventure().player(player).sendMessage(messages.getMessage("dependency.no_vanish"));
+			player.sendMessage(messages.getMessage("dependency.no_vanish"));
 		}
 
 		return true;
@@ -219,6 +227,12 @@ public class InvisCommand implements TabExecutor {
 			}
 			if (sender.hasPermission("animvanish.invis.firework")) {
 				arguments.add("firework");
+			}
+			if (sender.hasPermission("animvanish.invis.sign")) {
+				arguments.add("sign");
+			}
+			if (sender.hasPermission("animvanish.invis.flame")) {
+				arguments.add("flame");
 			}
 
 			return arguments;
