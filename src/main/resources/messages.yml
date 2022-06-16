@@ -51,6 +51,7 @@ invis:
   blood:
     no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.blood)</green>"
 
+
 animvanish:
   help:
     no_permission: "<red>You don't have permission to use this command.</red> <green>(animvanish.help)</green>"

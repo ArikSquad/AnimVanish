@@ -102,6 +102,13 @@ invis:
   turn:
     no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.turn)</green>"
 
+  firework:
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.firework)</green>"
+
+  blood:
+    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.blood)</green>"
+
+
 animvanish:
   help:
     no_permission: "<red>You don't have permission to use this command.</red> <green>(animvanish.help)</green>"
@@ -110,7 +117,7 @@ animvanish:
 
 
 dependency:
-  no_citizens: '<red>Citizens is not installed.</red>'
+  no_citizens: '<red>You must have Citizens installed to use this effect.</red>'
   no_vanish: '<red>You must have SuperVanish or PremiumVanish installed to use this command.</red>'
 ```
 ![Title](docs/permissions.png)
