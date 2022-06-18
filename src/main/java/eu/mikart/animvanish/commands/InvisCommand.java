@@ -5,8 +5,6 @@ import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.config.MessageManager;
 import eu.mikart.animvanish.utils.Effects;
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -15,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 
 public class InvisCommand implements TabExecutor {
@@ -29,6 +26,18 @@ public class InvisCommand implements TabExecutor {
 			return true;
 		}
 
+		if (args.length == 2) {
+			if (player.hasPermission("animvanish.invis.other")) {
+				Player p = Bukkit.getPlayer(args[1]);
+				if (p != null) {
+					player = p;
+				} else {
+					sender.sendMessage(messages.getMessage("player_not_found"));
+					return true;
+				}
+			}
+		}
+
 		// SuperVanish and PremiumVanish supported effects
 		if (Bukkit.getPluginManager().isPluginEnabled("SuperVanish") || Bukkit.getPluginManager().isPluginEnabled("PremiumVanish")) {
 
@@ -39,7 +48,6 @@ public class InvisCommand implements TabExecutor {
 				// Herobrine effect, that strikes a lightning effect on the player
 				if (args[0].equalsIgnoreCase("herobrine")) {
 					if (player.hasPermission("animvanish.invis.herobrine")) {
-
 						Effects.herobrine(player, player.getWorld().getTime());
 					} else {
 						player.sendMessage(messages.getMessage("invis.herobrine.no_permission"));
@@ -48,14 +56,10 @@ public class InvisCommand implements TabExecutor {
 				}
 
 
-				// Particle effect using config values or args
+				// Particle effect using config values
 				else if (args[0].equalsIgnoreCase("particle")) {
 					if (player.hasPermission("animvanish.invis.particle")) {
-						if (args.length == 1) {
-							Effects.particleFromConfig(player);
-						} else if (args.length == 2) {
-							Effects.particle(player, args[1].toUpperCase());
-						}
+						Effects.particle(player);
 					} else {
 						player.sendMessage(messages.getMessage("invis.particle.no_permission"));
 						return true;
@@ -63,7 +67,7 @@ public class InvisCommand implements TabExecutor {
 				}
 
 
-				// TNT effect spawns a tnt, that does no damage
+				// TNT effect, spawns a tnt that does no damage
 				else if (args[0].equalsIgnoreCase("tnt")) {
 					if (player.hasPermission("animvanish.invis.tnt")) {
 						// noinspection ConstantConditions
@@ -79,7 +83,7 @@ public class InvisCommand implements TabExecutor {
 				}
 
 
-				// NPC effect (Citizens)
+				// NPC effect, spawns a NPC using Citizens
 				else if (args[0].equalsIgnoreCase("npc")) {
 					if (player.hasPermission("animvanish.invis.npc")) {
 						if (Bukkit.getPluginManager().isPluginEnabled("Citizens")) {
@@ -99,7 +103,7 @@ public class InvisCommand implements TabExecutor {
 					}
 				}
 
-				// Zombie effect spawns a NO AI zombie
+				// Zombie effect spawns a NO-AI zombie
 				else if (args[0].equalsIgnoreCase("zombie")) {
 					if (player.hasPermission("animvanish.invis.zombie")) {
 						// noinspection ConstantConditions
@@ -117,7 +121,6 @@ public class InvisCommand implements TabExecutor {
 				// Blindness effect for the surrounding players
 				else if (args[0].equalsIgnoreCase("blindness")) {
 					if (player.hasPermission("animvanish.invis.blindness")) {
-						player.sendMessage(messages.getMessage("invis.blindness.author"));
 						Effects.blindness(player);
 					} else {
 						player.sendMessage(messages.getMessage("invis.blindness.no_permission"));
@@ -125,14 +128,10 @@ public class InvisCommand implements TabExecutor {
 					}
 				}
 
-				// Sound effect, plays a sound from config or from args
+				// Sound effect, plays a sound from config
 				else if (args[0].equalsIgnoreCase("sound")) {
 					if (player.hasPermission("animvanish.invis.sound")) {
-						if (args.length == 1) {
-							Effects.soundFromConfig(player);
-						} else if (args.length == 2) {
-							Effects.sound(player, args[1].toUpperCase());
-						}
+						Effects.sound(player);
 					} else {
 						player.sendMessage(messages.getMessage("invis.sound.no_permission"));
 						return true;
@@ -228,33 +227,11 @@ public class InvisCommand implements TabExecutor {
 			if (sender.hasPermission("animvanish.invis.firework")) {
 				arguments.add("firework");
 			}
-			if (sender.hasPermission("animvanish.invis.sign")) {
-				arguments.add("sign");
-			}
-			if (sender.hasPermission("animvanish.invis.flame")) {
-				arguments.add("flame");
+			if (sender.hasPermission("animvanish.invis.blood")) {
+				arguments.add("blood");
 			}
 
 			return arguments;
-		} else if (args.length == 2) {
-			// Particle args
-			if (args[0].equalsIgnoreCase("particle")) {
-				List<String> arguments = new ArrayList<>();
-				for (Particle particle : EnumSet.allOf(Particle.class)) {
-					arguments.add(particle.name());
-				}
-
-				return arguments;
-
-			// Sound args
-			} else if (args[0].equalsIgnoreCase("sound")) {
-				List<String> arguments = new ArrayList<>();
-				for (Sound s : EnumSet.allOf(Sound.class)) {
-					arguments.add(s.name());
-				}
-
-				return arguments;
-			}
 		}
 
 		return null;

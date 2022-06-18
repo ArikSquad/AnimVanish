@@ -27,6 +27,7 @@ permissions:
     description: Grants you all the permissions in AnimVanish
   animvanish.invis:
     children:
+      animvanish.invis.other: true
       animvanish.invis.herobrine: true
       animvanish.invis.particle: true
       animvanish.invis.tnt: true
@@ -38,6 +39,8 @@ permissions:
       animvanish.invis.firework: true
       animvanish.invis.blood: true
     description: Grants all the invisibility effects
+  animvanish.invis.other:
+    description: Grants you the ability to vanish someone else
   animvanish.invis.herobrine:
     description: Grants you the ability to vanish with an amazing lightning strike
   animvanish.invis.particle:

@@ -8,8 +8,6 @@ effects:
   herobrine:
     # Will the time set to night with the effect? Default: True
     night: true
-    # How long the night will last? Default: 3
-    time: 3
 
   particle:
     # What particle will be used when using particle as the effect. Default: DRAGON_BREATH
@@ -18,17 +16,6 @@ effects:
     # How many particles will be spawned. Default: 50
     amount: 50
 
-  npc:
-    # How many seconds the NPC will last. Default: 3
-    despawn_after: 3
-
-  zombie:
-    # How many seconds the zombie will last. Default: 3
-    despawn_after: 3
-
-  blindness:
-      # How many seconds the blindness effect will last. Default: 3
-      effect_last: 3
 
   sound:
     # What sound the player will hear. Default: BLOCK_AMETHYST_BLOCK_HIT

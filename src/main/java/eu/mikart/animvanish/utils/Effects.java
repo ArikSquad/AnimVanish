@@ -1,8 +1,6 @@
 package eu.mikart.animvanish.utils;
 
-import com.google.common.collect.ImmutableSet;
 import de.slikey.effectlib.effect.BleedEffect;
-import de.slikey.effectlib.effect.DnaEffect;
 import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.config.MessageManager;
 import net.citizensnpcs.api.CitizensAPI;
@@ -15,49 +13,40 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import java.util.Set;
-
 public class Effects {
 
 	static MessageManager messages = Main.instance.messages;
-	private static final Set<Material> transparent = ImmutableSet.of(Material.AIR, Material.CAVE_AIR, Material.TALL_GRASS);
 
 	/**
 	 * Herobrine effect, which will strike a lightning on the player, and set the time to night if config says so.
 	 */
-	public static void herobrine(Player player, Long time) {
+	public static void herobrine(Player player, Long timeBefore) {
 		player.getWorld().strikeLightningEffect(player.getLocation());
 		if (Main.instance.getConfig().getBoolean("effects.herobrine.night")) {
 			player.getWorld().setTime(14000);
 
-			Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(time), 20 * Main.instance.getConfig().getLong("effects.herobrine.time"));
+			Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(timeBefore), 20 * 5);
 		}
 	}
 
 	/**
-	 * Particle effect from config, which will send particles.
+	 * Particle effect, which will send 50 particles, the particle value will be set in the config.
 	 */
-	public static void particleFromConfig(Player player) {
+	public static void particle(Player player) {
 		try {
 			player.getWorld().spawnParticle(Particle.valueOf(Main.instance.getConfig().getString("effects.particle.type")),
-					player.getEyeLocation().add(0, 2, 0), Main.instance.getConfig().getInt("effects.particle.amount"));
+					player.getEyeLocation().add(0, 2, 0), 50);
 		} catch (Exception e) {
 			player.sendMessage(messages.getMessage("invis.particle.invalid_config"));
 			Bukkit.getConsoleSender().sendMessage(messages.getMessage("invis.particle.invalid_config"));
 			player.getWorld().spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0),
-					Main.instance.getConfig().getInt("effects.particle.amount"));
+					50);
 		}
 	}
 
-	public static void particle(Player player, String effect) {
-		try {
-			player.getWorld().spawnParticle(Particle.valueOf(effect), player.getEyeLocation().add(0, 2, 0), 50);
-		} catch (Exception e) {
-			player.sendMessage(messages.getMessage("invis.invalid_particle"));
-			player.getWorld().spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0), 50);
-		}
-	}
-
+	/**
+	 * Tnt effect, which will spawn tnt's on the player.
+	 */
 	public static void tnt(Player player) {
 		player.getWorld().spawn(player.getLocation(), TNTPrimed.class, (tnt) -> tnt.setYield(0));
 	}
@@ -66,7 +55,7 @@ public class Effects {
 		NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, player.getName());
 		npc.spawn(player.getLocation());
 
-		Bukkit.getScheduler().runTaskLater(Main.instance, () -> npc.destroy(), 20 * Main.instance.getConfig().getLong("effects.npc.despawn_after"));
+		Bukkit.getScheduler().runTaskLater(Main.instance, () -> npc.destroy(), 20 * 3);
 	}
 
 	public static void zombie(Player player) {
@@ -81,29 +70,21 @@ public class Effects {
 	}
 
 	public static void blindness(Player player) {
+		player.sendMessage(messages.getMessage("invis.blindness.author"));
 		for (Entity ps : player.getNearbyEntities(10, 10, 10)) {
 			if (ps instanceof Player p) {
-				p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * Main.instance.getConfig().getInt("effects.blindness.effect_last"), 1));
+				p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 3, 1));
 				p.sendMessage(messages.getMessage("invis.blindness.message"));
 			}
 		}
 	}
 
-	public static void soundFromConfig(Player player) {
+	public static void sound(Player player) {
 		try {
 			player.getWorld().playSound(player.getLocation(), Sound.valueOf(Main.instance.getConfig().getString("effects.sound.type")), 1, 1);
 		} catch (Exception e) {
 			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 1, 1);
 			player.sendMessage(messages.getMessage("invis.sound.invalid_config"));
-		}
-	}
-
-	public static void sound(Player player, String sound) {
-		try {
-			player.getWorld().playSound(player.getLocation(), Sound.valueOf(sound), 1, 1);
-		} catch (Exception e) {
-			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 1, 1);
-			player.sendMessage(messages.getMessage("invis.sound.invalid_sound"));
 		}
 	}
 
@@ -127,7 +108,7 @@ public class Effects {
 		fw.setMetadata("nodamage", new FixedMetadataValue(Main.instance, true));
 		fw.setFireworkMeta(fwm);
 
-		Bukkit.getScheduler().runTaskLater(Main.instance, fw::detonate, 20 * Main.instance.getConfig().getLong("effects.firework.despawn_after"));
+		Bukkit.getScheduler().runTaskLater(Main.instance, fw::detonate, 20 * 3);
 	}
 
 	public static void blood(Player player) {
@@ -136,6 +117,4 @@ public class Effects {
 		effect.iterations = 10;
 		effect.start();
 	}
-
-	//
 }
