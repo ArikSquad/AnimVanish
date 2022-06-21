@@ -52,7 +52,7 @@ permissions:
   animvanish.invis.zombie:
     description: Grants you the ability to vanish with a zombie taking your place
   animvanish.invis.blindness:
-    description: Grants you the ability to vanish with making players around you blind
+    description: Grants you the ability to vanish with making players around you blind for a moment
   animvanish.invis.sound:
     description: Grants you the ability to vanish with a sound effect
   animvanish.invis.turn:

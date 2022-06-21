@@ -1,4 +1,4 @@
-package eu.mikart.animvanish.utils;
+package eu.mikart.animvanish.config;
 
 public class Settings {
 	public static final String PLUGIN_URL = "https://www.spigotmc.org/resources/animvanish-1-19-animated-vanishing.102183/";

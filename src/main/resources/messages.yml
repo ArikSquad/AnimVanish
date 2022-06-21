@@ -11,46 +11,39 @@ invalid_args: '<red>Invalid arguments.</red>'
 not_player: '<red>You must be a player.</red>'
 reload: '<color:#b0ff5c>Reloaded configs</color>'
 player_not_found: '<red>Player not found.</red>'
+no_permissions: "<red>You don't have permissions to do this command.</red> <green>(<permission>)</green>"
 
 
 invis:
   only_to_vanish: '<red>This effect only applies when going into vanish.</red>'
-
-  herobrine:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.herobrine)</green>"
+  not_found: '<red>Effect was not found.</red>'
 
   particle:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.particle)</green>"
     invalid_config: '<red>Invalid particle configuration. Ask an administrator to check config file.</red>'
     invalid_particle: "<red>That particle doesn't exist or it isn't supported.</red>"
 
-  tnt:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.tnt)</green>"
-
-  npc:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.npc)</green>"
-
-  zombie:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.zombie)</green>"
-
   blindness:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.blindness)</green>"
     message: '<yellow>You saw something and you now feel dizzy</yellow>'
     author: '<green>You blinded all the players around you.</green>'
 
   sound:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.sound)</green>"
     invalid_config: '<red>Invalid sound configuration. Ask an administrator to check config file.</red>'
     invalid_sound: "<red>That sound doesn't exist or it isn't supported.</red>"
 
   turn:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.turn)</green>"
+    none: '<color:#ff926e>Nobody was turned, because there is nobody close to you.</color>'
 
-  firework:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.firework)</green>"
 
-  blood:
-    no_permission: "<red>You don't have permission to use this effect.</red> <green>(animvanish.invis.blood)</green>"
+gui:
+  # In these first two you can use <player>
+  title: '<color:#e26eff>Select an effect</color>'
+  placeholder_name: '<gray>Select an effect</gray>'
+
+  # In this one you can use <item>
+  item_name: '<green><item></green>'
+
+  # In this last one you can use <lore>
+  item_lore: '<blue><lore></blue>'
 
 
 animvanish:

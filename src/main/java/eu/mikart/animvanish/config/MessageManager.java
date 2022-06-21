@@ -51,8 +51,7 @@ public class MessageManager {
 	}
 
 	public Component getMessage(String name, String placeholder, String value) {
-		String message = getConfig().getString(name);
-		return miniMessage().deserialize(message, Placeholder.component(placeholder, Component.text(value)));
+		return miniMessage().deserialize(getConfig().getString(name), Placeholder.component(placeholder, Component.text(value)));
 	}
 
 	public void saveConfig() {
