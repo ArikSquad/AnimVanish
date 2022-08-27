@@ -29,7 +29,6 @@ public class Effect implements EffectInterface {
 		return item;
 	}
 
-	@Override
 	public void runEffect(Player p) {
 
 	}

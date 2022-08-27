@@ -41,10 +41,19 @@ public class EffectManager {
 	}
 
 
+	/**
+	 * Returns the effect with the given name
+	 * @param name The name of the effect
+	 * @return Effect
+	 */
 	public Effect getEffect(String name) {
 		return effects.stream().filter(effect -> effect.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
 	}
 
+	/**
+	 * Returns all the effects
+	 * @return ArrayList<Effect>
+	 */
 	public ArrayList<Effect> getEffects() {
 		return effects;
 	}
