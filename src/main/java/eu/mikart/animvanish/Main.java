@@ -6,28 +6,29 @@ import com.jeff_media.updatechecker.UpdateChecker;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import eu.mikart.animvanish.commands.AnimVanishCommand;
 import eu.mikart.animvanish.commands.InvisCommand;
-import eu.mikart.animvanish.config.MessageManager;
+import eu.mikart.animvanish.util.MessageConfig;
 import eu.mikart.animvanish.effects.EffectManager;
 import eu.mikart.animvanish.gui.InvisGUI;
 import eu.mikart.animvanish.listeners.NoDamage;
-import eu.mikart.animvanish.config.Settings;
+import eu.mikart.animvanish.util.Settings;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public final class Main extends JavaPlugin {
 
-	public static Main instance;
-	public MessageManager messages;
+	private static Main instance;
+	public MessageConfig messages;
 	private EffectManager effectManager;
 
 
 	@Override
 	public void onEnable() {
 		instance = this;
-		this.messages = new MessageManager(this);
+		this.messages = new MessageConfig(this);
 		this.effectManager = new EffectManager();
 
 		// bStats
@@ -36,6 +37,9 @@ public final class Main extends JavaPlugin {
 		// Load configs
 		getConfig().options().copyDefaults();
 		saveDefaultConfig();
+
+		messages.getConfig().options().copyDefaults();
+		messages.saveDefaultConfig();
 
 		// Update configs
 		File configFile = new File(getDataFolder(), "config.yml");
@@ -52,8 +56,8 @@ public final class Main extends JavaPlugin {
 		messages.reloadConfig();
 
 		// Register commands
-		getCommand("animvanish").setExecutor(new AnimVanishCommand());
-		getCommand("invis").setExecutor(new InvisCommand());
+		Objects.requireNonNull(getCommand("animvanish")).setExecutor(new AnimVanishCommand());
+		Objects.requireNonNull(getCommand("invis")).setExecutor(new InvisCommand());
 
 		// Register listeners
 		getServer().getPluginManager().registerEvents(new NoDamage(), this);
@@ -73,8 +77,12 @@ public final class Main extends JavaPlugin {
 		instance = null;
 	}
 
-	public eu.mikart.animvanish.effects.EffectManager getEffectManager() {
+	public EffectManager getEffectManager() {
 		return effectManager;
+	}
+
+	public static Main getInstance() {
+		return instance;
 	}
 
 }

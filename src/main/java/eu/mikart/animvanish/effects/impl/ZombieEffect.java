@@ -22,10 +22,10 @@ public class ZombieEffect extends Effect {
 		zombie.setAI(false);
 		zombie.setAdult();
 		zombie.setInvulnerable(true);
-		Bukkit.getScheduler().runTaskLater(Main.instance, () -> {
+		Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> {
 			player.spawnParticle(Particle.HEART, zombie.getLocation(), 3);
 			zombie.remove();
-		}, 20 * Main.instance.getConfig().getLong("effects.zombie.despawn_after"));
+		}, 20 * Main.getInstance().getConfig().getLong("effects.zombie.despawn_after"));
 	}
 
 }

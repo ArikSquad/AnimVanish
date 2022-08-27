@@ -22,7 +22,7 @@ public class NpcEffect extends Effect {
 			NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, player.getName());
 			npc.spawn(player.getLocation());
 
-			Bukkit.getScheduler().runTaskLater(Main.instance, () -> npc.destroy(), 20 * 3);
+			Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> npc.destroy(), 20 * 3);
 		} else {
 			player.sendMessage(messages.getMessage("invis.dependency.no_citizens"));
 		}

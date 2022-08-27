@@ -1,15 +1,15 @@
 package eu.mikart.animvanish.effects;
 
 import eu.mikart.animvanish.Main;
-import eu.mikart.animvanish.config.MessageManager;
+import eu.mikart.animvanish.util.MessageConfig;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class Effect {
+public class Effect implements EffectInterface {
 
 	public String name, description;
 	public ItemStack item;
-	public MessageManager messages = Main.instance.messages;
+	public MessageConfig messages = Main.getInstance().messages;
 
 	public Effect(String name, String description, ItemStack item) {
 		this.name = name;
@@ -29,6 +29,7 @@ public class Effect {
 		return item;
 	}
 
+	@Override
 	public void runEffect(Player p) {
 
 	}

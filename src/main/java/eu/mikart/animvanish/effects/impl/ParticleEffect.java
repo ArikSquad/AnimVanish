@@ -16,7 +16,7 @@ public class ParticleEffect extends Effect {
 	@Override
 	public void runEffect(Player player) {
 		try {
-			player.getWorld().spawnParticle(Particle.valueOf(Main.instance.getConfig().getString("effects.particle.type")),
+			player.getWorld().spawnParticle(Particle.valueOf(Main.getInstance().getConfig().getString("effects.particle.type")),
 					player.getEyeLocation().add(0, 2, 0), 50);
 		} catch (Exception e) {
 			player.sendMessage(messages.getMessage("invis.particle.invalid_config"));

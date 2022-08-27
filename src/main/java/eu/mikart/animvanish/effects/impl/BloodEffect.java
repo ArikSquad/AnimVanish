@@ -34,7 +34,7 @@ public class BloodEffect extends Effect {
 					this.cancel();
 				}
 			}
-		}.runTaskTimerAsynchronously(Main.instance, 0, 2);
+		}.runTaskTimerAsynchronously(Main.getInstance(), 0, 2);
 	}
 
 }

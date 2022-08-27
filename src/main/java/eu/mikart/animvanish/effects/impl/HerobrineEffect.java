@@ -17,10 +17,10 @@ public class HerobrineEffect extends Effect {
 		long timeBefore = player.getWorld().getTime();
 
 		player.getWorld().strikeLightningEffect(player.getLocation());
-		if (Main.instance.getConfig().getBoolean("effects.herobrine.night")) {
+		if (Main.getInstance().getConfig().getBoolean("effects.herobrine.night")) {
 			player.getWorld().setTime(14000);
 
-			Bukkit.getScheduler().runTaskLater(Main.instance, () -> player.getWorld().setTime(timeBefore), 20 * 5);
+			Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> player.getWorld().setTime(timeBefore), 20 * 5);
 		}
 	}
 }

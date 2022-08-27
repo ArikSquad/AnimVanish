@@ -29,11 +29,11 @@ public class FireworkEffect extends Effect {
 		fwm.addEffect(org.bukkit.FireworkEffect.builder().with(org.bukkit.FireworkEffect.Type.BURST).withColor(Color.YELLOW).build());
 		fwm.addEffect(org.bukkit.FireworkEffect.builder().with(org.bukkit.FireworkEffect.Type.BURST).withColor(Color.AQUA).build());
 		fw.setVelocity(new Vector(0, 2, 0));
-		fw.setMetadata("nodamage", new FixedMetadataValue(Main.instance, true));
+		fw.setMetadata("nodamage", new FixedMetadataValue(Main.getInstance(), true));
 		fw.setFireworkMeta(fwm);
 
 		// This was a not intended feature, but it's so cool.
-		// so I can now say: It is not a bug, it's a feature
+		// It isn't a bug, it's a feature
 		fw.detonate();
 	}
 

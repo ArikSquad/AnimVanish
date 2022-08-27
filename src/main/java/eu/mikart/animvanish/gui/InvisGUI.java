@@ -21,25 +21,29 @@ public class InvisGUI implements Listener {
 
 	private static Inventory gui;
 
-	public static void openGUI(Player p) {
-		gui = Bukkit.createInventory(null, 54, Main.instance.messages.getMessage("gui.title", "player", p.getName()));
+	/**
+	 * Opens effect choosing GUI for a player.
+	 */
+	public static void openGUI(Player player) {
+		gui = Bukkit.createInventory(null, 54, Main.getInstance().messages.getMessage("gui.title", "player", player.getName()));
 
 		ItemStack border_item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 		ItemMeta border_meta = border_item.getItemMeta();
-		border_meta.displayName(Main.instance.messages.getMessage("gui.placeholder_name", "player", p.getName()));
+		border_meta.displayName(Main.getInstance().messages.getMessage("gui.placeholder_name", "player", player.getName()));
 		border_item.setItemMeta(border_meta);
 
+		// Fill the inventory with border items, so it's cleaner.
 		int[] placeholders = {0,1,2,3,4,5,6,7,8,9,18,27,36,45,17,26,35,44,45,46,47,48,49,50,51,52,53};
 		for(int i : placeholders) {
 			gui.setItem(i, border_item);
 		}
 
-		for(Effect effect : Main.instance.getEffectManager().getEffects()) {
+		for(Effect effect : Main.getInstance().getEffectManager().getEffects()) {
 			ItemStack item = effect.getItem();
 			ItemMeta meta = item.getItemMeta();
-			meta.displayName(Main.instance.messages.getMessage("gui.item_name", "item", effect.getName()));
+			meta.displayName(Main.getInstance().messages.getMessage("gui.item_name", "item", effect.getName()));
 			List<Component> lore = new ArrayList<>();
-			lore.add(Main.instance.messages.getMessage("gui.item_lore", "lore", effect.getDescription()));
+			lore.add(Main.getInstance().messages.getMessage("gui.item_lore", "lore", effect.getDescription()));
 			meta.lore(lore);
 			item.setItemMeta(meta);
 
@@ -47,10 +51,13 @@ public class InvisGUI implements Listener {
 			gui.addItem(item);
 		}
 
-		p.openInventory(gui);
+		player.openInventory(gui);
 	}
 
 
+	/**
+	 * When a player clicks an item in the gui, this method is called.
+	 */
 	@EventHandler
 	public void guiClickEvent(InventoryClickEvent e) {
 		if(!e.getInventory().equals(gui)) {
@@ -69,7 +76,7 @@ public class InvisGUI implements Listener {
 				return;
 			}
 
-			for (Effect effect : Main.instance.getEffectManager().getEffects()) {
+			for (Effect effect : Main.getInstance().getEffectManager().getEffects()) {
 				if (item.isSimilar(effect.getItem())) {
 					e.getInventory().close();
 					if (p.hasPermission("animvanish.invis." + effect.getName())) {
@@ -83,13 +90,13 @@ public class InvisGUI implements Listener {
 						}
 
 					} else {
-						p.sendMessage(Main.instance.messages.getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
+						p.sendMessage(Main.getInstance().messages.getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
 					}
 					break;
 				}
 			}
 		} else {
-			p.sendMessage(Main.instance.messages.getMessage("dependency.no_vanish"));
+			p.sendMessage(Main.getInstance().messages.getMessage("dependency.no_vanish"));
 		}
 	}
 }
