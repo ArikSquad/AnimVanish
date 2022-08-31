@@ -1,4 +1,4 @@
-name: Build the plugin
+name: Build AnimVanish
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
         java-version: '17'
         cache: 'maven'
         
-    - name: Build the file 
+    - name: Build the plugin 
     - uses: SpraxDev/Action-SpigotMC@v4.1.0
       with:
         versions: 1.18.2, 1.19, 1.19.1, 1.19.2
