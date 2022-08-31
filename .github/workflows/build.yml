@@ -1,0 +1,30 @@
+name: Build the plugin
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  
+  
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: SpraxDev/Action-SpigotMC@v4.1.0
+        with:
+          versions: 1.18.2, 1.19, 1.19.1, 1.19.2
+
+          generateSrc: false # Optional
+
+          generateDoc: false # Optional
+
+          disableJavaCheck: false # Optional
+
+          remapped: false # Optional
+
+          forceRun: false # Optional
+
+          threads: -1 # Optional
+
+          buildToolProvider: SpigotMC # Optional
