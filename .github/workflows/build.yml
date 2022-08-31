@@ -9,21 +9,28 @@ on:
   
 jobs:
   build:
+    name: Build the file
     runs-on: ubuntu-22.04
+      
     steps:
-      - uses: SpraxDev/Action-SpigotMC@v4.1.0
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          
-          versions: 1.18.2, 1.19, 1.19.1, 1.19.2
-          generateSrc: false # Optional
-          generateDoc: false # Optional
-          disableJavaCheck: false # Optional
-          remapped: false # Optional
-          forceRun: false # Optional
-          threads: -1 # Optional
-          buildToolProvider: SpigotMC # Optional
-          cache: 'maven'
+    - name: Setup java 17
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'maven'
+        
+    - name: Build the file 
+    - uses: SpraxDev/Action-SpigotMC@v4.1.0
+      with:
+        versions: 1.18.2, 1.19, 1.19.1, 1.19.2
+        generateSrc: false # Optional
+        generateDoc: false # Optional
+        disableJavaCheck: false # Optional
+        remapped: false # Optional
+        forceRun: false # Optional
+        threads: -1 # Optional
+        buildToolProvider: SpigotMC # Optional
+        cache: 'spigot'
+        
