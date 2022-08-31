@@ -11,7 +11,7 @@ invalid_args: '<red>Invalid arguments.</red>'
 not_player: '<red>You must be a player.</red>'
 reload: '<color:#b0ff5c>Reloaded configs</color>'
 player_not_found: '<red>Player not found.</red>'
-no_permissions: "<red>You don't have permissions to do this command.</red> <green>(<permission>)</green>"
+no_permissions: "<red>You don't have permissions to use this command.</red> <green>(<permission>)</green>"
 
 
 invis:
