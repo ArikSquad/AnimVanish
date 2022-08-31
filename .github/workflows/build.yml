@@ -33,6 +33,4 @@ jobs:
         remapped: false # Optional
         forceRun: false # Optional
         threads: -1 # Optional
-        buildToolProvider: SpigotMC # Optional
-        cache: 'spigot'
-        
+        buildToolProvider: SpigotMC # Optional 
