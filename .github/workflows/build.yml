@@ -38,27 +38,27 @@ jobs:
       needs: plugin
 
       steps:
-        - name: Git Checkout
-          uses: actions/checkout@v2
+      - name: Git Checkout
+        uses: actions/checkout@v2
 
-        - name: Download Artifacts
-          uses: actions/download-artifact@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
 
-        - name: Extract Maven project version
-            run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-            id: project
+      - name: Extract Maven project version
+        run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+        id: project
 
-        - name: Create a Release
-          uses: marvinpinto/action-automatic-releases@latest
-          env:
-            GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          with:
-            repo_token: "${{ secrets.GITHUB_TOKEN }}"
-            automatic_release_tag: ${{ steps.project.outputs.version }}
-            prerelease: false
-            title: ${{ steps.project.outputs.version }}
-            files: |
-              target/*.jar
+      - name: Create a Release
+        uses: marvinpinto/action-automatic-releases@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${{ steps.project.outputs.version }}
+          prerelease: false
+          title: ${{ steps.project.outputs.version }}
+          files: |
+            target/*.jar
 
   preupload:
     if: "github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '[prerelease] ')"
@@ -67,25 +67,25 @@ jobs:
       needs: plugin
 
       steps:
-        - name: Git Checkout
-          uses: actions/checkout@v2
+      - name: Git Checkout
+        uses: actions/checkout@v2
 
-        - name: Download Artifacts
-          uses: actions/download-artifact@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
 
-        - name: Extract Maven project version
-            run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-            id: project
+      - name: Extract Maven project version
+        run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+        id: project
 
-        - name: Create a Release
-          uses: marvinpinto/action-automatic-releases@latest
-          env:
-            GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          with:
-            repo_token: "${{ secrets.GITHUB_TOKEN }}"
-            automatic_release_tag: ${{ steps.project.outputs.version }}
-            prerelease: true
-            title: ${{ steps.project.outputs.version }}
-            files: |
-              target/*.jar
+      - name: Create a Release
+        uses: marvinpinto/action-automatic-releases@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${{ steps.project.outputs.version }}
+          prerelease: true
+          title: ${{ steps.project.outputs.version }}
+          files: |
+            target/*.jar
     
