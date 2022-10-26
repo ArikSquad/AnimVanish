@@ -105,6 +105,12 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+
+        <repository>
+            <id>reposilite-repository-releases</id>
+            <name>Reposilite Repository</name>
+            <url>https://repo.mineinabyss.com/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -166,11 +172,9 @@
 
         <!-- GSit API -->
         <dependency>
-            <groupId>dev.geco</groupId>
+            <groupId>com.gecolay</groupId>
             <artifactId>gsit</artifactId>
             <version>1.2.7</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/GSit-1.2.7.jar</systemPath>
         </dependency>
 
         <!-- Jetbrains -->

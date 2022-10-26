@@ -17,7 +17,3 @@ Our plugin makes your vanishing look great with a large library of pre-made effe
 
 ### Known issues
 - None
-
-## Contributing
-First you need to download [GSit api](https://github.com/Gecolay/GSit/releases) and put it in /lib/ folder,
-then you need to load maven project structure.
