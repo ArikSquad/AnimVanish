@@ -34,7 +34,6 @@ jobs:
         forceRun: true # Optional
         threads: 3 # Optional
         buildToolProvider: SpigotMC # Optional
-
   upload:
     if: "github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '[release] ')"
 
