@@ -27,9 +27,19 @@ jobs:
         generateDoc: false # Optional
         disableJavaCheck: false # Optional
         remapped: false # Optional
-        forceRun: false # Optional
-        threads: 3 # Optional
+        forceRun: true # Optional
+        threads: -1 # Optional
         buildToolProvider: SpigotMC # Optional
+
+    - name: Extract Maven project version
+      run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+      id: project
+
+    - name: Upload Plugin jar
+      uses: actions/upload-artifact@v3
+      with:
+        name: "AnimVanish-${{ steps.project.outputs.version }}-${{ github.run.id }}"
+        path: target/*.jar
 
   upload:
     if: "github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '[release] ')"
