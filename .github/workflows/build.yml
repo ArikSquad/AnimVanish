@@ -23,7 +23,7 @@ jobs:
       run: mvn clean install
 
     - name: Extract Maven project version
-      run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+      run: echo "name=version::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
       id: project
 
     - name: List files
@@ -49,7 +49,7 @@ jobs:
       uses: actions/download-artifact@v2
 
     - name: Extract Maven project version
-      run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+      run: echo "name=version::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
       id: project
 
     - name: Create a Release
