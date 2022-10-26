@@ -32,14 +32,18 @@ jobs:
         buildToolProvider: SpigotMC # Optional
 
     - name: Extract Maven project version
-      run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+      run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $VERSION
       id: project
+
+    - name: List files
+      run: ls -la
 
     - name: Upload Plugin jar
       uses: actions/upload-artifact@v3
       with:
-        name: "AnimVanish-${{ steps.project.outputs.version }}-${{ github.run.id }}"
-        path: target/*.jar
+        name: "AnimVanish-${{ env.VERSION }}-${{ github.run.id }}"
+        files: |
+          target/*.jar
 
   upload:
     if: "github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '[release] ')"
@@ -55,7 +59,7 @@ jobs:
       uses: actions/download-artifact@v2
 
     - name: Extract Maven project version
-      run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+      run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $VERSION
       id: project
 
     - name: Create a Release
@@ -64,9 +68,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: ${{ steps.project.outputs.version }}
+        automatic_release_tag: ${{ env.VERSION }}
         prerelease: false
-        title: ${{ steps.project.outputs.version }}
+        title: ${{ env.VERSION }}
         files: |
           target/*.jar
 
@@ -84,7 +88,7 @@ jobs:
         uses: actions/download-artifact@v2
 
       - name: Extract Maven project version
-        run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+        run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $VERSION
         id: project
 
       - name: Create a Release
@@ -93,8 +97,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{ steps.project.outputs.version }}
+          automatic_release_tag: ${{ env.VERSION }}
           prerelease: false
-          title: ${{ steps.project.outputs.version }}
+          title: ${{ env.VERSION }}
           files: |
             target/*.jar
