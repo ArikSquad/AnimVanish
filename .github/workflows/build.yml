@@ -32,7 +32,7 @@ jobs:
         buildToolProvider: SpigotMC # Optional
 
     - name: Extract Maven project version
-      run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $VERSION
+      run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
       id: project
 
     - name: List files
@@ -41,7 +41,7 @@ jobs:
     - name: Upload Plugin jar
       uses: actions/upload-artifact@v3
       with:
-        name: "AnimVanish-${{ env.VERSION }}-${{ github.run.id }}"
+        name: "AnimVanish-${{ steps.project.outputs.version }}-${{ github.run.id }}"
         files: |
           target/*.jar
 
@@ -59,7 +59,7 @@ jobs:
       uses: actions/download-artifact@v2
 
     - name: Extract Maven project version
-      run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $VERSION
+      run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
       id: project
 
     - name: Create a Release
@@ -68,9 +68,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: ${{ env.VERSION }}
+        automatic_release_tag: ${{ steps.project.outputs.version }}
         prerelease: false
-        title: ${{ env.VERSION }}
+        title: ${{ steps.project.outputs.version }}
         files: |
           target/*.jar
 
@@ -88,7 +88,7 @@ jobs:
         uses: actions/download-artifact@v2
 
       - name: Extract Maven project version
-        run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $VERSION
+        run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
         id: project
 
       - name: Create a Release
@@ -97,8 +97,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{ env.VERSION }}
+          automatic_release_tag: ${{ steps.project.outputs.version }}
           prerelease: false
-          title: ${{ env.VERSION }}
+          title: ${{ steps.project.outputs.version }}
           files: |
             target/*.jar
