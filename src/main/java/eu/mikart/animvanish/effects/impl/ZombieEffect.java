@@ -25,7 +25,8 @@ public class ZombieEffect extends Effect {
 		Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> {
 			player.spawnParticle(Particle.HEART, zombie.getLocation(), 3);
 			zombie.remove();
-		}, 20 * Main.getInstance().getConfig().getLong("effects.zombie.despawn_after"));
+		}, 20 * 3);
+		toggleVanish(player);
 	}
 
 }

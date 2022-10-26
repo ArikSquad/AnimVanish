@@ -7,12 +7,15 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
-public class FireworkEffect extends Effect {
+public class FireworkEffect extends Effect implements Listener {
 
 	public FireworkEffect() {
 		super("firework", "Spawns colorful fireworks", new ItemStack(Material.FIREWORK_ROCKET));
@@ -35,6 +38,16 @@ public class FireworkEffect extends Effect {
 		// This was a not intended feature, but it's so cool.
 		// It isn't a bug, it's a feature
 		fw.detonate();
+		toggleVanish(player);
+	}
+
+	@EventHandler
+	public void EntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
+		if (e.getDamager() instanceof Firework fw) {
+			if (fw.hasMetadata("nodamage")) {
+				e.setCancelled(true);
+			}
+		}
 	}
 
 

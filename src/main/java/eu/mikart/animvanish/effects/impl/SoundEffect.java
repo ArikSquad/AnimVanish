@@ -21,6 +21,7 @@ public class SoundEffect extends Effect {
 			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 1, 1);
 			player.sendMessage(messages.getMessage("invis.sound.invalid_config"));
 		}
+		toggleVanish(player);
 	}
 
 }

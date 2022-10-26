@@ -22,5 +22,6 @@ public class HerobrineEffect extends Effect {
 
 			Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> player.getWorld().setTime(timeBefore), 20 * 5);
 		}
+		toggleVanish(player);
 	}
 }

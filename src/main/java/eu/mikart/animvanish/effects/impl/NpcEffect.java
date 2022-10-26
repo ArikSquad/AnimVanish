@@ -18,13 +18,16 @@ public class NpcEffect extends Effect {
 
 	@Override
 	public void runEffect(Player player) {
-		if (Bukkit.getPluginManager().isPluginEnabled("Citizens")) {
-			NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, player.getName());
-			npc.spawn(player.getLocation());
-
-			Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> npc.destroy(), 20 * 3);
-		} else {
+		if (!Bukkit.getPluginManager().isPluginEnabled("Citizens")) {
 			player.sendMessage(messages.getMessage("invis.dependency.no_citizens"));
+			return;
 		}
+
+		NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, player.getName());
+		npc.spawn(player.getLocation());
+
+		Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> npc.destroy(), 20 * 3);
+
+		toggleVanish(player);
 	}
 }

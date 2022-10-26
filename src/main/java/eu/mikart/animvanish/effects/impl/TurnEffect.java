@@ -26,6 +26,7 @@ public class TurnEffect extends Effect {
 		if (player_amount == 0) {
 			player.sendMessage(messages.getMessage("invis.turn.none"));
 		}
+		toggleVanish(player);
 	}
 
 }

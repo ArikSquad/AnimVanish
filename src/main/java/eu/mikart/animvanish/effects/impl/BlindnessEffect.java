@@ -23,6 +23,7 @@ public class BlindnessEffect extends Effect {
 				p.sendMessage(messages.getMessage("invis.blindness.message"));
 			}
 		}
+		toggleVanish(player);
 	}
 
 }

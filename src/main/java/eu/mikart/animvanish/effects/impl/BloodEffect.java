@@ -19,11 +19,9 @@ public class BloodEffect extends Effect {
 
 	@Override
 	public void runEffect(Player player) {
-
 		new BukkitRunnable() {
 			int i = 0;
 			public void run() {
-
 				i++;
 				Location location = player.getLocation();
 				location.add(0, ThreadLocalRandom.current().nextFloat() * 1.75, 0);
@@ -35,6 +33,7 @@ public class BloodEffect extends Effect {
 				}
 			}
 		}.runTaskTimerAsynchronously(Main.getInstance(), 0, 2);
+		toggleVanish(player);
 	}
 
 }

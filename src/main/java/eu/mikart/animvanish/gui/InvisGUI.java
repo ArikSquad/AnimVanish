@@ -1,8 +1,9 @@
 package eu.mikart.animvanish.gui;
 
-import de.myzelyam.api.vanish.VanishAPI;
 import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.effects.Effect;
+import eu.mikart.animvanish.util.MessageConfig;
+import eu.mikart.animvanish.util.Utilities;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,17 +20,20 @@ import java.util.List;
 
 public class InvisGUI implements Listener {
 
+	public static final MessageConfig messages = Main.getMessages();
 	private static Inventory gui;
 
 	/**
 	 * Opens effect choosing GUI for a player.
 	 */
 	public static void openGUI(Player player) {
-		gui = Bukkit.createInventory(null, 54, Main.getInstance().messages.getMessage("gui.title", "player", player.getName()));
+		if (!player.hasPermission("animvanish.invis.gui")) return;
+
+		gui = Bukkit.createInventory(null, 54, messages.getMessage("gui.title", "player", player.getName()));
 
 		ItemStack border_item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 		ItemMeta border_meta = border_item.getItemMeta();
-		border_meta.displayName(Main.getInstance().messages.getMessage("gui.placeholder_name", "player", player.getName()));
+		border_meta.displayName(messages.getMessage("gui.placeholder_name", "player", player.getName()));
 		border_item.setItemMeta(border_meta);
 
 		// Fill the inventory with border items, so it's cleaner.
@@ -41,9 +45,9 @@ public class InvisGUI implements Listener {
 		for(Effect effect : Main.getInstance().getEffectManager().getEffects()) {
 			ItemStack item = effect.getItem();
 			ItemMeta meta = item.getItemMeta();
-			meta.displayName(Main.getInstance().messages.getMessage("gui.item_name", "item", effect.getName()));
+			meta.displayName(messages.getMessage("gui.item_name", "effect_name", effect.getName()));
 			List<Component> lore = new ArrayList<>();
-			lore.add(Main.getInstance().messages.getMessage("gui.item_lore", "lore", effect.getDescription()));
+			lore.add(messages.getMessage("gui.item_lore", "effect_description", effect.getDescription()));
 			meta.lore(lore);
 			item.setItemMeta(meta);
 
@@ -67,10 +71,7 @@ public class InvisGUI implements Listener {
 		e.setCancelled(true);
 		Player p = (Player) e.getWhoClicked();
 
-		if (Bukkit.getPluginManager().isPluginEnabled("SuperVanish") || Bukkit.getPluginManager().isPluginEnabled("PremiumVanish")) {
-			// noinspection ConstantConditions
-			boolean vanishing = !VanishAPI.isInvisible(p);
-
+		if (Utilities.isVanish()) {
 			ItemStack item = e.getCurrentItem();
 			if (item == null || item.getType() == Material.AIR) {
 				return;
@@ -81,22 +82,14 @@ public class InvisGUI implements Listener {
 					e.getInventory().close();
 					if (p.hasPermission("animvanish.invis." + effect.getName())) {
 						effect.runEffect(p);
-
-						// noinspection ConstantConditions
-						if (vanishing) {
-							VanishAPI.hidePlayer(p);
-						} else {
-							VanishAPI.showPlayer(p);
-						}
-
 					} else {
-						p.sendMessage(Main.getInstance().messages.getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
+						p.sendMessage(messages.getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
 					}
 					break;
 				}
 			}
 		} else {
-			p.sendMessage(Main.getInstance().messages.getMessage("dependency.no_vanish"));
+			p.sendMessage(messages.getMessage("dependency.no_vanish"));
 		}
 	}
 }

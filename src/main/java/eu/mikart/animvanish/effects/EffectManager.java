@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class EffectManager {
 
-	public ArrayList<Effect> effects = new ArrayList<>();
+	public final ArrayList<Effect> effects = new ArrayList<>();
 
 	public EffectManager () {
 		// Herobrine
@@ -38,6 +38,12 @@ public class EffectManager {
 
 		// Sound
 		effects.add(new SoundEffect());
+
+		// Launch
+		effects.add(new LaunchEffect());
+
+		// Dead
+		effects.add(new CorpseEffect());
 	}
 
 

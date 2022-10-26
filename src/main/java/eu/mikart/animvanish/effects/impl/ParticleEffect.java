@@ -12,7 +12,7 @@ public class ParticleEffect extends Effect {
 	public ParticleEffect() {
 		super("particle", "Spawns particles", new ItemStack(Material.AMETHYST_SHARD));
 	}
-
+	
 	@Override
 	public void runEffect(Player player) {
 		try {
@@ -24,5 +24,6 @@ public class ParticleEffect extends Effect {
 			player.getWorld().spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0),
 					50);
 		}
+		toggleVanish(player);
 	}
 }

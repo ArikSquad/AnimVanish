@@ -9,6 +9,7 @@ softdepend:
   - SuperVanish
   - PremiumVanish
   - Citizens
+  - GSit
 
 commands:
   animvanish:
@@ -38,9 +39,14 @@ permissions:
       animvanish.invis.turn: true
       animvanish.invis.firework: true
       animvanish.invis.blood: true
+      animvanish.invis.gui: true
     description: Grants all the invisibility effects
-  animvanish.invis.other:
-    description: Grants you the ability to vanish someone else
+  animvanish.invis.gui:
+    description: Grants you the ability to open the invis gui menu
+  animvanish.invis.launch:
+    description: Grants you the ability to launch yourself to the sky
+  animvanish.invis.corpse:
+    description: Grants you the ability to vanish while laying down
   animvanish.invis.herobrine:
     description: Grants you the ability to vanish with an amazing lightning strike
   animvanish.invis.particle:
