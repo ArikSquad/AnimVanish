@@ -19,17 +19,8 @@ jobs:
         java-version: '18'
         cache: 'maven'
 
-    - name: Build the plugin
-      uses: SpraxDev/Action-SpigotMC@v4.1.0
-      with:
-        versions: 1.18.2, 1.19, 1.19.1, 1.19.2
-        generateSrc: false # Optional
-        generateDoc: false # Optional
-        disableJavaCheck: false # Optional
-        remapped: false # Optional
-        forceRun: true # Optional
-        threads: -1 # Optional
-        buildToolProvider: SpigotMC # Optional
+    - name: build
+      run: mvn clean install
 
     - name: Extract Maven project version
       run: echo "name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
@@ -42,8 +33,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: "AnimVanish-${{ steps.project.outputs.version }}-${{ github.run.id }}"
-        files: |
-          target/*.jar
+        path: target/*.jar
 
   upload:
     if: "github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '[release] ')"
