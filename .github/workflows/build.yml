@@ -32,7 +32,7 @@ jobs:
     - name: Upload Plugin jar
       uses: actions/upload-artifact@v3
       with:
-        name: "AnimVanish-${{ steps.project.outputs.version }}"
+        name: "AnimVanish"
         path: target/*.jar
 
   upload:
