@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 
@@ -52,15 +53,26 @@ public class MessageConfig {
 		return this.config;
 	}
 
+	public Component getPrefix() {
+		return miniMessage().deserialize(Objects.requireNonNull(getConfig().getString("prefix")));
+	}
+
 	/**
 	 * Get a message from config and parsing the colours.
 	 * @param name The config value name.
-	 * @return A coloured component, with prefix before it.
+	 * @return Component, with prefix before it.
 	 */
 	public Component getMessage(String name) {
-		String prefix = getConfig().getString("prefix");
-		String value = getConfig().getString(name);
-		return MiniMessage.miniMessage().deserialize(prefix + value);
+		String unFormattedText = getConfig().getString(name);
+		if (unFormattedText == null) {
+			return Component.text("Message file is missing " + name);
+		}
+		return MiniMessage.miniMessage().deserialize(
+				unFormattedText,
+				Placeholder.component("prefix", getPrefix()),
+				Placeholder.component("version", Component.text(Settings.getPluginVersion())),
+				Placeholder.component("url", Component.text(Settings.PLUGIN_URL))
+		);
 	}
 
 	/**
@@ -68,10 +80,20 @@ public class MessageConfig {
 	 * @param name The config value name.
 	 * @param placeholder The placeholder to replace
 	 * @param value The value to replace the placeholder with
-	 * @return A component with the message, coloured and with the placeholder replaced.
+	 * @return Component, with the placeholder replaced.
 	 */
 	public Component getMessage(String name, String placeholder, String value) {
-		return miniMessage().deserialize(getConfig().getString(name), Placeholder.component(placeholder, Component.text(value)));
+		String unFormattedText = getConfig().getString(name);
+		if (unFormattedText == null) {
+			return Component.text("Message file is missing " + name);
+		}
+		return miniMessage().deserialize(
+				unFormattedText,
+				Placeholder.component("prefix", getPrefix()),
+				Placeholder.component("version", Component.text(Settings.getPluginVersion())),
+				Placeholder.component("url", Component.text(Settings.PLUGIN_URL)),
+				Placeholder.component(placeholder, Component.text(value))
+		);
 	}
 
 	/**

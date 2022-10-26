@@ -6,30 +6,31 @@ import com.jeff_media.updatechecker.UpdateChecker;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import eu.mikart.animvanish.commands.AnimVanishCommand;
 import eu.mikart.animvanish.commands.InvisCommand;
-import eu.mikart.animvanish.util.MessageConfig;
 import eu.mikart.animvanish.effects.EffectManager;
+import eu.mikart.animvanish.effects.impl.FireworkEffect;
 import eu.mikart.animvanish.gui.InvisGUI;
-import eu.mikart.animvanish.listeners.NoDamage;
+import eu.mikart.animvanish.util.MessageConfig;
 import eu.mikart.animvanish.util.Settings;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.util.Objects;
 
 public final class Main extends JavaPlugin {
 
 	private static Main instance;
-	public MessageConfig messages;
+	public static MessageConfig messages;
 	private EffectManager effectManager;
 
 
 	@Override
 	public void onEnable() {
 		instance = this;
-		this.messages = new MessageConfig(this);
-		this.effectManager = new EffectManager();
+		messages = new MessageConfig(this);
+		effectManager = new EffectManager();
 
 		// bStats
 		new Metrics(this, Settings.bStats);
@@ -59,16 +60,18 @@ public final class Main extends JavaPlugin {
 		Objects.requireNonNull(getCommand("animvanish")).setExecutor(new AnimVanishCommand());
 		Objects.requireNonNull(getCommand("invis")).setExecutor(new InvisCommand());
 
+
 		// Register listeners
-		getServer().getPluginManager().registerEvents(new NoDamage(), this);
+		getServer().getPluginManager().registerEvents(new FireworkEffect(), this);
 		getServer().getPluginManager().registerEvents(new InvisGUI(), this);
 
 		// Check for updates
 		new UpdateChecker(this, UpdateCheckSource.SPIGET, Settings.PLUGIN_STR)
 				.checkEveryXHours(24)
-				.setNotifyOpsOnJoin(false)
+				.setNotifyOpsOnJoin(getConfig().getBoolean("notifyOps"))
 				.setFreeDownloadLink(Settings.PLUGIN_URL)
-				.suppressUpToDateMessage(true)
+				.suppressUpToDateMessage(getConfig().getBoolean("suppressToDate"))
+				.setColoredConsoleOutput(true)
 				.checkNow();
 	}
 
@@ -83,6 +86,10 @@ public final class Main extends JavaPlugin {
 
 	public static Main getInstance() {
 		return instance;
+	}
+
+	public static MessageConfig getMessages() {
+		return messages;
 	}
 
 }

@@ -1,6 +1,8 @@
 # Configuration file of AnimVanish #
 # -------------------------------- #
 
+suppressToDate: true
+notifyOps: false
 
 # ---- EFFECTS ---- #
 
@@ -21,3 +23,7 @@ effects:
     # What sound the player will hear. Default: BLOCK_AMETHYST_BLOCK_HIT
     # You can find types here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html#enum-constant-summary
     type: BLOCK_AMETHYST_BLOCK_HIT
+
+  launch:
+    # Enable if launch effect Armor Stands should use the player's own armor
+    use_player_armor: true
