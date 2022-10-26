@@ -31,6 +31,6 @@ jobs:
         generateDoc: false # Optional
         disableJavaCheck: false # Optional
         remapped: false # Optional
-        forceRun: false # Optional
+        forceRun: true # Optional
         threads: -1 # Optional
         buildToolProvider: SpigotMC # Optional 
