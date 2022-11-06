@@ -41,9 +41,6 @@ public class EffectManager {
 
 		// Launch
 		effects.add(new LaunchEffect());
-
-		// Dead
-		effects.add(new CorpseEffect());
 	}
 
 

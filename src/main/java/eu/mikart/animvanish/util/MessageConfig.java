@@ -96,9 +96,6 @@ public class MessageConfig {
 		);
 	}
 
-	/**
-	 * Saves configuration file.
-	 */
 	public void saveConfig() {
 		if (this.config == null || this.configFile == null) {
 			return;
@@ -110,9 +107,6 @@ public class MessageConfig {
 		}
 	}
 
-	/**
-	 * Saves default configuration.
-	 */
 	public void saveDefaultConfig() {
 		if (this.configFile == null) {
 			this.configFile = new File(this.plugin.getDataFolder(), "messages.yml");

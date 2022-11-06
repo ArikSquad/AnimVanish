@@ -13,7 +13,6 @@ Our plugin makes your vanishing look great with a large library of pre-made effe
 - Turn effect (makes people turn 180 degrees around)
 - Blood effect (makes redstone particles come off the player)
 - Launch effect (launches player up)
-- Corpse effect (requires [GSit](https://www.spigotmc.org/resources/gsit-modern-sit-seat-and-chair-lay-and-crawl-plugin-1-13-x-1-19-x.62325/), lays down and vanishes)
 
 ### Known issues
 - None

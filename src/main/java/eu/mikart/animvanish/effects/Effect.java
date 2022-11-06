@@ -34,6 +34,11 @@ public abstract class Effect implements EffectInterface {
 		Utilities.toggleVanish(p);
 	}
 
+	/**
+	 * Check if a player is vanished
+	 * @param p Player
+	 * @return Player's vanish status
+	 */
 	public boolean isVanished(Player p) {
 		return Utilities.isInvisible(p);
 	}

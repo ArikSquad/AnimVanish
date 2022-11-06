@@ -15,7 +15,7 @@ import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 public class LaunchEffect extends Effect {
 
 	public LaunchEffect() {
-		super("launch", "Launches a Armor Stand to the air!", new ItemStack(Material.ARMOR_STAND));
+		super("launch", "Launches you to the air!", new ItemStack(Material.PISTON));
 	}
 
 	@Override
