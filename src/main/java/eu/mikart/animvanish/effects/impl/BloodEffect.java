@@ -19,20 +19,10 @@ public class BloodEffect extends Effect {
 
 	@Override
 	public void runEffect(Player player) {
-		new BukkitRunnable() {
-			int i = 0;
-			public void run() {
-				i++;
-				Location location = player.getLocation();
-				location.add(0, ThreadLocalRandom.current().nextFloat() * 1.75, 0);
-				location.getWorld().playEffect(location, org.bukkit.Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
-
-				player.playEffect(EntityEffect.HURT);
-				if(i == 5) {
-					this.cancel();
-				}
-			}
-		}.runTaskTimerAsynchronously(Main.getInstance(), 0, 2);
+		Location location = player.getLocation();
+		location.add(0, ThreadLocalRandom.current().nextFloat() * 1.75, 0);
+		location.getWorld().playEffect(location, org.bukkit.Effect.STEP_SOUND, Material.REDSTONE_BLOCK);
+		player.playEffect(EntityEffect.HURT);
 		toggleVanish(player);
 	}
 
