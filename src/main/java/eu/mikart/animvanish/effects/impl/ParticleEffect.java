@@ -1,18 +1,16 @@
 package eu.mikart.animvanish.effects.impl;
 
 import eu.mikart.animvanish.Main;
+import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.effects.Effect;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
+@EffectAnnotation(name = "particle", description = "Spawns particles", item = Material.AMETHYST_SHARD)
 public class ParticleEffect extends Effect {
-	public ParticleEffect() {
-		super("particle", "Spawns particles", new ItemStack(Material.AMETHYST_SHARD));
-	}
-	
+
 	@Override
 	public void runEffect(Player player) {
 		try {

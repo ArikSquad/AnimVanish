@@ -1,17 +1,14 @@
 package eu.mikart.animvanish.effects.impl;
 
 import eu.mikart.animvanish.Main;
+import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.effects.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
+@EffectAnnotation(name = "sound", description = "Plays a sound to close players", item = Material.AMETHYST_BLOCK)
 public class SoundEffect extends Effect {
-
-	public SoundEffect() {
-		super("sound", "Plays a sound to close players", new ItemStack(Material.AMETHYST_BLOCK));
-	}
 
 	@Override
 	public void runEffect(Player player) {

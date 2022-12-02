@@ -1,18 +1,15 @@
 package eu.mikart.animvanish.effects.impl;
 
+import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.effects.Effect;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+@EffectAnnotation(name = "blindness", description = "Makes players around you blind for a moment", item = Material.SPLASH_POTION)
 public class BlindnessEffect extends Effect {
-
-	public BlindnessEffect() {
-		super("blindness", "Makes players around you blind for a moment", new ItemStack(Material.SPLASH_POTION));
-	}
 
 	@Override
 	public void runEffect(Player player) {

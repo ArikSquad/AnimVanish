@@ -24,7 +24,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>18</release>
+                    <release>17</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -33,15 +33,24 @@
                 <version>3.3.0</version>
                 <configuration>
                     <relocations>
+                        <!-- bStats -->
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <shadedPattern>eu.mikart.animvanish</shadedPattern>
                         </relocation>
 
+                        <!-- UpdateChecker -->
                         <relocation>
                             <pattern>com.jeff_media.updatechecker</pattern>
                             <shadedPattern>eu.mikart.animvanish.updatechecker</shadedPattern>
                         </relocation>
+
+                        <!-- MineDown -->
+                        <relocation>
+                            <pattern>de.themoep.minedown</pattern>
+                            <shadedPattern>your.package.path.libraries.minedown</shadedPattern>
+                        </relocation>
+
                     </relocations>
                 </configuration>
                 <executions>
@@ -66,10 +75,13 @@
     </build>
 
     <repositories>
+        <!-- PaperMC rep -->
         <repository>
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
+
+        <!-- citizens -->
         <repository>
             <id>everything</id>
             <url>https://repo.citizensnpcs.co/</url>
@@ -82,6 +94,8 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+
+        <!-- AutoUpdater -->
         <repository>
             <id>jeff-media-public</id>
             <url>https://hub.jeff-media.com/nexus/repository/jeff-media-public/</url>
@@ -94,10 +108,16 @@
             <id>Maven Central</id>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
+
+        <!-- MineDown -->
+        <repository>
+            <id>minebench-repo</id>
+            <url>https://repo.minebench.de/</url>
+        </repository>
     </repositories>
 
     <dependencies>
-        <!-- Paper API -->
+        <!-- Paper API - PaperMC -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -113,7 +133,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- PremiumVanish API -->
+        <!-- PremiumVanish API - LeonMangler -->
         <dependency>
             <groupId>com.github.LeonMangler</groupId>
             <artifactId>PremiumVanishAPI</artifactId>
@@ -121,7 +141,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Citizens API -->
+        <!-- Citizens API - Citizen NPCs -->
         <dependency>
             <groupId>net.citizensnpcs</groupId>
             <artifactId>citizens-main</artifactId>
@@ -130,14 +150,14 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Config Updater -->
+        <!-- Config Updater - tchristofferson -->
         <dependency>
             <groupId>com.tchristofferson</groupId>
             <artifactId>ConfigUpdater</artifactId>
             <version>2.0-SNAPSHOT</version>
         </dependency>
 
-        <!-- Update Checker -->
+        <!-- Update Checker - Jeff Media -->
         <dependency>
             <groupId>com.jeff_media</groupId>
             <artifactId>SpigotUpdateChecker</artifactId>
@@ -145,11 +165,35 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- Jetbrains -->
+        <!-- Annotations - Jetbrains -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>23.0.0</version>
+        </dependency>
+
+        <!-- PagineDown - William278 -->
+        <dependency>
+            <groupId>net.william278</groupId>
+            <artifactId>PagineDown</artifactId>
+            <version>1.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- DesertWell - William278 -->
+        <dependency>
+            <groupId>net.william278</groupId>
+            <artifactId>DesertWell</artifactId>
+            <version>1.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- MineDown -->
+        <dependency>
+            <groupId>de.themoep</groupId>
+            <artifactId>minedown-adventure</artifactId>
+            <version>1.7.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

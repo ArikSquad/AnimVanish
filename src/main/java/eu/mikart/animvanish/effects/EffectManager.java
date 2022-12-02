@@ -9,8 +9,8 @@ public class EffectManager {
 	public final ArrayList<Effect> effects = new ArrayList<>();
 
 	public EffectManager () {
-		// Herobrine
-		effects.add(new HerobrineEffect());
+		// Lightning
+		effects.add(new LightningEffect());
 
 		// Particle
 		effects.add(new ParticleEffect());
@@ -20,9 +20,6 @@ public class EffectManager {
 
 		// Npc
 		effects.add(new NpcEffect());
-
-		// Zombie
-		effects.add(new ZombieEffect());
 
 		// Blood
 		effects.add(new BloodEffect());
@@ -43,15 +40,6 @@ public class EffectManager {
 		effects.add(new LaunchEffect());
 	}
 
-
-	/**
-	 * Returns the effect with the given name
-	 * @param name The name of the effect
-	 * @return Effect
-	 */
-	public Effect getEffect(String name) {
-		return effects.stream().filter(effect -> effect.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
-	}
 
 	/**
 	 * Returns all the effects

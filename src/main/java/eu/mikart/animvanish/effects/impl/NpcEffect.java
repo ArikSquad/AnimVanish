@@ -1,25 +1,28 @@
 package eu.mikart.animvanish.effects.impl;
 
 import eu.mikart.animvanish.Main;
+import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.effects.Effect;
+import eu.mikart.animvanish.util.Utilities;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
+@EffectAnnotation(name = "npc", description = "Spawn a NPC", item = Material.SHEEP_SPAWN_EGG)
 public class NpcEffect extends Effect {
 
-	public NpcEffect() {
-		super("npc", "Spawns a npc", new ItemStack(Material.SHEEP_SPAWN_EGG));
+	@Override
+	public boolean canRun() {
+		return Utilities.isCitizens();
 	}
 
 	@Override
 	public void runEffect(Player player) {
-		if (!Bukkit.getPluginManager().isPluginEnabled("Citizens")) {
-			player.sendMessage(messages.getMessage("invis.dependency.no_citizens"));
+		if (!Utilities.isCitizens()) {
+			player.sendMessage(messages.getMessage("dependency.no_citizens"));
 			return;
 		}
 

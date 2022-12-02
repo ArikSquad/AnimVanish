@@ -1,21 +1,16 @@
 package eu.mikart.animvanish.effects.impl;
 
-import eu.mikart.animvanish.Main;
+import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.effects.Effect;
 import org.bukkit.EntityEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@EffectAnnotation(name = "blood", description = "Makes some red particles around the player", item = Material.REDSTONE)
 public class BloodEffect extends Effect {
-
-	public BloodEffect() {
-		super("blood", "Makes some red particles", new ItemStack(Material.REDSTONE));
-	}
 
 	@Override
 	public void runEffect(Player player) {

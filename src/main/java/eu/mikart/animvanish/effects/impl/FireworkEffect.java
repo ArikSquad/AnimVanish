@@ -1,6 +1,7 @@
 package eu.mikart.animvanish.effects.impl;
 
 import eu.mikart.animvanish.Main;
+import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.effects.Effect;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -10,16 +11,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
+@EffectAnnotation(name = "firework", description = "Spawns colorful fireworks", item = Material.FIREWORK_ROCKET)
 public class FireworkEffect extends Effect implements Listener {
-
-	public FireworkEffect() {
-		super("firework", "Spawns colorful fireworks", new ItemStack(Material.FIREWORK_ROCKET));
-	}
 
 	@Override
 	public void runEffect(Player player) {

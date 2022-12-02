@@ -1,26 +1,24 @@
 package eu.mikart.animvanish.effects.impl;
 
 import eu.mikart.animvanish.Main;
+import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.effects.Effect;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 
+@EffectAnnotation(name = "launch", description = "Launches you in the air!", item = Material.PISTON)
 public class LaunchEffect extends Effect {
-
-	public LaunchEffect() {
-		super("launch", "Launches you to the air!", new ItemStack(Material.PISTON));
-	}
 
 	@Override
 	public void runEffect(Player player) {
 		// check if there is only air above player
+		// there is probably an easier way to do this, but for now this works
 		for (int i = 0; i < 100; i++) {
 			if (!player.getWorld().getBlockAt(player.getLocation().add(0, i, 0)).isPassable()) {
 				player.sendMessage(messages.getMessage("invis.launch.no_space"));

@@ -39,6 +39,7 @@ public class MessageConfig {
 		if (defStream != null) {
 			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defStream));
 			this.config.setDefaults(defConfig);
+		} else if (!Objects.equals(this.config.getString("lol"), "lol")) {
 		}
 	}
 

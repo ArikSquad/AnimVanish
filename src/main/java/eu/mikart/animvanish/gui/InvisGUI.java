@@ -43,16 +43,18 @@ public class InvisGUI implements Listener {
 		}
 
 		for(Effect effect : Main.getInstance().getEffectManager().getEffects()) {
-			ItemStack item = effect.getItem();
-			ItemMeta meta = item.getItemMeta();
-			meta.displayName(messages.getMessage("gui.item_name", "effect_name", effect.getName()));
-			List<Component> lore = new ArrayList<>();
-			lore.add(messages.getMessage("gui.item_lore", "effect_description", effect.getDescription()));
-			meta.lore(lore);
-			item.setItemMeta(meta);
+			if(effect.canRun()) {
+				ItemStack item = new ItemStack(effect.getItem());
+				ItemMeta meta = item.getItemMeta();
+				meta.displayName(messages.getMessage("gui.item_name", "effect_name", effect.getName()));
+				List<Component> lore = new ArrayList<>();
+				lore.add(messages.getMessage("gui.item_lore", "effect_description", effect.getDescription()));
+				meta.lore(lore);
+				item.setItemMeta(meta);
 
 
-			gui.addItem(item);
+				gui.addItem(item);
+			}
 		}
 
 		player.openInventory(gui);
@@ -69,27 +71,30 @@ public class InvisGUI implements Listener {
 		}
 
 		e.setCancelled(true);
-		Player p = (Player) e.getWhoClicked();
+		Player player = (Player) e.getWhoClicked();
 
-		if (Utilities.isVanish()) {
-			ItemStack item = e.getCurrentItem();
-			if (item == null || item.getType() == Material.AIR) {
-				return;
-			}
+		if (!Utilities.isVanish()) {
+			player.sendMessage(messages.getMessage("dependency.no_vanish"));
+			return;
 
-			for (Effect effect : Main.getInstance().getEffectManager().getEffects()) {
-				if (item.isSimilar(effect.getItem())) {
-					e.getInventory().close();
-					if (p.hasPermission("animvanish.invis." + effect.getName())) {
-						effect.runEffect(p);
-					} else {
-						p.sendMessage(messages.getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
-					}
-					break;
+		}
+
+		ItemStack item = e.getCurrentItem();
+		if (item == null || item.getType() == Material.AIR) {
+			return;
+		}
+		for (Effect effect : Main.getInstance().getEffectManager().getEffects()) {
+			if (item.getType().equals(effect.getItem())) {
+				e.getInventory().close();
+
+				if (!player.hasPermission("animvanish.invis." + effect.getName())) {
+					player.sendMessage(messages.getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
+					return;
 				}
+
+				effect.runEffect(player);
+				break;
 			}
-		} else {
-			p.sendMessage(messages.getMessage("dependency.no_vanish"));
 		}
 	}
 }

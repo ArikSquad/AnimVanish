@@ -1,16 +1,15 @@
 package eu.mikart.animvanish;
 
-
-import com.jeff_media.updatechecker.UpdateCheckSource;
-import com.jeff_media.updatechecker.UpdateChecker;
 import com.tchristofferson.configupdater.ConfigUpdater;
-import eu.mikart.animvanish.commands.AnimVanishCommand;
-import eu.mikart.animvanish.commands.InvisCommand;
+import eu.mikart.animvanish.commands.AnimCommand;
+import eu.mikart.animvanish.commands.AnimCommandManager;
 import eu.mikart.animvanish.effects.EffectManager;
 import eu.mikart.animvanish.effects.impl.FireworkEffect;
 import eu.mikart.animvanish.gui.InvisGUI;
 import eu.mikart.animvanish.util.MessageConfig;
 import eu.mikart.animvanish.util.Settings;
+import net.william278.desertwell.UpdateChecker;
+import net.william278.desertwell.Version;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,13 +23,14 @@ public final class Main extends JavaPlugin {
 	private static Main instance;
 	public static MessageConfig messages;
 	private EffectManager effectManager;
-
+	private static AnimCommandManager animCommandManager;
 
 	@Override
 	public void onEnable() {
 		instance = this;
 		messages = new MessageConfig(this);
 		effectManager = new EffectManager();
+		animCommandManager = new AnimCommandManager();
 
 		// bStats
 		new Metrics(this, Settings.bStats);
@@ -56,23 +56,27 @@ public final class Main extends JavaPlugin {
 		reloadConfig();
 		messages.reloadConfig();
 
-		// Register commands
-		Objects.requireNonNull(getCommand("animvanish")).setExecutor(new AnimVanishCommand());
-		Objects.requireNonNull(getCommand("invis")).setExecutor(new InvisCommand());
-
-
 		// Register listeners
 		getServer().getPluginManager().registerEvents(new FireworkEffect(), this);
 		getServer().getPluginManager().registerEvents(new InvisGUI(), this);
 
 		// Check for updates
-		new UpdateChecker(this, UpdateCheckSource.SPIGET, Settings.PLUGIN_STR)
-				.checkEveryXHours(24)
-				.setNotifyOpsOnJoin(getConfig().getBoolean("notifyOps"))
-				.setFreeDownloadLink(Settings.PLUGIN_URL)
-				.suppressUpToDateMessage(getConfig().getBoolean("suppressToDate"))
-				.setColoredConsoleOutput(true)
-				.checkNow();
+		final UpdateChecker updateChecker = UpdateChecker.create(Version.fromString(Settings.getPluginVersion()), Settings.PLUGIN_INT);
+		updateChecker.isUpToDate().thenAccept(upToDate -> {
+			if (upToDate) {
+				getLogger().info("Running the latest version (" + updateChecker.getCurrentVersion() + ")");
+			} else {
+				getLogger().info("An update is available! Download from: https://www.spigotmc.org/resources/" + Settings.PLUGIN_INT);
+			}
+		});
+
+		Settings.DEBUG = getConfig().getBoolean("debug");
+
+		// Register commands
+		for (AnimCommand command : getAnimCommandManager().getCommands()) {
+			if (Settings.DEBUG) getLogger().info("Registering command: " + command.getName());
+			Objects.requireNonNull(getCommand(command.getName())).setExecutor(command);
+		}
 	}
 
 	@Override
@@ -82,6 +86,10 @@ public final class Main extends JavaPlugin {
 
 	public EffectManager getEffectManager() {
 		return effectManager;
+	}
+
+	public AnimCommandManager getAnimCommandManager() {
+		return animCommandManager;
 	}
 
 	public static Main getInstance() {

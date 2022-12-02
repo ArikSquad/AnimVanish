@@ -3,8 +3,8 @@ version: '${project.version}'
 main: eu.mikart.animvanish.Main
 api-version: 1.18
 author: ArikSquad
-description: Plugin that provides large library of pre-made effects to your vanish
-website: https://youtube.com/c/ArikChannel
+description: Beautiful library of pre-made effects to make vanishing look as cool as it can!
+website: https://www.spigotmc.org/resources/animvanish-1-19-animated-vanishing.102183/
 softdepend:
   - SuperVanish
   - PremiumVanish
@@ -13,8 +13,8 @@ softdepend:
 
 commands:
   animvanish:
-    description: Command for information about the plugin
-    usage: /<command> [reload|author|help]
+    description: Command for information about the AnimVanish
+    usage: /<command> [reload|help]
   invis:
     description: Command for invisibility with an effect
     usage: /<command> [effect]
@@ -29,11 +29,10 @@ permissions:
   animvanish.invis:
     children:
       animvanish.invis.other: true
-      animvanish.invis.herobrine: true
+      animvanish.invis.lightning: true
       animvanish.invis.particle: true
       animvanish.invis.tnt: true
       animvanish.invis.npc: true
-      animvanish.invis.zombie: true
       animvanish.invis.blindness: true
       animvanish.invis.sound: true
       animvanish.invis.turn: true
@@ -46,7 +45,7 @@ permissions:
     description: Grants you the ability to open the invis gui menu
   animvanish.invis.launch:
     description: Grants you the ability to launch yourself to the sky
-  animvanish.invis.herobrine:
+  animvanish.invis.lightning:
     description: Grants you the ability to vanish with an amazing lightning strike
   animvanish.invis.particle:
     description: Grants you the ability to vanish with customizable particles
@@ -54,8 +53,6 @@ permissions:
     description: Grants you the ability to vanish with an explosion
   animvanish.invis.npc:
     description: Grants you the ability to vanish with an NPC taking your place
-  animvanish.invis.zombie:
-    description: Grants you the ability to vanish with a zombie taking your place
   animvanish.invis.blindness:
     description: Grants you the ability to vanish with making players around you blind for a moment
   animvanish.invis.sound:

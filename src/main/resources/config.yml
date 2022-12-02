@@ -7,7 +7,7 @@ notifyOps: false
 # ---- EFFECTS ---- #
 
 effects:
-  herobrine:
+  lightning:
     # Will the time set to night with the effect? Default: True
     night: true
 
@@ -25,5 +25,7 @@ effects:
     type: BLOCK_AMETHYST_BLOCK_HIT
 
   launch:
-    # Enable if launch effect Armor Stands should use the player's own armor
+    # Enable if launch effect Armor Stands should use the players' own armor
     use_player_armor: true
+
+debug: false

@@ -1,13 +1,14 @@
-package eu.mikart.animvanish.commands;
+package eu.mikart.animvanish.commands.impl;
 
 import eu.mikart.animvanish.Main;
+import eu.mikart.animvanish.annonations.CommandAnnotation;
+import eu.mikart.animvanish.commands.AnimCommand;
 import eu.mikart.animvanish.effects.Effect;
 import eu.mikart.animvanish.gui.InvisGUI;
 import eu.mikart.animvanish.util.MessageConfig;
 import eu.mikart.animvanish.util.Utilities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,7 +16,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvisCommand implements TabExecutor {
+@CommandAnnotation(name = "invis")
+public class InvisCommand extends AnimCommand {
 
 	public final MessageConfig messages = Main.getMessages();
 
@@ -34,18 +36,20 @@ public class InvisCommand implements TabExecutor {
 			return true;
 
 		}
+
 		boolean found = false;
+
 		for (Effect effect : Main.getInstance().getEffectManager().getEffects()) {
 			if (args[0].equalsIgnoreCase(effect.getName())) {
 				found = true;
 				if (!player.hasPermission("animvanish.invis." + effect.getName())) {
 					player.sendMessage(messages.getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
-					return true;
 				}
 				effect.runEffect(player);
 				break;
 			}
 		}
+
 		if (!found) {
 			player.sendMessage(messages.getMessage("invis.not_found"));
 			return true;
@@ -58,14 +62,19 @@ public class InvisCommand implements TabExecutor {
 		if (args.length == 1) {
 			List<String> arguments = new ArrayList<>();
 			for (Effect effect : Main.getInstance().getEffectManager().getEffects()) {
-				if(sender.hasPermission("animvanish.invis." + effect.getName())) {
-					arguments.add(effect.getName());
+				if(!sender.hasPermission("animvanish.invis." + effect.getName())) {
+					continue;
 				}
+				if(!effect.canRun()) {
+					continue;
+				}
+				if(!effect.getName().startsWith(args[0])) {
+					continue;
+				}
+				arguments.add(effect.getName());
 			}
-
 			return arguments;
 		}
-
 		return null;
 	}
 }

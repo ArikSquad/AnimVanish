@@ -1,17 +1,14 @@
 package eu.mikart.animvanish.effects.impl;
 
+import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.effects.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
+@EffectAnnotation(name = "turn", description = "Turns the close players to look the other way", item = Material.BARREL)
 public class TurnEffect extends Effect {
-
-	public TurnEffect() {
-		super("turn", "Turns the close players to look the other way", new ItemStack(Material.BARREL));
-	}
 
 	@Override
 	public void runEffect(Player player) {

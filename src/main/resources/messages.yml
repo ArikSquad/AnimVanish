@@ -11,7 +11,7 @@ invalid_args: '<prefix> <red>Invalid arguments.</red>'
 not_player: '<prefix> <red>You must be a player.</red>'
 reload: '<prefix> <color:#b0ff5c>Reloaded configs</color>'
 player_not_found: '<prefix> <red>Player not found.</red>'
-# In no_permissions you can use <permission> to show the permission required (e.g. animvanish.invis.herobrine)
+# In no_permissions you can use placeholder <permission> to show the permission required (e.g. animvanish.invis.lightning)
 no_permissions: "<prefix> <red>You don't have permissions to use this command.</red> <green>(<permission>)</green>"
 
 
@@ -56,8 +56,6 @@ gui:
 animvanish:
   help:
     no_permission: "<prefix> <red>You don't have permission to use this command.</red> <green>(animvanish.help)</green>"
-  version:
-    message: "<prefix> <color:#ff6f59>Current version is</color> <b><color:#ff14f3><click:open_url:'<url>'><version></click></color></b>"
   reload:
     no_permission: "<prefix> <red>You don't have permission to use this command.</red> <green>(animvanish.reload)</green>"
 
