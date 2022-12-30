@@ -31,18 +31,31 @@ public final class Main extends JavaPlugin {
 		messages = new MessageConfig(this);
 		effectManager = new EffectManager();
 		animCommandManager = new AnimCommandManager();
-
-		// bStats
 		new Metrics(this, Settings.bStats);
 
-		// Load configs
+		setupConfig();
+
+		// Register listeners
+		getServer().getPluginManager().registerEvents(new FireworkEffect(), this);
+		getServer().getPluginManager().registerEvents(new InvisGUI(), this);
+
+		updateCheck();
+		Settings.DEBUG = getConfig().getBoolean("debug");
+
+		// Register commands
+		for (AnimCommand command : getAnimCommandManager().getCommands()) {
+			if (Settings.DEBUG) getLogger().info("Registering command: " + command.getName());
+			Objects.requireNonNull(getCommand(command.getName())).setExecutor(command);
+		}
+	}
+
+	public void setupConfig() {
 		getConfig().options().copyDefaults();
 		saveDefaultConfig();
 
 		messages.getConfig().options().copyDefaults();
 		messages.saveDefaultConfig();
 
-		// Update configs
 		File configFile = new File(getDataFolder(), "config.yml");
 		File messagesFile = new File(getDataFolder(), "messages.yml");
 
@@ -55,28 +68,19 @@ public final class Main extends JavaPlugin {
 
 		reloadConfig();
 		messages.reloadConfig();
-
-		// Register listeners
-		getServer().getPluginManager().registerEvents(new FireworkEffect(), this);
-		getServer().getPluginManager().registerEvents(new InvisGUI(), this);
-
-		// Check for updates
+	}
+	public void updateCheck() {
 		final UpdateChecker updateChecker = UpdateChecker.create(Version.fromString(Settings.getPluginVersion()), Settings.PLUGIN_INT);
 		updateChecker.isUpToDate().thenAccept(upToDate -> {
 			if (upToDate) {
-				getLogger().info("Running the latest version (" + updateChecker.getCurrentVersion() + ")");
+				if(!getConfig().getBoolean("suppressToDate")) {
+					getLogger().info("Running the latest version (" + updateChecker.getCurrentVersion() + ")");
+				}
+
 			} else {
 				getLogger().info("An update is available! Download from: https://www.spigotmc.org/resources/" + Settings.PLUGIN_INT);
 			}
 		});
-
-		Settings.DEBUG = getConfig().getBoolean("debug");
-
-		// Register commands
-		for (AnimCommand command : getAnimCommandManager().getCommands()) {
-			if (Settings.DEBUG) getLogger().info("Registering command: " + command.getName());
-			Objects.requireNonNull(getCommand(command.getName())).setExecutor(command);
-		}
 	}
 
 	@Override

@@ -2,7 +2,6 @@
 # -------------------------------- #
 
 suppressToDate: true
-notifyOps: false
 
 # ---- EFFECTS ---- #
 
