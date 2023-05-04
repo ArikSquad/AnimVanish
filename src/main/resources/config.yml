@@ -1,5 +1,6 @@
 # version of config: 1.0.8
 
+debug: false
 suppress-up-to-date: true
 
 # en_US, fi_FI
@@ -26,6 +27,3 @@ effects:
   launch:
     # Enable if launch effect Armor Stands should use the players' own armor. Default: true
     use_player_armor: true
-
-# Log all debug messages to console
-debug: false
