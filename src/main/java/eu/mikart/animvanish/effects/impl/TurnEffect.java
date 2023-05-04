@@ -1,5 +1,6 @@
 package eu.mikart.animvanish.effects.impl;
 
+import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.effects.Effect;
 import org.bukkit.Location;
@@ -21,7 +22,7 @@ public class TurnEffect extends Effect {
 			}
 		}
 		if (player_amount == 0) {
-			player.sendMessage(messages.getMessage("invis.turn.none"));
+			player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("invis.turn.none"));
 		}
 		toggleVanish(player);
 	}

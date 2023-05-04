@@ -1,13 +1,13 @@
-# Configuration file of AnimVanish #
-# -------------------------------- #
+# version of config: 1.0.8
 
-suppressToDate: true
+suppress-up-to-date: true
 
-# ---- EFFECTS ---- #
+# en_US, fi_FI
+locale: en_US
 
 effects:
   lightning:
-    # Will the time set to night with the effect? Default: True
+    # Will the time set to night with the effect? Default: true
     night: true
 
   particle:
@@ -24,7 +24,8 @@ effects:
     type: BLOCK_AMETHYST_BLOCK_HIT
 
   launch:
-    # Enable if launch effect Armor Stands should use the players' own armor
+    # Enable if launch effect Armor Stands should use the players' own armor. Default: true
     use_player_armor: true
 
+# Log all debug messages to console
 debug: false

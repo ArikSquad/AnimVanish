@@ -5,7 +5,6 @@ import eu.mikart.animvanish.annonations.CommandAnnotation;
 import eu.mikart.animvanish.commands.AnimCommand;
 import eu.mikart.animvanish.effects.Effect;
 import eu.mikart.animvanish.gui.InvisGUI;
-import eu.mikart.animvanish.util.MessageConfig;
 import eu.mikart.animvanish.util.Utilities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -19,20 +18,22 @@ import java.util.List;
 @CommandAnnotation(name = "invis")
 public class InvisCommand extends AnimCommand {
 
-	public final MessageConfig messages = Main.getMessages();
-
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (!(sender instanceof Player player)) {
-			sender.sendMessage(messages.getMessage("not_player"));
+			sender.sendMessage(Main.getInstance().getLocaleConfig().getMessage("not_player"));
 			return true;
 		}
 		if (!Utilities.isVanish()) {
-			player.sendMessage(messages.getMessage("dependency.no_vanish"));
+			player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("dependency.no_vanish"));
 			return true;
 		}
 		if (!(args.length > 0)) {
-			InvisGUI.openGUI(player);
+			if(player.hasPermission("animvanish.invis.gui")) {
+				InvisGUI.openGUI(player);
+			} else {
+				player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("no_permissions", "permission", "animvanish.invis.gui"));
+			}
 			return true;
 
 		}
@@ -43,7 +44,7 @@ public class InvisCommand extends AnimCommand {
 			if (args[0].equalsIgnoreCase(effect.getName())) {
 				found = true;
 				if (!player.hasPermission("animvanish.invis." + effect.getName())) {
-					player.sendMessage(messages.getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
+					player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
 				}
 				effect.runEffect(player);
 				break;
@@ -51,7 +52,7 @@ public class InvisCommand extends AnimCommand {
 		}
 
 		if (!found) {
-			player.sendMessage(messages.getMessage("invis.not_found"));
+			player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("invis.not_found"));
 			return true;
 		}
 		return true;

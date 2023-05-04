@@ -21,7 +21,7 @@ public class LaunchEffect extends Effect {
 		// there is probably an easier way to do this, but for now this works
 		for (int i = 0; i < 100; i++) {
 			if (!player.getWorld().getBlockAt(player.getLocation().add(0, i, 0)).isPassable()) {
-				player.sendMessage(messages.getMessage("invis.launch.no_space"));
+				player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("invis.launch.no_space"));
 				return;
 			}
 		}
@@ -29,7 +29,7 @@ public class LaunchEffect extends Effect {
 		boolean vanished = isVanished(player);
 		if(!vanished) toggleVanish(player);
 
-		ArmorStand armorStand = player.getWorld().spawn(player.getLocation().add(0, 1, 0), ArmorStand.class);
+		ArmorStand armorStand = player.getWorld().spawn(player.getLocation().add(0, 1, 0).setDirection(player.getLocation().getDirection()), ArmorStand.class);
 		armorStand.setInvulnerable(true);
 		armorStand.setArms(true);
 		armorStand.customName(miniMessage().deserialize(player.getName()));
@@ -40,6 +40,8 @@ public class LaunchEffect extends Effect {
 			armorStand.getEquipment().setChestplate(player.getInventory().getChestplate());
 			armorStand.getEquipment().setLeggings(player.getInventory().getLeggings());
 			armorStand.getEquipment().setBoots(player.getInventory().getBoots());
+			armorStand.getEquipment().setItemInMainHand(player.getInventory().getItemInMainHand());
+			armorStand.getEquipment().setItemInOffHand(player.getInventory().getItemInOffHand());
 		}
 
 		// add player to be the passenger

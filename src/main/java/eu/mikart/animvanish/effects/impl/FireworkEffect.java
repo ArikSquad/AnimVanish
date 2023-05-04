@@ -23,16 +23,19 @@ public class FireworkEffect extends Effect implements Listener {
 		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
 		FireworkMeta fwm = fw.getFireworkMeta();
 		fwm.setPower(1);
+
+		// Add colors
 		fwm.addEffect(org.bukkit.FireworkEffect.builder().with(org.bukkit.FireworkEffect.Type.BURST).withColor(Color.RED).build());
 		fwm.addEffect(org.bukkit.FireworkEffect.builder().with(org.bukkit.FireworkEffect.Type.BURST).withColor(Color.GREEN).build());
 		fwm.addEffect(org.bukkit.FireworkEffect.builder().with(org.bukkit.FireworkEffect.Type.BURST).withColor(Color.BLUE).build());
 		fwm.addEffect(org.bukkit.FireworkEffect.builder().with(org.bukkit.FireworkEffect.Type.BURST).withColor(Color.YELLOW).build());
 		fwm.addEffect(org.bukkit.FireworkEffect.builder().with(org.bukkit.FireworkEffect.Type.BURST).withColor(Color.AQUA).build());
+
 		fw.setVelocity(new Vector(0, 2, 0));
 		fw.setMetadata("nodamage", new FixedMetadataValue(Main.getInstance(), true));
 		fw.setFireworkMeta(fwm);
 
-		// This was a not intended feature, but it's so cool.
+		// This wasn't an intended feature, but it's so cool, the firework instantly explodes!
 		// It isn't a bug, it's a feature
 		fw.detonate();
 		toggleVanish(player);

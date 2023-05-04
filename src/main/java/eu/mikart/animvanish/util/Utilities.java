@@ -1,6 +1,7 @@
 package eu.mikart.animvanish.util;
 
 import de.myzelyam.api.vanish.VanishAPI;
+import eu.mikart.animvanish.Main;
 import net.william278.desertwell.AboutMenu;
 import net.william278.desertwell.Version;
 import org.bukkit.Bukkit;
@@ -56,7 +57,7 @@ public class Utilities {
 	public static void showAboutMenu(CommandSender player) {
 		final AboutMenu menu = AboutMenu.create("AnimVanish")
 				.withDescription("Beautiful library of pre-made effects to make vanishing look as cool as it can!")
-				.withVersion(Version.fromString(Settings.getPluginVersion()))
+				.withVersion(Version.fromString(Main.getInstance().getDescription().getVersion()))
 				.addAttribution("Author", AboutMenu.Credit.of("ArikSquad").withDescription("Click to visit website").withUrl("https://www.mikart.eu/"))
 				.addButtons(AboutMenu.Link.of("https://www.mikart.eu/").withText("Website").withIcon("⛏"), AboutMenu.Link.of("https://discord.gg/xh9WAvGdVF").withText("Discord").withIcon("⭐").withColor("#6773f5"));
 

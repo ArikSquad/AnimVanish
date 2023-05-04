@@ -1,0 +1,53 @@
+# yleiset muuttujat: <prefix>, <url>, <version>
+
+
+# ---- GENERAL ---- #
+prefix: '[<color:#AFEEEE>AnimVanish</color>]'
+
+# ---- COMMANDS ---- #
+invalid_args: '<prefix> <red>Virheelliset argumentit.</red>'
+not_player: '<prefix> <red>Sinun pitää olla pelaaja.</red>'
+reload: '<prefix> <color:#b0ff5c>Uudelleenladattu asetukset.</color>'
+player_not_found: '<prefix> <red>Pelaajaa ei löydetty.</red>'
+# muuttujat: <permission> (kertoo luvat komentoon esim. animvanish.invis.lightning)
+no_permissions: "<prefix> <red>Sinulla ei ole lupaa käyttää tätä komentoa.</red> <green>(<permission>)</green>"
+
+
+invis:
+  only_to_vanish: '<prefix> <red>Tätä efekti vaikuttaa vain, kun siirrytään vanishiin.</red>'
+  not_found: '<prefix> <red>Efektiä ei löydetty.</red>'
+
+  particle:
+    invalid_config: '<prefix> <red>Virheellinen hiukkasten konfiguraatio. Pyydä järjestelmänvalvojaa tarkistamaan konfigurointitiedosto.</red>'
+    invalid_particle: "<prefix> <red>Tuota hiukkasta ei ole olemassa tai sitä ei tueta.</red>"
+
+  blindness:
+    message: '<prefix> <yellow>Näit jotain, ja sinua huimaa nyt</yellow>'
+    author: '<prefix> <green>Sokaisit kaikki pelaajat ympärilläsi.</green>'
+
+  sound:
+    invalid_config: '<prefix> <red>Virheellinen äänikonfiguraatio. Pyydä järjestelmänvalvojaa tarkistamaan konfigurointitiedosto.</red>'
+    invalid_sound: "<prefix> <red>Tätä ääntä ei ole olemassa tai sitä ei tueta.</red>"
+
+  turn:
+    none: '<prefix> <color:#ff926e>Ketään ei käännetty, koska kukaan ei ole lähelläsi.</color>'
+
+  launch:
+    no_space: '<prefix> <red>Ei ole tilaa laukaista panssaritelinettä.</red>'
+
+
+gui:
+  # muuttuja <player> (pelaajan nimi, molemmissa seuraavissa)
+  title: '<color:#e26eff>Valitse efekti</color>'
+  placeholder_name: '<gray>Valitse efekti</gray>'
+
+  # muuttuja <effect_name>
+  item_name: '<green><effect_name></green>'
+
+  # muuttuja <effect_description>
+  item_lore: '<blue><effect_description></blue>'
+
+
+dependency:
+  no_citizens: '<prefix> <red>Sinulla on oltava Citizens asennettuna, jotta voit käyttää tätä efektiä.</red>'
+  no_vanish: '<prefix> <red>Sinulla on oltava SuperVanish tai PremiumVanish asennettuna, jotta voit käyttää tätä efektiä</red>'

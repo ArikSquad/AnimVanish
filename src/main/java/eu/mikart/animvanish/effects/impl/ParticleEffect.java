@@ -17,8 +17,8 @@ public class ParticleEffect extends Effect {
 			player.getWorld().spawnParticle(Particle.valueOf(Main.getInstance().getConfig().getString("effects.particle.type")),
 					player.getEyeLocation().add(0, 2, 0), 50);
 		} catch (Exception e) {
-			player.sendMessage(messages.getMessage("invis.particle.invalid_config"));
-			Bukkit.getConsoleSender().sendMessage(messages.getMessage("invis.particle.invalid_config"));
+			player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("invis.particle.invalid_config"));
+			Bukkit.getConsoleSender().sendMessage(Main.getInstance().getLocaleConfig().getMessage("invis.particle.invalid_config"));
 			player.getWorld().spawnParticle(Particle.DRAGON_BREATH, player.getEyeLocation().add(0, 2, 0),
 					50);
 		}

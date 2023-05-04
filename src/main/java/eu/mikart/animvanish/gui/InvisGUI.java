@@ -2,7 +2,6 @@ package eu.mikart.animvanish.gui;
 
 import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.effects.Effect;
-import eu.mikart.animvanish.util.MessageConfig;
 import eu.mikart.animvanish.util.Utilities;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -19,8 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InvisGUI implements Listener {
-
-	public static final MessageConfig messages = Main.getMessages();
 	private static Inventory gui;
 
 	/**
@@ -29,11 +26,11 @@ public class InvisGUI implements Listener {
 	public static void openGUI(Player player) {
 		if (!player.hasPermission("animvanish.invis.gui")) return;
 
-		gui = Bukkit.createInventory(null, 54, messages.getMessage("gui.title", "player", player.getName()));
+		gui = Bukkit.createInventory(null, 54, Main.getInstance().getLocaleConfig().getMessage("gui.title", "player", player.getName()));
 
 		ItemStack border_item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 		ItemMeta border_meta = border_item.getItemMeta();
-		border_meta.displayName(messages.getMessage("gui.placeholder_name", "player", player.getName()));
+		border_meta.displayName(Main.getInstance().getLocaleConfig().getMessage("gui.placeholder_name", "player", player.getName()));
 		border_item.setItemMeta(border_meta);
 
 		// Fill the inventory with border items, so it's cleaner.
@@ -46,9 +43,9 @@ public class InvisGUI implements Listener {
 			if(effect.canRun()) {
 				ItemStack item = new ItemStack(effect.getItem());
 				ItemMeta meta = item.getItemMeta();
-				meta.displayName(messages.getMessage("gui.item_name", "effect_name", effect.getName()));
+				meta.displayName(Main.getInstance().getLocaleConfig().getMessage("gui.item_name", "effect_name", effect.getName()));
 				List<Component> lore = new ArrayList<>();
-				lore.add(messages.getMessage("gui.item_lore", "effect_description", effect.getDescription()));
+				lore.add(Main.getInstance().getLocaleConfig().getMessage("gui.item_lore", "effect_description", effect.getDescription()));
 				meta.lore(lore);
 				item.setItemMeta(meta);
 
@@ -74,7 +71,7 @@ public class InvisGUI implements Listener {
 		Player player = (Player) e.getWhoClicked();
 
 		if (!Utilities.isVanish()) {
-			player.sendMessage(messages.getMessage("dependency.no_vanish"));
+			player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("dependency.no_vanish"));
 			return;
 
 		}
@@ -88,7 +85,7 @@ public class InvisGUI implements Listener {
 				e.getInventory().close();
 
 				if (!player.hasPermission("animvanish.invis." + effect.getName())) {
-					player.sendMessage(messages.getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
+					player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("no_permissions", "permission", "animvanish.invis." + effect.getName()));
 					return;
 				}
 

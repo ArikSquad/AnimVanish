@@ -9,9 +9,7 @@ public class AnimCommandManager {
 	private static final ArrayList<AnimCommand> commands = new ArrayList<>();
 
 	public AnimCommandManager() {
-		// AnimVanish
 		commands.add(new AnimVanishCommand());
-		// InvisCommand
 		commands.add(new InvisCommand());
 	}
 
@@ -23,6 +21,10 @@ public class AnimCommandManager {
 	 */
 	public ArrayList<AnimCommand> getCommands() {
 		return commands;
+	}
+
+	public void registerAll() {
+		for (AnimCommand command : commands) command.register();
 	}
 
 }
