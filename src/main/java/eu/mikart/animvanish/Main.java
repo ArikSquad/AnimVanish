@@ -72,9 +72,9 @@ public final class Main extends JavaPlugin {
 		localeConfig.reloadConfig();
 	}
 	private void updateCheck() {
-		new UpdateChecker(this, Settings.PLUGIN_ID).getVersion(version -> {
-			Version currentVersion = new Version(getDescription().getVersion());
-			Version latestVersion = new Version(version);
+		new UpdateChecker(this).getVersion(version -> {
+			Version currentVersion = new Version(getDescription().getVersion().replace("-BETA", ""));
+			Version latestVersion = new Version(version.replace("-BETA", ""));
 			if (currentVersion.compareTo(latestVersion) < 0) {
 				getLogger().info("An update is available " + latestVersion + "! Download it here: " + Settings.PLUGIN_URL);
 			} else {

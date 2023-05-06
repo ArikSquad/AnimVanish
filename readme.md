@@ -1,24 +1,31 @@
-<div style="text-align: center;">
-<img src="docs/animvanish-transparent.png" style="width: 25%" alt="AnimVanish Logo">
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/ArikSquad/AnimVanish/master/docs/animvanish-transparent.png" style="width: 25%" alt="AnimVanish Logo">
    
 ## AnimVanish
-Plugin that provides large library of pre-made effects to your vanish with support for SuperVanish and PremiumVanish
+
+Plugin that provides large library of pre-made effects for vanishing
 
 <a href="https://papermc.io/">
      <img src="https://img.shields.io/badge/paper-mc-blue.svg?style=for-the-badge&logo=" alt="paper-mc">
-    </a>
-    <a href="https://github.com/ArikSquad/AnimVanish/blob/master/LICENSE">
-        <img src="https://img.shields.io/github/license/ArikSquad/AnimVanish?style=for-the-badge" alt="license">
-    </a>
-    <a href="https://www.patreon.com/ariksquad">
-        <img src="https://img.shields.io/badge/Support-AnimVanish-red.svg?style=for-the-badge&logo=reddit" alt="Support AnimVanish on Patreon!">
-    </a>
+</a>
+
+<a href="https://github.com/ArikSquad/AnimVanish/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/ArikSquad/AnimVanish?style=for-the-badge" alt="license">
+</a>
+
+<a href="https://www.patreon.com/ariksquad">
+    <img src="https://img.shields.io/badge/Support-AnimVanish-red.svg?style=for-the-badge&logo=reddit" alt="Support AnimVanish on Patreon!">
+</a>
+
 </div>
 
-Remember to go check SuperVanish and PremiumVanish!
-Our plugin makes your vanishing look great with a large library of pre-made effects on your vanish.
+## Overview
+Animvanish makes your vanishing look great with a large library of pre-made effects for vanishing.
+You can use AnimVanish to vanish in front of your server community and make it look fantastic.
 
 ### Current library of effects:
+
 - Lightning effect (Lightning strike and optional night)
 - Particle effect
 - TNT effect
@@ -29,12 +36,17 @@ Our plugin makes your vanishing look great with a large library of pre-made effe
 - Turn effect
 - Firework effect
 - Blood effect
+- Launch effect
 
 ## Configuration
+
 You can find all about the configuration in the [wiki](https://github.com/ArikSquad/AnimVanish/wiki/Configuration)
 
 ## Permissions
-For more in-depth information about permissions, please visit the [wiki](https://github.com/ArikSquad/AnimVanish/wiki/Permissions)
+
+For more in-depth information about permissions, please visit
+the [wiki](https://github.com/ArikSquad/AnimVanish/wiki/Permissions)
+
 ```yml
 animvanish.* - All permissions in one
 animvanish.invis - This permission allows vanishing with effects
@@ -45,11 +57,8 @@ animvanish.reload - This permission can reload the plugin
 animvanish.help - This permissions can see help for the plugin 
 ```
 
+### Dependencies
+AnimVanish depends on [SuperVanish](https://www.spigotmc.org/resources/supervanish-be-invisible.1331/) or [PremiumVanish](https://www.spigotmc.org/resources/premiumvanish-stay-hidden-bungee-support.14404/)!
+Additionally, you need to get [Citizens](https://www.spigotmc.org/resources/citizens.13811/) for the NPC effect.
 
-Planned Features
--------
-| Feature name    | Status | 
-|-----------------|--------|
-| Mod Integration |        |
-| Built-in Vanish |        |
 
