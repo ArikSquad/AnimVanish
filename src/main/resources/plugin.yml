@@ -25,7 +25,12 @@ permissions:
       animvanish.invis: true
       animvanish.reload: true
       animvanish.help: true
-    description: Grants you all the permissions in AnimVanish
+    description: All the permissions in AnimVanish
+  animvanish.reload:
+    description: Allows to reload the plugin
+  animvanish.help:
+    default: true
+    description: Allows to use the help command
   animvanish.invis:
     children:
       animvanish.invis.other: true
@@ -40,32 +45,29 @@ permissions:
       animvanish.invis.blood: true
       animvanish.invis.gui: true
       animvanish.invis.launch: true
-    description: Grants all the invisibility effects
+    description: All the invisibility effects
+  animvanish.invis.other:
+    description: Allows to use the invisibility effect on other players
   animvanish.invis.gui:
-    description: Grants you the ability to open the invis gui menu
+    description: Ability to open the invis gui menu
   animvanish.invis.launch:
-    description: Grants you the ability to launch yourself to the sky
+    description: Ability to launch yourself to the sky
   animvanish.invis.lightning:
-    description: Grants you the ability to vanish with an amazing lightning strike
+    description: Ability to vanish with an amazing lightning strike
   animvanish.invis.particle:
-    description: Grants you the ability to vanish with customizable particles
+    description: Ability to use customizable particles effect
   animvanish.invis.tnt:
-    description: Grants you the ability to vanish with an explosion
+    description: Ability to vanish with a TNT explosion
   animvanish.invis.npc:
-    description: Grants you the ability to vanish with an NPC taking your place
+    description: Ability to vanish with a NPC taking your place for a moment
   animvanish.invis.blindness:
-    description: Grants you the ability to vanish with making players around you blind for a moment
+    description: Ability to vanish using the blindness effect
   animvanish.invis.sound:
-    description: Grants you the ability to vanish with a sound effect
+    description: Ability to vanish using the sound effect
   animvanish.invis.turn:
-    description: Grants you the ability to vanish and making people around you turn away
+    description: Ability to vanish using the turn effect
   animvanish.invis.firework:
-    description: Grants you the ability to vanish with colorful fireworks
+    description: Ability to vanish using the firework effect
   animvanish.invis.blood:
-    description: Grants you the ability to vanish with blood
-  animvanish.reload:
-    description: Allows you to reload the plugin
-  animvanish.help:
-    default: true
-    description: Allows you to use the help command
+    description: Ability to vanish using the blood effect
 
