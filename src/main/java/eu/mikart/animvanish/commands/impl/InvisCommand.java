@@ -5,7 +5,6 @@ import eu.mikart.animvanish.annonations.CommandAnnotation;
 import eu.mikart.animvanish.commands.AnimCommand;
 import eu.mikart.animvanish.effects.Effect;
 import eu.mikart.animvanish.gui.InvisGUI;
-import eu.mikart.animvanish.util.Utilities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

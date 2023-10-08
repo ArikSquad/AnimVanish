@@ -2,7 +2,6 @@ package eu.mikart.animvanish.gui;
 
 import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.effects.Effect;
-import eu.mikart.animvanish.util.Utilities;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

@@ -3,7 +3,6 @@ package eu.mikart.animvanish.effects;
 import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.annonations.EffectAnnotation;
 import eu.mikart.animvanish.util.Settings;
-import eu.mikart.animvanish.util.Utilities;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

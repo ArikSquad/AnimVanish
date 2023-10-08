@@ -12,7 +12,6 @@ import eu.mikart.animvanish.util.UpdateChecker;
 import eu.mikart.animvanish.util.Version;
 import lombok.Getter;
 import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SimplePie;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
