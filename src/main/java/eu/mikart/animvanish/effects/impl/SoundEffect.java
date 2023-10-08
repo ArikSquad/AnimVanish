@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 public class SoundEffect extends Effect {
 
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		try {
 			player.getWorld().playSound(player.getLocation(), Sound.valueOf(Main.getInstance().getConfig().getString("effects.sound.type")), 1, 1);
 		} catch (Exception e) {

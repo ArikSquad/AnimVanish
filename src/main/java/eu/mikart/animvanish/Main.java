@@ -5,12 +5,14 @@ import eu.mikart.animvanish.commands.AnimCommandManager;
 import eu.mikart.animvanish.effects.EffectManager;
 import eu.mikart.animvanish.effects.impl.FireworkEffect;
 import eu.mikart.animvanish.gui.InvisGUI;
-import eu.mikart.animvanish.util.LocaleManager;
+import eu.mikart.animvanish.hooks.HookManager;
+import eu.mikart.animvanish.util.CustomLocale;
 import eu.mikart.animvanish.util.Settings;
 import eu.mikart.animvanish.util.UpdateChecker;
 import eu.mikart.animvanish.util.Version;
 import lombok.Getter;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -29,17 +31,22 @@ public final class Main extends JavaPlugin {
 	private static AnimCommandManager commandManager;
 
 	@Getter
-	private LocaleManager localeConfig;
+	private CustomLocale localeConfig;
+
+	@Getter
+	private HookManager hookManager;
 
 	@Override
 	public void onEnable() {
 		instance = this;
 		effectManager = new EffectManager();
 		commandManager = new AnimCommandManager();
-		setupLocaleConfig();
+		hookManager = new HookManager();
 
-		new Metrics(this, Settings.bStats);
+		setupLocaleConfig();
 		setupConfig();
+
+		new Metrics(this, 14993);
 
 		// Register listeners
 		getServer().getPluginManager().registerEvents(new FireworkEffect(), this);
@@ -50,7 +57,7 @@ public final class Main extends JavaPlugin {
 	}
 
 	public void setupLocaleConfig() {
-		localeConfig = new LocaleManager(getConfig().getString("locale"));
+		localeConfig = new CustomLocale(getConfig().getString("locale"));
 	}
 
 	private void setupConfig() {
@@ -72,14 +79,17 @@ public final class Main extends JavaPlugin {
 		localeConfig.reloadConfig();
 	}
 	private void updateCheck() {
+		if(getDescription().getVersion().contains("BETA")) Settings.BETA = true;
+
 		new UpdateChecker(this).getVersion(version -> {
-			Version currentVersion = new Version(getDescription().getVersion().replace("-BETA", ""));
-			Version latestVersion = new Version(version.replace("-BETA", ""));
+			Version currentVersion = new Version(getDescription().getVersion().replaceAll("[^\\d.]", ""));
+			Version latestVersion = new Version(version.replaceAll("[^\\d.]", ""));
 			if (currentVersion.compareTo(latestVersion) < 0) {
-				getLogger().info("An update is available " + latestVersion + "! Download it here: " + Settings.PLUGIN_URL);
+				String type = Settings.BETA ? "beta release" : "release";
+				getLogger().warning("New " + type + " is available (" + version + ")! Download it from here: " + Settings.PLUGIN_URL);
 			} else {
 				if (Objects.equals(getConfig().getString("suppress-up-to-date"), "false")) {
-					getLogger().info("There is not a new update available.");
+					getLogger().info("Running on the latest AnimVanish version");
 				}
 			}
 		});

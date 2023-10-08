@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 @EffectAnnotation(name = "lightning", description = "Strike the player with a lightning", item = Material.LIGHTNING_ROD)
 public class LightningEffect extends Effect {
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		long timeBefore = player.getWorld().getTime();
 
 		player.getWorld().strikeLightningEffect(player.getLocation());

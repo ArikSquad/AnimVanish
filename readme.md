@@ -20,6 +20,8 @@ Plugin that provides large library of pre-made effects for vanishing
 
 </div>
 
+# YOU NEED PAPER TO RUN THIS PLUGIN 
+
 ## Overview
 Animvanish makes your vanishing look great with a large library of pre-made effects for vanishing.
 You can use AnimVanish to vanish in front of your server community and make it look fantastic.
@@ -49,7 +51,7 @@ the [wiki](https://github.com/ArikSquad/AnimVanish/wiki/Permissions)
 
 ```yml
 animvanish.* - All permissions in one
-animvanish.invis - This permission allows vanishing with effects
+animvanish.invis - This permission allows vanishing with all effects
 animvanish.invis.other - This permission allows vanishing other players
 animvanish.invis.gui - This permission allows opening the GUI
 animvanish.invis.[effect] - This permissions allows vanishing with a specific effect

@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class BloodEffect extends Effect {
 
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		Location location = player.getLocation();
 		location.add(0, ThreadLocalRandom.current().nextFloat() * 1.75, 0);
 		location.getWorld().playEffect(location, org.bukkit.Effect.STEP_SOUND, Material.REDSTONE_BLOCK);

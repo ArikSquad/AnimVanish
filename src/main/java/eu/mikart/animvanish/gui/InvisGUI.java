@@ -70,10 +70,9 @@ public class InvisGUI implements Listener {
 		e.setCancelled(true);
 		Player player = (Player) e.getWhoClicked();
 
-		if (!Utilities.isVanish()) {
+		if (Main.getInstance().getHookManager().getCurrentHook() == null) {
 			player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("dependency.no_vanish"));
 			return;
-
 		}
 
 		ItemStack item = e.getCurrentItem();

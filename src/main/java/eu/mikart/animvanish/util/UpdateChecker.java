@@ -17,8 +17,16 @@ public class UpdateChecker {
 	}
 
 	public void getVersion(final Consumer<String> consumer) {
+		String url = "https://hangar.papermc.io/api/v1/projects/ArikSquad/AnimVanish/latestrelease";
+		String betaUrl = "https://hangar.papermc.io/api/v1/projects/ArikSquad/AnimVanish/latest?channel=Beta";
+
+		if (Settings.BETA) {
+			url = betaUrl;
+		}
+
+		String finalUrl = url;
 		Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
-			try (InputStream inputStream = new URL("https://hangar.papermc.io/api/v1/projects/ArikSquad/AnimVanish/latestrelease").openStream(); Scanner scanner = new Scanner(inputStream)) {
+			try (InputStream inputStream = new URL(finalUrl).openStream(); Scanner scanner = new Scanner(inputStream)) {
 				if (scanner.hasNext()) {
 					consumer.accept(scanner.next());
 				}

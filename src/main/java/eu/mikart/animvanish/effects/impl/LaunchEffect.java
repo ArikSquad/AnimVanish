@@ -16,7 +16,7 @@ import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 public class LaunchEffect extends Effect {
 
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		// check if there is only air above player
 		// there is probably an easier way to do this, but for now this works
 		for (int i = 0; i < 100; i++) {
@@ -26,7 +26,7 @@ public class LaunchEffect extends Effect {
 			}
 		}
 		// Vanish early if not vanished already
-		boolean vanished = isVanished(player);
+		boolean vanished = Main.getInstance().getHookManager().getCurrentHook().isVanished(player);
 		if(!vanished) toggleVanish(player);
 
 		ArmorStand armorStand = player.getWorld().spawn(player.getLocation().add(0, 1, 0).setDirection(player.getLocation().getDirection()), ArmorStand.class);

@@ -20,7 +20,7 @@ public class NpcEffect extends Effect {
 	}
 
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		if (!Utilities.isCitizens()) {
 			player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("dependency.no_citizens"));
 			return;

@@ -9,7 +9,6 @@ softdepend:
   - SuperVanish
   - PremiumVanish
   - Citizens
-  - GSit
 
 commands:
   animvanish:

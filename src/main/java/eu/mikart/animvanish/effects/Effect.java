@@ -1,6 +1,8 @@
 package eu.mikart.animvanish.effects;
 
+import eu.mikart.animvanish.Main;
 import eu.mikart.animvanish.annonations.EffectAnnotation;
+import eu.mikart.animvanish.util.Settings;
 import eu.mikart.animvanish.util.Utilities;
 import lombok.Getter;
 import org.bukkit.Material;
@@ -14,21 +16,19 @@ public abstract class Effect implements EffectInterface {
 	@Getter
 	private final Material item = effectAnnotation.item();
 
+	public void runEffect(Player p) {
+		if(this.canRun()) {
+			if(Settings.DEBUG) Main.getInstance().getLogger().info("Running effect " + this.getName() + " for player " + p.getName());
+			this.start(p);
+		}
+	}
+
 	public boolean canRun() {
 		return true;
 	}
 
 	public void toggleVanish(Player p) {
-		Utilities.toggleVanish(p);
-	}
-
-	/**
-	 * Check if a player is vanished
-	 * @param p Player
-	 * @return Player's vanish status
-	 */
-	public boolean isVanished(Player p) {
-		return Utilities.isInvisible(p);
+		Main.getInstance().getHookManager().getCurrentHook().vanish(p);
 	}
 
 }

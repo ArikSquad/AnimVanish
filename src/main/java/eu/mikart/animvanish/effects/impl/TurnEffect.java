@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 public class TurnEffect extends Effect {
 
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		int player_amount = 0;
 		for (Entity ps : player.getNearbyEntities(10, 10, 10)) {
 			if (ps instanceof Player p) {

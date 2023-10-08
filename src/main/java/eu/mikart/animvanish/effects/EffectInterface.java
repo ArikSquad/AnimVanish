@@ -4,6 +4,6 @@ import org.bukkit.entity.Player;
 
 public interface EffectInterface {
 
-	void runEffect(Player player);
+	void start(Player player);
 
 }

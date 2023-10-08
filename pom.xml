@@ -6,7 +6,7 @@
 
     <groupId>eu.mikart</groupId>
     <artifactId>AnimVanish</artifactId>
-    <version>1.0.8-BETA</version>
+    <version>1.0.8.2-BETA</version>
     <packaging>jar</packaging>
 
     <name>AnimVanish</name>
@@ -114,6 +114,13 @@
             <id>minebench-repo</id>
             <url>https://repo.minebench.de/</url>
         </repository>
+
+        <!-- AdvancedVanish Repo -->
+        <repository>
+            <id>repsy</id>
+            <name>quantiom</name>
+            <url>https://repo.repsy.io/mvn/quantiom/minecraft</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -193,6 +200,12 @@
             <artifactId>lombok</artifactId>
             <version>1.18.26</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>me.quantiom</groupId>
+            <artifactId>advancedvanish</artifactId>
+            <version>1.2.6</version>
         </dependency>
     </dependencies>
 </project>

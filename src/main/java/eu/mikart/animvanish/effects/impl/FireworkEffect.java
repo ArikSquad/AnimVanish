@@ -19,7 +19,7 @@ import org.bukkit.util.Vector;
 public class FireworkEffect extends Effect implements Listener {
 
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
 		FireworkMeta fwm = fw.getFireworkMeta();
 		fwm.setPower(1);

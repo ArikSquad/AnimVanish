@@ -16,7 +16,7 @@ import java.util.Objects;
 
 import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 
-public class LocaleManager {
+public class CustomLocale {
 
 	@Getter
 	private FileConfiguration config;
@@ -30,7 +30,7 @@ public class LocaleManager {
 	@Getter
 	private String localeString;
 
-	public LocaleManager(String locale) {
+	public CustomLocale(String locale) {
 		this.localeString = locale;
 		loadLocale(locale);
 	}

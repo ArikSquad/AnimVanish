@@ -10,7 +10,7 @@ import org.bukkit.entity.TNTPrimed;
 public class TntEffect extends Effect {
 
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		player.getWorld().spawn(player.getLocation(), TNTPrimed.class, (tnt) -> tnt.setYield(0));
 		toggleVanish(player);
 	}

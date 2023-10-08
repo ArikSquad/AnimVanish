@@ -24,10 +24,12 @@ public class InvisCommand extends AnimCommand {
 			sender.sendMessage(Main.getInstance().getLocaleConfig().getMessage("not_player"));
 			return true;
 		}
-		if (!Utilities.isVanish()) {
+
+		if (Main.getInstance().getHookManager().getCurrentHook() == null) {
 			player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("dependency.no_vanish"));
 			return true;
 		}
+
 		if (!(args.length > 0)) {
 			if(player.hasPermission("animvanish.invis.gui")) {
 				InvisGUI.openGUI(player);

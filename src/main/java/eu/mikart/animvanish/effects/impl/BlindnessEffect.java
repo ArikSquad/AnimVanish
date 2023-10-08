@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 public class BlindnessEffect extends Effect {
 
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		player.sendMessage(Main.getInstance().getLocaleConfig().getMessage("invis.blindness.author"));
 		for (Entity ps : player.getNearbyEntities(10, 10, 10)) {
 			if (ps instanceof Player p) {

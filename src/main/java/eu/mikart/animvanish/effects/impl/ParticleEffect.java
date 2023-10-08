@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 public class ParticleEffect extends Effect {
 
 	@Override
-	public void runEffect(Player player) {
+	public void start(Player player) {
 		try {
 			player.getWorld().spawnParticle(Particle.valueOf(Main.getInstance().getConfig().getString("effects.particle.type")),
 					player.getEyeLocation().add(0, 2, 0), 50);
