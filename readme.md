@@ -32,7 +32,7 @@ it if you have time.
 
 - Lightning effect (Lightning strike and optional night)
 - Particle effect
-- TNT effect ([Paper](https://papermc.io/downloads/paper) only)
+- TNT effect (requires [Paper](https://papermc.io/downloads/paper))
 - NPC effect (requires [Citizens](https://www.spigotmc.org/resources/citizens.13811/))
 - Zombie effect
 - Blindness effect
@@ -63,6 +63,7 @@ List of supported vanish plugins in their preferred order (The plugin will use t
 2. [SuperVanish](https://www.spigotmc.org/resources/supervanish-be-invisible.1331/)
 3. [AdvancedVanish](hhttps://www.spigotmc.org/resources/advancedvanish.86036/)
 
-Additionally, you need to get [Citizens](https://www.spigotmc.org/resources/citizens.13811/) for the NPC effect.
-
+#### Soft-Dependencies
+[Citizens](https://www.spigotmc.org/resources/citizens.13811/) for the NPC effect.
+[Paper](https://papermc.io/downloads/paper) for the TNT effect.
 
