@@ -65,5 +65,6 @@ List of supported vanish plugins in their preferred order (The plugin will use t
 
 #### Soft-Dependencies
 [Citizens](https://www.spigotmc.org/resources/citizens.13811/) for the NPC effect.
+
 [Paper](https://papermc.io/downloads/paper) for the TNT effect.
 
