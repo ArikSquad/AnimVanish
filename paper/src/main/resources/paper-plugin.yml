@@ -1,0 +1,79 @@
+name: 'AnimVanish'
+description: 'Beautiful library of pre-made effects to make vanishing look as cool as it can!'
+version: '${project.version}'
+main: 'eu.mikart.animvanish.AnimVanishPaper'
+api-version: '1.19'
+website: 'https://github.com/ArikSquad/AnimVanish'
+author: 'ArikSquad'
+
+dependencies:
+  server:
+    SuperVanish:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    PremiumVanish:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    AdvancedVanish:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    Citizens:
+      load: BEFORE
+      required: false
+      join-classpath: true
+
+
+permissions:
+  animvanish.*:
+    children:
+      animvanish.invis.*: true
+      animvanish.reload: true
+      animvanish.help: true
+    description: All the permissions in AnimVanish
+  animvanish.reload:
+    description: Allows to reload the plugin
+  animvanish.help:
+    default: true
+    description: Allows to use the help command
+  animvanish.invis.*:
+    children:
+      animvanish.invis.other: true
+      animvanish.invis.lightning: true
+      animvanish.invis.particle: true
+      animvanish.invis.tnt: true
+      animvanish.invis.npc: true
+      animvanish.invis.blindness: true
+      animvanish.invis.sound: true
+      animvanish.invis.turn: true
+      animvanish.invis.firework: true
+      animvanish.invis.blood: true
+      animvanish.invis.gui: true
+      animvanish.invis.launch: true
+    description: All the invisibility effects
+  animvanish.invis.other:
+    description: Allows to use the invisibility effect on other players
+  animvanish.invis.gui:
+    description: Ability to open the invisibility selection menu
+  animvanish.invis.launch:
+    description: Ability to launch yourself to the sky
+  animvanish.invis.lightning:
+    description: Ability to vanish with an amazing lightning strike
+  animvanish.invis.particle:
+    description: Ability to use customizable particles effect
+  animvanish.invis.tnt:
+    description: Ability to vanish with a TNT explosion
+  animvanish.invis.npc:
+    description: Ability to vanish with a NPC taking your place for a moment
+  animvanish.invis.blindness:
+    description: Ability to vanish using the blindness effect
+  animvanish.invis.sound:
+    description: Ability to vanish using the sound effect
+  animvanish.invis.turn:
+    description: Ability to vanish using the turn effect
+  animvanish.invis.firework:
+    description: Ability to vanish using the firework effect
+  animvanish.invis.blood:
+    description: Ability to vanish using the blood effect
