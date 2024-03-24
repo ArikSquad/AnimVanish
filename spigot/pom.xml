@@ -145,6 +145,12 @@
             <name>quantiom</name>
             <url>https://repo.repsy.io/mvn/quantiom/minecraft</url>
         </repository>
+
+        <!-- Aikar -->
+        <repository>
+            <id>aikar</id>
+            <url>https://repo.aikar.co/content/groups/aikar/</url>
+        </repository>
     </repositories>
 
     <dependencies>
