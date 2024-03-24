@@ -32,8 +32,8 @@ it if you have time.
 
 - Lightning effect (Lightning strike and optional night)
 - Particle effect
-- TNT effect (paper only)
-- NPC effect (requires Citizens)
+- TNT effect ([Paper](https://papermc.io/downloads/paper) only)
+- NPC effect (requires [Citizens](https://www.spigotmc.org/resources/citizens.13811/))
 - Zombie effect
 - Blindness effect
 - Sound effect
