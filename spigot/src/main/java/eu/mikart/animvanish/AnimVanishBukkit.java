@@ -56,21 +56,24 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 	public void onEnable() {
 		audiences = BukkitAudiences.create(this);
 		effectManager = new EffectManager(this);
+		commandManager = new PaperCommandManager(this);
 		instance = this;
+
 
 		new Metrics(this, 14993);
 		this.loadConfig();
 
 		getServer().getPluginManager().registerEvents(new FireworkEffect(this), this);
-		setupCommands();
-		loadExtra();
+		commandSetup();
+		loadExtra(); // Load extra effects from paper
 
 		Utilities.BETA = getDescription().getVersion().contains("BETA");
 		updateCheck();
 
-		hooks.add(new AdvancedVanishHook());
-		hooks.add(new SuperVanishHook());
+
 		hooks.add(new PremiumVanishHook());
+		hooks.add(new SuperVanishHook());
+		hooks.add(new AdvancedVanishHook());
 
 		for (Hook hook : hooks) {
 			if (Bukkit.getPluginManager().isPluginEnabled(hook.getName())) {
@@ -82,15 +85,11 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 		AnimVanishBukkitAPI.register(this);
 	}
 
-	public void setupCommands() {
-		commandManager = new PaperCommandManager(this);
-		commandSetup();
-	}
-
 	public void commandSetup() {
 		commandManager.getCommandContexts().registerContext(BareEffect.class, getEffectContextResolver());
 		commandManager.getCommandCompletions().registerAsyncCompletion("effects", c -> getEffectManager().getEffects().stream().map(BareEffect::getName).toList());
 
+		// Register commands
 		commandManager.registerCommand(new AnimVanishCommand(this));
 		commandManager.registerCommand(new InvisibilityCommand(this));
 	}
@@ -104,10 +103,6 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 	@Override
 	public String getPluginVersion() {
 		return getDescription().getVersion();
-	}
-
-	public static boolean isCitizens() {
-		return Bukkit.getPluginManager().isPluginEnabled("Citizens");
 	}
 
 	@Override

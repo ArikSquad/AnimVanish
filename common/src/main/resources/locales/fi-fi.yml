@@ -4,15 +4,13 @@ locales:
   not_player: '<prefix> <red>Sinun pitää olla pelaaja.</red>'
   reload: '<prefix> <color:#b0ff5c>Uudelleenladattu asetukset.</color>'
   player_not_found: '<prefix> <red>Pelaajaa ei löydetty.</red>'
-  no_permissions: "<prefix> <red>Sinulla ei ole lupaa käyttää tätä komentoa.</red> <green>(%1%>)</green>"
+  no_permissions: '<prefix> <red>Sinulla ei ole lupaa käyttää tätä komentoa.</red> <green>(%1%>)</green>'
   only_to_vanish: '<prefix> <red>Tätä efekti vaikuttaa vain, kun siirrytään vanishiin.</red>'
   not_found: '<prefix> <red>Efektiä ei löydetty.</red>'
   particle_invalid_config: '<prefix> <red>Virheellinen hiukkasten konfiguraatio. Pyydä järjestelmänvalvojaa tarkistamaan konfigurointitiedosto.</red>'
-  invalid_particle: "<prefix> <red>Tuota hiukkasta ei ole olemassa tai sitä ei tueta.</red>"
   blindness_message: '<prefix> <yellow>Näit jotain, ja sinua huimaa nyt</yellow>'
   blindness_author: '<prefix> <green>Sokaisit kaikki pelaajat ympärilläsi.</green>'
   sound_invalid_config: '<prefix> <red>Virheellinen äänikonfiguraatio. Pyydä järjestelmänvalvojaa tarkistamaan konfigurointitiedosto.</red>'
-  sound_invalid_sound: "<prefix> <red>Tätä ääntä ei ole olemassa tai sitä ei tueta.</red>"
   turn_none: '<prefix> <color:#ff926e>Ketään ei käännetty, koska kukaan ei ole lähelläsi.</color>'
   launch_no_space: '<prefix> <red>Ei ole tilaa laukaista panssaritelinettä.</red>'
   gui_title: '<color:#e26eff>Valitse efekti</color>'

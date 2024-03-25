@@ -32,8 +32,8 @@ it if you have time.
 
 - Lightning effect (Lightning strike and optional night)
 - Particle effect
-- TNT effect (paper only)
-- NPC effect (requires Citizens)
+- TNT effect (requires [Paper](https://papermc.io/software/paper))
+- NPC effect (requires [Citizens](https://www.spigotmc.org/resources/citizens.13811/))
 - Zombie effect
 - Blindness effect
 - Sound effect
@@ -64,5 +64,8 @@ List of supported vanish plugins in their preferred order (The plugin will use t
 3. [AdvancedVanish](hhttps://www.spigotmc.org/resources/advancedvanish.86036/)
 
 Additionally, you need to get [Citizens](https://www.spigotmc.org/resources/citizens.13811/) for the NPC effect.
+
+## Support us
+![kofi-plural-alt](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/donate/kofi-plural-alt_vector.svg)
 
 

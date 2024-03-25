@@ -1,6 +1,5 @@
 package eu.mikart.animvanish.effects.impl;
 
-import eu.mikart.animvanish.AnimVanishBukkit;
 import eu.mikart.animvanish.IAnimVanish;
 import eu.mikart.animvanish.annotations.EffectAnnotation;
 import eu.mikart.animvanish.effects.InternalEffect;
@@ -23,7 +22,7 @@ public class NpcEffect extends InternalEffect {
 
 	@Override
 	public boolean canRun() {
-		return AnimVanishBukkit.isCitizens();
+		return Bukkit.getPluginManager().isPluginEnabled("Citizens");
 	}
 
 	@Override

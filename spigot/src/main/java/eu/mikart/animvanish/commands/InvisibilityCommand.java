@@ -110,7 +110,7 @@ public class InvisibilityCommand extends BaseCommand {
 
 		OutlinePane effectPane = new OutlinePane(1, 1, 8, 5);
 		for (BareEffect effect : plugin.getEffectManager().getEffects()) {
-			if (effect.canRun()) {
+			if (effect.canRun() && player.hasPermission("animvanish.invis." + effect.getName())) {
 				effectPane.addItem(effectIcon(player, effect));
 			}
 		}
@@ -130,14 +130,15 @@ public class InvisibilityCommand extends BaseCommand {
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 
-		Audience audience = plugin.getAudience(player.getUniqueId());
 		return new GuiItem(item, event -> {
+			Audience audience = plugin.getAudience(event.getWhoClicked().getUniqueId());
 			if (plugin.getCurrentHook() == null) {
 				audience.sendMessage(
 						plugin.getLocales()
 								.getLocale("dependency_no_vanish")
 								.orElse(MiniMessage.miniMessage().deserialize("<red>You must have a supported vanish plugin installed to use this command.</red>"))
 				);
+				event.getWhoClicked().closeInventory();
 				return;
 			}
 
