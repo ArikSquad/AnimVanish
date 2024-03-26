@@ -20,7 +20,7 @@ jobs:
         cache: 'maven'
 
     - name: build
-      run: mvn clean install
+      run: mvn clean package
 
     - name: Extract Maven project version
       run: echo "name=version::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
