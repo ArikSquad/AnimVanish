@@ -1,0 +1,60 @@
+# Universal prefixes: <prefix>, <url>, <version>
+
+
+# ---- GENERAL ---- #
+prefix: "[<color:#AFEEEE>AnimVanish</color>]"
+
+# ---- COMMANDS ---- #
+invalid_args: "<prefix> <red>Geçersiz argümanlar.</red>"
+not_player: "<prefix> <red>Bir oyuncu olmalısın.</red>"
+reload: "<prefix> <color:#b0ff5c>Configler yeniden yüklendi</color>"
+player_not_found: "<prefix> <red>Oyuncu bulunamadı.</red>"
+# In this one you can use placeholder <permission> to show the permission required (e.g. animvanish.invis.lightning)
+no_permissions: "<prefix> <red>Bu komutu kullanmanız için yetkiniz yok.</red> <green>(<permission>)</green>"
+
+
+invis:
+  only_to_vanish: "<prefix> <red>Bu efekt sadece gizli moda girerken uygulanır</red>"
+  not_found: "<prefix> <red>Efekt bulunamadı.</red>"
+
+  particle:
+    invalid_config: "<prefix> <red>Geçersiz parçacık ayarları. Bir yöneticiden ayar dosyalarını incelemesini iste.</red>"
+    invalid_particle: "<prefix> <red>O parçacık mevcut değil veya desteklenmiyor</red>"
+
+  blindness:
+    message: "<prefix> <yellow>Birşey gördün ve şimdi başın dönüyor.</yellow>"
+    author: "<prefix> <green>Etrafındaki bütün oyuncuları kör ettin.</green>"
+
+  sound:
+    invalid_config: "<prefix> <red>Geçersiz ses ayarları. Bir yöneticiden incelemesini iste.</red>"
+    invalid_sound: "<prefix> <red>O ses mevcut değil yada desteklenmiyor.</red>"
+
+  turn:
+    none: "<prefix> <color:#ff926e>Sana hiçbiri yakın olmadığından hiç kimse döndürülmedi.</color>"
+
+  launch:
+    no_space: "<prefix> <red>Zırh standını fırlatacak yer yok.</red>"
+
+
+gui:
+  # The first two has a placeholder <player> to show the player's name
+  title: "<color:#e26eff>Bir efekt seç</color>"
+  placeholder_name: "<gray>Bir efekt seç</gray>"
+
+  # In this one you can use <effect_name>
+  item_name: "<green><effect_name></green>"
+
+  # In this one you can use <effect_description>
+  item_lore: "<blue><effect_description></blue>"
+
+
+animvanish:
+  help:
+    no_permission: "<prefix> <red>Bu komutu kullanmak için iznin yok.</red> <green>(animvanish.help)</green>"
+  reload:
+    no_permission: "<prefix> <red>Bu komutu kullanmak için iznin yok.</red> <green>(animvanish.reload)</green>"
+
+
+dependency:
+  no_citizens: "<prefix> <red>Bu efekti kullanabilmek için Citizens eklentisi bulunmalıdır.</red>"
+  no_vanish: "<prefix> <red>Bu komutu kullanabilmek için SuperVanish veya PremiumVanish eklentilerinden biri gereklidir.</red>"
