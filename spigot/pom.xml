@@ -6,12 +6,12 @@
     <parent>
         <groupId>eu.mikart</groupId>
         <artifactId>AnimVanish</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1</version>
     </parent>
 
     <groupId>eu.mikart.animvanish</groupId>
     <artifactId>animvanish-spigot</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -174,7 +174,7 @@
         <dependency>
             <groupId>eu.mikart.animvanish</groupId>
             <artifactId>animvanish-common</artifactId>
-            <version>1.1.0</version>
+            <version>1.1.1</version>
         </dependency>
 
         <!-- PremiumVanish -->
