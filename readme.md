@@ -61,11 +61,11 @@ animvanish.help - This permissions can see help for the plugin
 List of supported vanish plugins in their preferred order (The plugin will use the first one it finds):
 1. [PremiumVanish](https://www.spigotmc.org/resources/premiumvanish-stay-hidden-bungee-support.14404/)
 2. [SuperVanish](https://www.spigotmc.org/resources/supervanish-be-invisible.1331/)
-3. [AdvancedVanish](hhttps://www.spigotmc.org/resources/advancedvanish.86036/)
+3. [AdvancedVanish](https://www.spigotmc.org/resources/advancedvanish.86036/)
 
 Additionally, you need to get [Citizens](https://www.spigotmc.org/resources/citizens.13811/) for the NPC effect.
 
 ## Support us
-![kofi-plural-alt](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/donate/kofi-plural-alt_vector.svg)
+<a href="https://ko-fi.com/ariksquad">![kofi-plural-alt](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/donate/kofi-plural-alt_vector.svg)</a>
 
 

@@ -18,7 +18,6 @@ import java.util.Optional;
  * The configuration has been inspired by <a href="https://github.com/William278/HuskTowns">HuskTowns</a>
  * which is licensed under the Apache License 2.0.
  */
-@SuppressWarnings("FieldMayBeFinal")
 @Configuration
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Locales {

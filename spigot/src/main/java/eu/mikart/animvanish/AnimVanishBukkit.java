@@ -157,6 +157,8 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 						instance.getConsole().sendMessage(message);
 					}
 				});
+
+				return null;
 			}
 
 			return effect;
