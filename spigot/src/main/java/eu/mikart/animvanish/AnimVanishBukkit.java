@@ -1,14 +1,9 @@
 package eu.mikart.animvanish;
 
-import co.aikar.commands.BukkitCommandExecutionContext;
-import co.aikar.commands.PaperCommandManager;
-import co.aikar.commands.contexts.ContextResolver;
-import com.google.common.collect.Sets;
 import eu.mikart.animvanish.api.AnimVanishBukkitAPI;
 import eu.mikart.animvanish.commands.InvisibilityCommand;
 import eu.mikart.animvanish.config.Locales;
 import eu.mikart.animvanish.config.Settings;
-import eu.mikart.animvanish.effects.BareEffect;
 import eu.mikart.animvanish.effects.EffectManager;
 import eu.mikart.animvanish.effects.impl.FireworkEffect;
 import eu.mikart.animvanish.hooks.Hook;
@@ -25,12 +20,12 @@ import net.kyori.adventure.platform.AudienceProvider;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import eu.mikart.animvanish.commands.AnimVanishCommand;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -39,12 +34,11 @@ import java.util.logging.Logger;
 public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 
 	private AudienceProvider audiences;
-	private PaperCommandManager commandManager;
-	private static AnimVanishBukkit instance;
 	private EffectManager effectManager;
+	public boolean areCommandsInitialized = false;
 
 	@Setter
-	private Set<Hook> hooks = Sets.newHashSet();
+	private Set<Hook> hooks = new HashSet<>();
 	@Setter
 	private Hook currentHook;
 	@Setter
@@ -56,16 +50,12 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 	public void onEnable() {
 		audiences = BukkitAudiences.create(this);
 		effectManager = new EffectManager(this);
-		commandManager = new PaperCommandManager(this);
-		instance = this;
-
 
 		new Metrics(this, 14993);
 		this.loadConfig();
 
 		getServer().getPluginManager().registerEvents(new FireworkEffect(this), this);
-		commandSetup();
-		loadExtra(); // Load extra effects from paper
+		loadPlatform(); // Load extra effects from paper
 
 		Utilities.BETA = getDescription().getVersion().contains("BETA");
 		updateCheck();
@@ -74,6 +64,8 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 		hooks.add(new PremiumVanishHook());
 		hooks.add(new SuperVanishHook());
 		hooks.add(new AdvancedVanishHook());
+		new AnimVanishCommand(this);
+		new InvisibilityCommand(this);
 
 		for (Hook hook : hooks) {
 			if (Bukkit.getPluginManager().isPluginEnabled(hook.getName())) {
@@ -85,19 +77,9 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 		AnimVanishBukkitAPI.register(this);
 	}
 
-	public void commandSetup() {
-		commandManager.getCommandContexts().registerContext(BareEffect.class, getEffectContextResolver());
-		commandManager.getCommandCompletions().registerAsyncCompletion("effects", c -> getEffectManager().getEffects().stream().map(BareEffect::getName).toList());
-
-		// Register commands
-		commandManager.registerCommand(new AnimVanishCommand(this));
-		commandManager.registerCommand(new InvisibilityCommand(this));
-	}
-
 	@Override
 	public void onDisable() {
-		instance = null;
-		commandManager.unregisterCommands();
+		unloadPlatform();
 	}
 
 	@Override
@@ -139,30 +121,6 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 	@NotNull
 	public AnimVanishBukkit getPlugin() {
 		return this;
-	}
-
-	public static ContextResolver<BareEffect, BukkitCommandExecutionContext> getEffectContextResolver() {
-		return (context) -> {
-			String effectName = context.popFirstArg();
-			if (effectName == null || effectName.isEmpty()) {
-				return null; // No effect name provided
-			}
-
-			BareEffect effect = instance.getEffectManager().getEffect(effectName);
-			if (effect == null) {
-				instance.getLocales().getLocale("not_found").ifPresent(message -> {
-					if (context.getSender() instanceof Player player) {
-						instance.getAudience(player.getUniqueId()).sendMessage(message);
-					} else {
-						instance.getConsole().sendMessage(message);
-					}
-				});
-
-				return null;
-			}
-
-			return effect;
-		};
 	}
 
 	@Override

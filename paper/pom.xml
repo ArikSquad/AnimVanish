@@ -45,15 +45,10 @@
                             <shadedPattern>eu.mikart.animvanish</shadedPattern>
                         </relocation>
 
-                        <!-- afc -->
+                        <!-- CommandAPI -->
                         <relocation>
-                            <pattern>co.aikar.commands</pattern>
-                            <shadedPattern>eu.mikart.animvanish.acf</shadedPattern>
-                        </relocation>
-
-                        <relocation>
-                            <pattern>co.aikar.locales</pattern>
-                            <shadedPattern>eu.mikart.animvanish.locales</shadedPattern>
+                            <pattern>dev.jorel.commandapi</pattern>
+                            <shadedPattern>eu.mikart.animvanish.commandapi</shadedPattern>
                         </relocation>
 
                         <!-- if -->
@@ -115,6 +110,14 @@
             <groupId>eu.mikart.animvanish</groupId>
             <artifactId>animvanish-spigot</artifactId>
             <version>1.1.1</version>
+        </dependency>
+
+        <!-- CommandAPI - Mojang Mapped -->
+        <dependency>
+            <groupId>dev.jorel</groupId>
+            <artifactId>commandapi-bukkit-shade-mojang-mapped</artifactId>
+            <version>9.5.3</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

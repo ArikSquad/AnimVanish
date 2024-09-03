@@ -44,17 +44,6 @@
                             <shadedPattern>eu.mikart.animvanish</shadedPattern>
                         </relocation>
 
-                        <!-- afc -->
-                        <relocation>
-                            <pattern>co.aikar.commands</pattern>
-                            <shadedPattern>eu.mikart.animvanish.acf</shadedPattern>
-                        </relocation>
-
-                        <relocation>
-                            <pattern>co.aikar.locales</pattern>
-                            <shadedPattern>eu.mikart.animvanish.locales</shadedPattern>
-                        </relocation>
-
                         <!-- if -->
                         <relocation>
                             <pattern>com.github.stefvanschie.inventoryframework</pattern>
@@ -151,6 +140,12 @@
             <id>aikar</id>
             <url>https://repo.aikar.co/content/groups/aikar/</url>
         </repository>
+
+        <repository>
+            <id>maven_central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -196,7 +191,7 @@
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-minimessage</artifactId>
-            <version>4.14.0</version>
+            <version>4.16.0</version>
         </dependency>
 
         <!-- Citizens API - Citizen NPCs -->
@@ -235,16 +230,16 @@
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-key</artifactId>
-            <version>4.14.0</version>
+            <version>4.16.0</version>
             <scope>compile</scope>
         </dependency>
 
-        <!-- ACF -->
+        <!-- CommandAPI -->
         <dependency>
-            <groupId>co.aikar</groupId>
-            <artifactId>acf-paper</artifactId>
-            <version>0.5.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>dev.jorel</groupId>
+            <artifactId>commandapi-bukkit-core</artifactId>
+            <version>9.5.3</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- AdvancedVanish API -->
@@ -259,7 +254,7 @@
         <dependency>
             <groupId>com.github.stefvanschie.inventoryframework</groupId>
             <artifactId>IF</artifactId>
-            <version>0.10.13</version>
+            <version>0.10.17</version>
         </dependency>
     </dependencies>
 </project>

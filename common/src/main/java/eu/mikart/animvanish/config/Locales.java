@@ -1,6 +1,5 @@
 package eu.mikart.animvanish.config;
 
-import com.google.common.collect.Maps;
 import de.exlll.configlib.Configuration;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -13,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 /**
  * The configuration has been inspired by <a href="https://github.com/William278/HuskTowns">HuskTowns</a>
@@ -33,7 +33,7 @@ public class Locales {
     protected static final String DEFAULT_LOCALE = "en-us";
 
     // The raw set of locales loaded from yaml
-    Map<String, String> locales = Maps.newTreeMap();
+    Map<String, String> locales = new TreeMap<>();
 
     /**
      * Returns a raw, unformatted locale loaded from the locales file

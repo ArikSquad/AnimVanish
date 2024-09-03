@@ -44,5 +44,15 @@ public interface IAnimVanish extends ConfigProvider {
 		loadConfig();
 	}
 
-	default void loadExtra() {}
+	/**
+	 * Load per platform code, such as registering commands or effects
+	 * @since 1.1.0
+	 */
+	default void loadPlatform() {}
+
+	/**
+	 * Unload per platform code, such as unregistering a command handler
+	 * @since 1.1.1
+	 */
+	default void unloadPlatform() {}
 }

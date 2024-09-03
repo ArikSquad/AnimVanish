@@ -5,7 +5,8 @@ main: eu.mikart.animvanish.AnimVanishBukkit
 api-version: 1.18
 website: https://github.com/ArikSquad/AnimVanish
 author: ArikSquad
-
+depend:
+  - CommandAPI  # Only on Spigot, as it is shaded in Paper module
 softdepend:
   - SuperVanish
   - PremiumVanish

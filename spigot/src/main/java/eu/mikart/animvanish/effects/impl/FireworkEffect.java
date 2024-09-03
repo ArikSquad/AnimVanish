@@ -28,7 +28,15 @@ public class FireworkEffect extends InternalEffect implements Listener {
 	@Override
 	public void start(OnlineUser p) {
 		Player player = ((BukkitUser) p).getPlayer();
-		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+
+		EntityType fireworkType;
+		try {
+			fireworkType = EntityType.valueOf("FIREWORK_ROCKET"); // Good hack to support newer versions
+		} catch (IllegalArgumentException e) {
+			fireworkType = EntityType.FIREWORK;
+		}
+
+		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), fireworkType);
 		fw.setVelocity(new Vector(0, 2, 0));
 		fw.getPersistentDataContainer().set(new NamespacedKey((Plugin) plugin, "nodamage"), PersistentDataType.INTEGER, 1);
 
