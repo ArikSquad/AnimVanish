@@ -203,13 +203,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Config Updater - tchristofferson -->
-        <dependency>
-            <groupId>com.tchristofferson</groupId>
-            <artifactId>ConfigUpdater</artifactId>
-            <version>2.1-SNAPSHOT</version>
-        </dependency>
-
         <!-- PagineDown - William278 -->
         <dependency>
             <groupId>net.william278</groupId>
