@@ -20,6 +20,10 @@ dependencies:
       load: BEFORE
       required: false
       join-classpath: true
+    AbeoVanish:
+      load: BEFORE
+      required: false
+      join-classpath: true
     Citizens:
       load: BEFORE
       required: false

@@ -12,6 +12,7 @@ softdepend:
   - PremiumVanish
   - Citizens
   - AdvancedVanish
+  - AbeoVanish
 
 permissions:
   animvanish.*:
