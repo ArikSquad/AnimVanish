@@ -33,99 +33,100 @@ import java.util.logging.Logger;
 @NoArgsConstructor
 public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 
-	private AudienceProvider audiences;
-	private EffectManager effectManager;
-	public boolean areCommandsInitialized = false;
+    private AudienceProvider audiences;
+    private EffectManager effectManager;
+    public boolean areCommandsInitialized = false;
 
-	@Setter
-	private Set<Hook> hooks = new HashSet<>();
-	@Setter
-	private Hook currentHook;
-	@Setter
-	private Settings settings;
-	@Setter
-	private Locales locales;
+    @Setter
+    private Set<Hook> hooks = new HashSet<>();
+    @Setter
+    private Hook currentHook;
+    @Setter
+    private Settings settings;
+    @Setter
+    private Locales locales;
 
-	@Override
-	public void onEnable() {
-		audiences = BukkitAudiences.create(this);
-		effectManager = new EffectManager(this);
+    @Override
+    public void onEnable() {
+        audiences = BukkitAudiences.create(this);
+        effectManager = new EffectManager(this);
 
-		new Metrics(this, 14993);
-		this.loadConfig();
+        new Metrics(this, 14993);
+        this.loadConfig();
 
-		getServer().getPluginManager().registerEvents(new FireworkEffect(this), this);
-		loadPlatform(); // Load extra effects from paper
+        getServer().getPluginManager().registerEvents(new FireworkEffect(this), this);
+        loadPlatform(); // Load extra effects from paper
 
-		Utilities.BETA = getDescription().getVersion().contains("BETA");
-		updateCheck();
+        Utilities.BETA = getDescription().getVersion().contains("BETA");
+        updateCheck();
 
 
-		hooks.add(new PremiumVanishHook());
-		hooks.add(new SuperVanishHook());
-		hooks.add(new AdvancedVanishHook());
-		new AnimVanishCommand(this);
-		new InvisibilityCommand(this);
+        hooks.add(new PremiumVanishHook());
+        hooks.add(new SuperVanishHook());
+        hooks.add(new AdvancedVanishHook());
+        new AnimVanishCommand(this);
+        new InvisibilityCommand(this);
 
-		for (Hook hook : hooks) {
-			if (Bukkit.getPluginManager().isPluginEnabled(hook.getName())) {
-				currentHook = hook;
-				break;
-			}
-		}
+        for (Hook hook : hooks) {
+            if (Bukkit.getPluginManager().isPluginEnabled(hook.getName())) {
+                currentHook = hook;
+                currentHook.init();
+                break;
+            }
+        }
 
-		AnimVanishBukkitAPI.register(this);
-	}
+        AnimVanishBukkitAPI.register(this);
+    }
 
-	@Override
-	public void onDisable() {
-		unloadPlatform();
-	}
+    @Override
+    public void onDisable() {
+        unloadPlatform();
+    }
 
-	@Override
-	public String getPluginVersion() {
-		return getDescription().getVersion();
-	}
+    @Override
+    public String getPluginVersion() {
+        return getDescription().getVersion();
+    }
 
-	@Override
-	public @NotNull AudienceProvider getAudiences() {
-		return audiences;
-	}
+    @Override
+    public @NotNull AudienceProvider getAudiences() {
+        return audiences;
+    }
 
-	public void updateCheck() {
-		if (!getSettings().isUpdateChecker()) {
-			return;
-		}
+    public void updateCheck() {
+        if (!getSettings().isUpdateChecker()) {
+            return;
+        }
 
-		new UpdateChecker(this).getLatestVersion(version -> {
-			Version currentVersion = getVersion();
-			Version latestVersion = new Version(version);
+        new UpdateChecker(this).getLatestVersion(version -> {
+            Version currentVersion = getVersion();
+            Version latestVersion = new Version(version);
 
-			String channel = Utilities.BETA ? "beta" : "main";
+            String channel = Utilities.BETA ? "beta" : "main";
 
-			if (currentVersion.compareTo(latestVersion) < 0) {
-				getLogger().warning("New " + channel + " channel release is available (" + version + ")! Download it from here: " + Utilities.PLUGIN_URL);
-			} else {
-				getLogger().info("Running on the latest AnimVanish version");
-			}
-		});
-	}
+            if (currentVersion.compareTo(latestVersion) < 0) {
+                getLogger().warning("New " + channel + " channel release is available (" + version + ")! Download it from here: " + Utilities.PLUGIN_URL);
+            } else {
+                getLogger().info("Running on the latest AnimVanish version");
+            }
+        });
+    }
 
-	@Override
-	@NotNull
-	public Path getConfigDirectory() {
-		return getDataFolder().toPath();
-	}
+    @Override
+    @NotNull
+    public Path getConfigDirectory() {
+        return getDataFolder().toPath();
+    }
 
-	@Override
-	@NotNull
-	public AnimVanishBukkit getPlugin() {
-		return this;
-	}
+    @Override
+    @NotNull
+    public AnimVanishBukkit getPlugin() {
+        return this;
+    }
 
-	@Override
-	@NotNull
-	public Logger getLogger() {
-		return super.getLogger();
-	}
+    @Override
+    @NotNull
+    public Logger getLogger() {
+        return super.getLogger();
+    }
 }

@@ -8,10 +8,14 @@ import org.bukkit.entity.Player;
 
 public class AbeoVanishHook extends Hook {
 
-    private final BukkitAbeoVanishAPI abeoVanishAPI;
+    private BukkitAbeoVanishAPI abeoVanishAPI;
 
     public AbeoVanishHook() {
         super("AbeoVanish");
+    }
+
+    @Override
+    public void init() {
         this.abeoVanishAPI = BukkitAbeoVanishAPI.getInstance();
     }
 

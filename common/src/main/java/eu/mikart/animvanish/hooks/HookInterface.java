@@ -4,8 +4,12 @@ import eu.mikart.animvanish.user.OnlineUser;
 
 public interface HookInterface {
 
-	void vanish(OnlineUser p);
+    void vanish(OnlineUser p);
 
-	boolean isVanished(OnlineUser p);
+    boolean isVanished(OnlineUser p);
 
+    default void init() {
+
+    }
+	
 }
