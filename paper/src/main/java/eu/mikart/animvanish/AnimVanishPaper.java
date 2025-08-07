@@ -3,7 +3,6 @@ package eu.mikart.animvanish;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import eu.mikart.animvanish.effects.impl.TntEffect;
-import eu.mikart.animvanish.hooks.impl.AbeoVanishHook;
 import lombok.NoArgsConstructor;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
@@ -31,7 +30,6 @@ public class AnimVanishPaper extends AnimVanishBukkit {
         CommandAPI.onEnable();
         areCommandsInitialized = true;
         getEffectManager().registerEffect(new TntEffect(this));
-        getHooks().add(new AbeoVanishHook());
     }
 
     @Override
