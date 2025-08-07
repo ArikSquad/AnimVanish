@@ -6,12 +6,12 @@
     <parent>
         <groupId>eu.mikart</groupId>
         <artifactId>AnimVanish</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2</version>
     </parent>
 
     <groupId>eu.mikart.animvanish</groupId>
     <artifactId>animvanish-spigot</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -155,7 +155,7 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>3.0.2</version>
+            <version>3.1.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -163,7 +163,7 @@
         <dependency>
             <groupId>eu.mikart.animvanish</groupId>
             <artifactId>animvanish-common</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2</version>
         </dependency>
 
         <!-- PremiumVanish -->
@@ -178,14 +178,14 @@
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-platform-bukkit</artifactId>
-            <version>4.3.2</version>
+            <version>4.3.4</version>
         </dependency>
 
         <!-- Adventure Text - MiniMessage -->
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-minimessage</artifactId>
-            <version>4.17.0</version>
+            <version>4.21.0</version>
         </dependency>
 
         <!-- Citizens API - Citizen NPCs -->
@@ -217,7 +217,7 @@
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-key</artifactId>
-            <version>4.17.0</version>
+            <version>4.21.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -225,7 +225,7 @@
         <dependency>
             <groupId>dev.jorel</groupId>
             <artifactId>commandapi-bukkit-core</artifactId>
-            <version>9.5.3</version>
+            <version>9.7.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -241,7 +241,7 @@
         <dependency>
             <groupId>com.github.stefvanschie.inventoryframework</groupId>
             <artifactId>IF</artifactId>
-            <version>0.10.19</version>
+            <version>0.11.3</version>
         </dependency>
     </dependencies>
 </project>

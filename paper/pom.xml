@@ -6,12 +6,12 @@
     <parent>
         <groupId>eu.mikart</groupId>
         <artifactId>AnimVanish</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2</version>
     </parent>
 
     <groupId>eu.mikart.animvanish</groupId>
     <artifactId>animvanish-paper</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -94,12 +94,6 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
-
-        <!-- MikArt Repo-->
-        <repository>
-            <id>mikart-repository</id>
-            <url>https://maven.mikart.eu/snapshots</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -115,21 +109,14 @@
         <dependency>
             <groupId>eu.mikart.animvanish</groupId>
             <artifactId>animvanish-spigot</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>eu.mikart.abeovanish</groupId>
-            <artifactId>abeovanish-paper</artifactId>
-            <version>0.0.1</version>
-            <scope>provided</scope> <!-- i forgot this initially -->
+            <version>1.1.2</version>
         </dependency>
 
         <!-- CommandAPI - Mojang Mapped -->
         <dependency>
             <groupId>dev.jorel</groupId>
             <artifactId>commandapi-bukkit-shade-mojang-mapped</artifactId>
-            <version>9.7.0</version>
+            <version>10.0.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
