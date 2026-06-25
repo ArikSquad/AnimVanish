@@ -29,12 +29,7 @@ public class FireworkEffect extends InternalEffect implements Listener {
 	public void start(OnlineUser p) {
 		Player player = ((BukkitUser) p).getPlayer();
 
-		EntityType fireworkType;
-		try {
-			fireworkType = EntityType.valueOf("FIREWORK_ROCKET"); // Good hack to support newer versions
-		} catch (IllegalArgumentException e) {
-			fireworkType = EntityType.FIREWORK;
-		}
+		EntityType fireworkType = EntityType.FIREWORK_ROCKET;
 
 		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), fireworkType);
 		fw.setVelocity(new Vector(0, 2, 0));
@@ -55,8 +50,8 @@ public class FireworkEffect extends InternalEffect implements Listener {
 	}
 
 	@EventHandler
-	public void EntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
-		// In some 1.20.4 builds, Firework damage won't be cancelled
+	public void entityDamageByEntityEvent(EntityDamageByEntityEvent e) {
+		// In some 1.20.4 builds, Firework damage won't be canceled
 		// https://github.com/PaperMC/Paper/issues/10273
 		// It has been fixed in Paper #10307 (paper build #453)
 		// > will probably do damage in spigot

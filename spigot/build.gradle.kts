@@ -5,19 +5,20 @@ plugins {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:26.1.2-R0.1-SNAPSHOT")
     implementation(project(":common"))
-    implementation("org.bstats:bstats-bukkit:3.1.0")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
     compileOnly("com.github.LeonMangler:PremiumVanishAPI:2.7.11-2")
-    implementation("net.kyori:adventure-platform-bukkit:4.3.4")
-    implementation("net.kyori:adventure-text-minimessage:4.21.0")
+    implementation("net.kyori:adventure-platform-bukkit:4.4.1")
+    implementation("net.kyori:adventure-text-minimessage:4.26.1")
     compileOnly("net.citizensnpcs:citizens-main:2.0.33-SNAPSHOT")
     implementation("net.william278:PagineDown:1.1")
     implementation("net.william278:DesertWell:2.0.4")
     implementation("net.kyori:adventure-key:4.21.0")
-    compileOnly("dev.jorel:commandapi-bukkit-core:9.7.0")
     compileOnly("me.quantiom:advancedvanish:1.2.6")
-    implementation("com.github.stefvanschie.inventoryframework:IF:0.11.3")
+    implementation("com.github.stefvanschie.inventoryframework:IF:0.12.0")
+    implementation("io.github.revxrsal:lamp.common:4.0.0-rc.17")
+    implementation("io.github.revxrsal:lamp.bukkit:4.0.0-rc.17")
 }
 
 tasks.named<ShadowJar>("shadowJar") {

@@ -2,17 +2,14 @@ name: AnimVanish
 description: Beautiful library of pre-made effects to make vanishing look as cool as it can!
 version: '${project.version}'
 main: eu.mikart.animvanish.AnimVanishBukkit
-api-version: 1.18
+api-version: 1.21.1
 website: https://github.com/ArikSquad/AnimVanish
 author: ArikSquad
-depend:
-  - CommandAPI  # Only on Spigot, as it is shaded in Paper module
 softdepend:
   - SuperVanish
   - PremiumVanish
   - Citizens
   - AdvancedVanish
-  - AbeoVanish
 
 permissions:
   animvanish.*:
@@ -65,4 +62,3 @@ permissions:
     description: Ability to vanish using the firework effect
   animvanish.invis.blood:
     description: Ability to vanish using the blood effect
-

@@ -2,7 +2,7 @@ name: 'AnimVanish'
 description: 'Beautiful library of pre-made effects to make vanishing look as cool as it can!'
 version: '${project.version}'
 main: 'eu.mikart.animvanish.AnimVanishPaper'
-api-version: '1.19'
+api-version: '1.21.1'
 website: 'https://github.com/ArikSquad/AnimVanish'
 author: 'ArikSquad'
 
@@ -17,10 +17,6 @@ dependencies:
       required: false
       join-classpath: true
     AdvancedVanish:
-      load: BEFORE
-      required: false
-      join-classpath: true
-    AbeoVanish:
       load: BEFORE
       required: false
       join-classpath: true

@@ -5,13 +5,6 @@ import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
 import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
 import com.github.stefvanschie.inventoryframework.pane.PatternPane;
 import com.github.stefvanschie.inventoryframework.pane.util.Pattern;
-import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.IStringTooltip;
-import dev.jorel.commandapi.StringTooltip;
-import dev.jorel.commandapi.arguments.Argument;
-import dev.jorel.commandapi.arguments.ArgumentSuggestions;
-import dev.jorel.commandapi.arguments.PlayerArgument;
-import dev.jorel.commandapi.arguments.StringArgument;
 import eu.mikart.animvanish.IAnimVanish;
 import eu.mikart.animvanish.effects.BareEffect;
 import eu.mikart.animvanish.user.BukkitUser;
@@ -27,67 +20,58 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
+import revxrsal.commands.annotation.Command;
+import revxrsal.commands.annotation.Dependency;
+import revxrsal.commands.annotation.Optional;
+import revxrsal.commands.annotation.SuggestWith;
+import revxrsal.commands.bukkit.annotation.CommandPermission;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class InvisibilityCommand {
-	private final IAnimVanish plugin;
+	@Dependency
+	private IAnimVanish plugin;
 
-	public InvisibilityCommand(IAnimVanish plugin) {
-		this.plugin = plugin;
+	@Command("invis")
+	@CommandPermission("animvanish.invis")
+	public void invis(Player player, @Optional @SuggestWith(EffectSuggestions.class) String effectName, @Optional Player target) {
+		if (plugin.getCurrentHook() == null) {
+			Audience audience = plugin.getAudience(player.getUniqueId());
+			plugin.getLocales().getLocale("dependency_no_vanish")
+					.ifPresent(audience::sendMessage);
+			return;
+		}
 
-		List<Argument<?>> arguments = new ArrayList<>();
-		arguments.add(new StringArgument("effect")
-				.replaceSuggestions(ArgumentSuggestions.stringsWithTooltips(info -> plugin.getEffectManager().getEffects().stream()
-						.filter(effect -> effect.canRun() && info.sender().hasPermission("animvanish.invis." + effect.getName()))
-						.map(effect -> StringTooltip.ofString(effect.getName(), effect.getDescription()))
-						.toArray(IStringTooltip[]::new))
-				).setOptional(true));
-		arguments.add(new PlayerArgument("target").setOptional(true));
+		Audience audience = plugin.getAudience(player.getUniqueId());
+		BareEffect effect = plugin.getEffectManager().getEffect(effectName);
 
-		new CommandAPICommand("invis")
-				.withPermission("animvanish.invis")
-				.withArguments(arguments)
-				.executesPlayer((player, args) -> {
-					if (plugin.getCurrentHook() == null) {
-						Audience audience = plugin.getAudience(player.getUniqueId());
-						plugin.getLocales().getLocale("dependency_no_vanish")
-								.ifPresent(audience::sendMessage);
-						return;
-					}
+		if (effect == null) {
+			if (player.hasPermission("animvanish.invis.gui"))
+				openGui(player);
+			else
+				plugin.getLocales().getLocale("no_permissions", "animvanish.invis.gui")
+						.ifPresent(audience::sendMessage);
 
-					Audience audience = plugin.getAudience(player.getUniqueId());
-					BareEffect effect = plugin.getEffectManager().getEffect((String) args.get("effect"));
-					Player target = (Player) args.get("target");
+			return;
+		}
 
-					if (effect == null) {
-						if (player.hasPermission("animvanish.invis.gui"))
-							openGui(player);
-						else
-							plugin.getLocales().getLocale("no_permissions", "animvanish.invis.gui")
-									.ifPresent(audience::sendMessage);
+		if (target != null) {
+			if (!player.hasPermission("animvanish.invis.other"))
+				plugin.getLocales().getLocale("no_permissions", "animvanish.invis.other")
+						.ifPresent(audience::sendMessage);
+			else
+				effect.runEffect(BukkitUser.adapt(Objects.requireNonNull(target.getPlayer()), plugin));
 
-						return;
-					}
+			return;
+		}
 
-					if (target != null) {
-						if (!player.hasPermission("animvanish.invis.other"))
-							plugin.getLocales().getLocale("no_permissions", "animvanish.invis.other")
-									.ifPresent(audience::sendMessage);
-						else
-							effect.runEffect(BukkitUser.adapt(Objects.requireNonNull(target.getPlayer()), plugin));
-
-						return;
-					}
-
-					if (!player.hasPermission("animvanish.invis." + effect.getName())) {
-						plugin.getLocales().getLocale("no_permissions", "animvanish.invis." + effect.getName())
-								.ifPresent(audience::sendMessage);
-					} else
-						effect.runEffect(BukkitUser.adapt(player, plugin));
-				}).register();
+		if (!player.hasPermission("animvanish.invis." + effect.getName())) {
+			plugin.getLocales().getLocale("no_permissions", "animvanish.invis." + effect.getName())
+					.ifPresent(audience::sendMessage);
+		} else
+			effect.runEffect(BukkitUser.adapt(player, plugin));
 	}
 
 	private void openGui(Player player) {

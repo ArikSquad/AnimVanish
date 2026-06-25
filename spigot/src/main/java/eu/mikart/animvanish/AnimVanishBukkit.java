@@ -23,6 +23,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import eu.mikart.animvanish.commands.AnimVanishCommand;
 import org.jetbrains.annotations.NotNull;
+import revxrsal.commands.Lamp;
+import revxrsal.commands.bukkit.BukkitLamp;
+import revxrsal.commands.bukkit.actor.BukkitCommandActor;
 
 import java.nio.file.Path;
 import java.util.HashSet;
@@ -60,12 +63,13 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
         Utilities.BETA = getDescription().getVersion().contains("BETA");
         updateCheck();
 
+        Lamp<BukkitCommandActor> lamp = BukkitLamp.builder(this).dependency(IAnimVanish.class, this).build();
+        lamp.register(new AnimVanishCommand());
+        lamp.register(new InvisibilityCommand());
 
         hooks.add(new PremiumVanishHook());
         hooks.add(new SuperVanishHook());
         hooks.add(new AdvancedVanishHook());
-        new AnimVanishCommand(this);
-        new InvisibilityCommand(this);
 
         for (Hook hook : hooks) {
             if (Bukkit.getPluginManager().isPluginEnabled(hook.getName())) {

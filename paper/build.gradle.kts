@@ -5,10 +5,9 @@ plugins {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
     implementation(project(":spigot"))
     implementation(project(":common"))
-    implementation("dev.jorel:commandapi-bukkit-shade-mojang-mapped:10.0.0")
 }
 
 tasks.named<ShadowJar>("shadowJar") {
@@ -16,7 +15,6 @@ tasks.named<ShadowJar>("shadowJar") {
     destinationDirectory.set(rootProject.layout.buildDirectory.dir("libs"))
     minimize()
     relocate("org.bstats", "eu.mikart.animvanish")
-    relocate("dev.jorel.commandapi", "eu.mikart.animvanish.commandapi")
     relocate("com.github.stefvanschie.inventoryframework", "eu.mikart.animvanish.inventoryframework")
     exclude("META-INF/**")
 }

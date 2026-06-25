@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "eu.mikart"
-version = "1.1.2"
+version = "1.2.0"
 
 tasks.jar {
     enabled = false
@@ -20,13 +20,13 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(17))
+            languageVersion.set(JavaLanguageVersion.of(21))
         }
     }
 
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
-        options.release.set(17)
+        options.release.set(21)
         options.compilerArgs.add("-parameters")
     }
 
