@@ -81,8 +81,8 @@ public class Settings {
 		@NoArgsConstructor(access = AccessLevel.PRIVATE)
 		public static class SoundSettings {
 
-			@Comment("What sound the player will hear. Default: BLOCK_AMETHYST_BLOCK_HIT Docs: https://animvanish.mikart.eu/configuration/config.yml#sound")
-			private String type = "BLOCK_AMETHYST_BLOCK_HIT";
+			@Comment("What sound the player will hear. Default: BLOCK_AMETHYST_BLOCK_HIT (for Spigot) Docs: https://animvanish.mikart.eu/configuration/config.yml#sound")
+			private String type = "minecraft:block.amethyst_block.hit";
 
 		}
 
