@@ -12,10 +12,10 @@ import eu.mikart.animvanish.hooks.impl.PremiumVanishHook;
 import eu.mikart.animvanish.hooks.impl.SuperVanishHook;
 import eu.mikart.animvanish.util.UpdateChecker;
 import eu.mikart.animvanish.util.Utilities;
-import eu.mikart.animvanish.util.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.AudienceProvider;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
@@ -30,6 +30,7 @@ import revxrsal.commands.bukkit.actor.BukkitCommandActor;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @Getter
@@ -58,9 +59,7 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
         this.loadConfig();
 
         getServer().getPluginManager().registerEvents(new FireworkEffect(this), this);
-        loadPlatform(); // Load extra effects from paper
 
-        Utilities.BETA = getDescription().getVersion().contains("BETA");
         updateCheck();
 
         Lamp<BukkitCommandActor> lamp = BukkitLamp.builder(this).dependency(IAnimVanish.class, this).build();
@@ -84,7 +83,6 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
 
     @Override
     public void onDisable() {
-        unloadPlatform();
     }
 
     @Override
@@ -92,28 +90,20 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
         return getDescription().getVersion();
     }
 
-    @Override
-    public @NotNull AudienceProvider getAudiences() {
-        return audiences;
-    }
-
     public void updateCheck() {
         if (!getSettings().isUpdateChecker()) {
             return;
         }
 
-        new UpdateChecker(this).getLatestVersion(version -> {
-            Version currentVersion = getVersion();
-            Version latestVersion = new Version(version);
-
-            String channel = Utilities.BETA ? "beta" : "main";
-
-            if (currentVersion.compareTo(latestVersion) < 0) {
-                getLogger().warning("New " + channel + " channel release is available (" + version + ")! Download it from here: " + Utilities.PLUGIN_URL);
-            } else {
-                getLogger().info("Running on the latest AnimVanish version");
-            }
-        });
+        Bukkit.getScheduler().runTaskAsynchronously(this, () -> UpdateChecker.builder().currentVersion(getVersion())
+            .endpoint(UpdateChecker.Endpoint.HANGAR)
+            .resource("ArikSquad/AnimVanish")
+            .build().check().thenAcceptAsync(completed -> {
+                if (completed.isUpToDate()) {
+                    return;
+                }
+                getLogger().warning("New release is available (" + completed.getLatestVersion() + ")! Download it from here: " + Utilities.PLUGIN_URL);
+            }));
     }
 
     @Override
@@ -132,5 +122,15 @@ public class AnimVanishBukkit extends JavaPlugin implements IAnimVanish {
     @NotNull
     public Logger getLogger() {
         return super.getLogger();
+    }
+
+    @Override
+    public @NotNull Audience getAudience(@NotNull UUID user) {
+        return audiences.player(user);
+    }
+
+    @Override
+    public @NotNull Audience getConsoleAudience() {
+        return audiences.console();
     }
 }

@@ -20,7 +20,7 @@ public abstract class InternalEffect extends BareEffect {
 	}
 
 	protected Audience getConsole() {
-		return plugin.getAudiences().console();
+		return plugin.getConsole().getAudience();
 	}
 
 }

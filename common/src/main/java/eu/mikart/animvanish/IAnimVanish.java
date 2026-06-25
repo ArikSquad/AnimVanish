@@ -6,7 +6,6 @@ import eu.mikart.animvanish.hooks.Hook;
 import eu.mikart.animvanish.user.ConsoleUser;
 import eu.mikart.animvanish.util.Version;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.platform.AudienceProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -19,11 +18,8 @@ public interface IAnimVanish extends ConfigProvider {
 	IEffectManager getEffectManager();
 
 	@NotNull
-	AudienceProvider getAudiences();
-
-	@NotNull
 	default Version getVersion() {
-		return new Version(getPluginVersion());
+		return Version.fromString(getPluginVersion());
 	}
 
 	Hook getCurrentHook();
@@ -31,28 +27,17 @@ public interface IAnimVanish extends ConfigProvider {
 	Logger getLogger();
 
 	@NotNull
-	default Audience getAudience(@NotNull UUID user) {
-		return getAudiences().player(user);
-	}
+	Audience getAudience(@NotNull UUID user);
+
+	@NotNull
+	Audience getConsoleAudience();
 
 	@NotNull
 	default ConsoleUser getConsole() {
-		return ConsoleUser.wrap(getAudiences().console());
+		return ConsoleUser.wrap(getConsoleAudience());
 	}
 
 	default void reload() {
 		loadConfig();
 	}
-
-	/**
-	 * Load per platform code, such as registering commands or effects
-	 * @since 1.1.0
-	 */
-	default void loadPlatform() {}
-
-	/**
-	 * Unload per platform code, such as unregistering a command handler
-	 * @since 1.1.1
-	 */
-	default void unloadPlatform() {}
 }

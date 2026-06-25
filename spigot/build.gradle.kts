@@ -5,8 +5,9 @@ plugins {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:26.1.2-R0.1-SNAPSHOT")
     implementation(project(":common"))
+
+    compileOnly("org.spigotmc:spigot-api:26.1.2-R0.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.2.1")
     compileOnly("com.github.LeonMangler:PremiumVanishAPI:2.7.11-2")
     implementation("net.kyori:adventure-platform-bukkit:4.4.1")
@@ -14,7 +15,7 @@ dependencies {
     compileOnly("net.citizensnpcs:citizens-main:2.0.33-SNAPSHOT")
     implementation("net.william278:PagineDown:1.1")
     implementation("net.william278:DesertWell:2.0.4")
-    implementation("net.kyori:adventure-key:4.21.0")
+    implementation("net.kyori:adventure-key:4.26.1")
     compileOnly("me.quantiom:advancedvanish:1.2.6")
     implementation("com.github.stefvanschie.inventoryframework:IF:0.12.0")
     implementation("io.github.revxrsal:lamp.common:4.0.0-rc.17")

@@ -1,14 +1,8 @@
 package eu.mikart.animvanish.commands;
 
-import com.github.stefvanschie.inventoryframework.gui.GuiItem;
-import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;
-import com.github.stefvanschie.inventoryframework.pane.OutlinePane;
-import com.github.stefvanschie.inventoryframework.pane.PatternPane;
-import com.github.stefvanschie.inventoryframework.pane.util.Pattern;
-import com.github.stefvanschie.inventoryframework.pane.util.Slot;
 import eu.mikart.animvanish.IAnimVanish;
 import eu.mikart.animvanish.effects.BareEffect;
-import eu.mikart.animvanish.user.BukkitUser;
+import eu.mikart.animvanish.user.PaperUser;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -26,6 +20,9 @@ import revxrsal.commands.annotation.Dependency;
 import revxrsal.commands.annotation.Optional;
 import revxrsal.commands.annotation.SuggestWith;
 import revxrsal.commands.bukkit.annotation.CommandPermission;
+import xyz.xenondevs.invui.gui.Gui;
+import xyz.xenondevs.invui.item.Item;
+import xyz.xenondevs.invui.window.Window;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +60,7 @@ public class InvisibilityCommand {
 				plugin.getLocales().getLocale("no_permissions", "animvanish.invis.other")
 						.ifPresent(audience::sendMessage);
 			else
-				effect.runEffect(BukkitUser.adapt(Objects.requireNonNull(target.getPlayer()), plugin));
+				effect.runEffect(PaperUser.adapt(Objects.requireNonNull(target.getPlayer()), plugin));
 
 			return;
 		}
@@ -72,42 +69,51 @@ public class InvisibilityCommand {
 			plugin.getLocales().getLocale("no_permissions", "animvanish.invis." + effect.getName())
 					.ifPresent(audience::sendMessage);
 		} else
-			effect.runEffect(BukkitUser.adapt(player, plugin));
+			effect.runEffect(PaperUser.adapt(player, plugin));
 	}
 
 	private void openGui(Player player) {
-		ChestGui gui = new ChestGui(6, LegacyComponentSerializer.legacySection().serialize(plugin.getLocales().getLocale("gui_title").orElse(MiniMessage.miniMessage().deserialize("<black>Select an effect</black>"))));
-		gui.setOnGlobalClick(event -> event.setCancelled(true));
-
 		ItemStack border_item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 		ItemMeta border_meta = border_item.getItemMeta();
 		Component border_name = plugin.getLocales().getLocale("gui_placeholder_name").orElse(MiniMessage.miniMessage().deserialize("<gray>Select an effect</gray>"));
 		border_meta.setDisplayName(LegacyComponentSerializer.legacySection().serialize(border_name));
 		border_item.setItemMeta(border_meta);
 
-		Pattern pattern = new Pattern(
-				"111111111",
-				"100000001",
-				"100000001",
-				"100000001",
-				"100000001",
-				"111111111"
-		);
-		PatternPane background = new PatternPane(9, 6, pattern);
-		background.bindItem('1', new GuiItem(border_item));
-		gui.addPane(Slot.fromXY(0, 0), background);
+		Gui gui = Gui.builder()
+				.setStructure(
+						"1 1 1 1 1 1 1 1 1",
+						"1 . . . . . . . 1",
+						"1 . . . . . . . 1",
+						"1 . . . . . . . 1",
+						"1 . . . . . . . 1",
+						"1 1 1 1 1 1 1 1 1"
+				)
+				.addIngredient('1', border_item)
+				.build();
 
-		OutlinePane effectPane = new OutlinePane(8, 5);
+		int slotIndex = 0;
 		for (BareEffect effect : plugin.getEffectManager().getEffects()) {
 			if (effect.canRun() && player.hasPermission("animvanish.invis." + effect.getName())) {
-				effectPane.addItem(effectIcon(player, effect));
+				int row = 1 + slotIndex / 8;
+				int column = 1 + slotIndex % 8;
+				gui.setItem(column, row, effectIcon(player, effect));
+				slotIndex++;
+
+				if (slotIndex >= 40) {
+					break;
+				}
 			}
 		}
-		gui.addPane(Slot.fromXY(1, 1), effectPane);
-		gui.show(player);
+
+		Window.builder()
+				.setViewer(player)
+				.setTitle(LegacyComponentSerializer.legacySection().serialize(plugin.getLocales().getLocale("gui_title").orElse(MiniMessage.miniMessage().deserialize("<black>Select an effect</black>"))))
+				.setUpperGui(gui)
+				.build()
+				.open();
 	}
 
-	private GuiItem effectIcon(Player player, BareEffect effect) {
+	private Item effectIcon(Player player, BareEffect effect) {
 		ItemStack item = new ItemStack(Material.valueOf(effect.getItem()));
 		ItemMeta meta = item.getItemMeta();
 		meta.getPersistentDataContainer().set(new NamespacedKey((Plugin) plugin, "identifier"), PersistentDataType.STRING, effect.getName());
@@ -119,35 +125,34 @@ public class InvisibilityCommand {
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 
-		return new GuiItem(item, event -> {
-			Audience audience = plugin.getAudience(event.getWhoClicked().getUniqueId());
+		return Item.builder().setItemProvider(item).addClickHandler(click -> {
+			Audience audience = plugin.getAudience(click.player().getUniqueId());
 			if (plugin.getCurrentHook() == null) {
 				audience.sendMessage(
 						plugin.getLocales()
 								.getLocale("dependency_no_vanish")
 								.orElse(MiniMessage.miniMessage().deserialize("<red>You must have a supported vanish plugin installed to use this command.</red>"))
 				);
-				event.getWhoClicked().closeInventory();
+				click.player().closeInventory();
 				return;
 			}
 
-			ItemStack i = event.getCurrentItem();
-			if (i == null || i.getType() == Material.AIR) {
-				return;
-			}
-
-			@Nullable String effectName = i.getItemMeta().getPersistentDataContainer().get(new NamespacedKey((Plugin) plugin, "identifier"), PersistentDataType.STRING);
+			@Nullable String effectName = item.getItemMeta().getPersistentDataContainer().get(new NamespacedKey((Plugin) plugin, "identifier"), PersistentDataType.STRING);
 			BareEffect selectedEffect = plugin.getEffectManager().getEffect(effectName);
+			if (selectedEffect == null) {
+				click.player().closeInventory();
+				return;
+			}
 
 			// Close the gui
-			event.getWhoClicked().closeInventory();
+			click.player().closeInventory();
 			if (!player.hasPermission("animvanish.invis." + selectedEffect.getName())) {
 				plugin.getLocales().getLocale("no_permissions", "animvanish.invis." + selectedEffect.getName())
 						.ifPresent(audience::sendMessage);
 				return;
 			}
-			selectedEffect.runEffect(BukkitUser.adapt(player, plugin));
-		});
+			selectedEffect.runEffect(PaperUser.adapt(player, plugin));
+		}).build();
 	}
 
 }

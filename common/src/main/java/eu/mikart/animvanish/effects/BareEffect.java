@@ -3,8 +3,10 @@ package eu.mikart.animvanish.effects;
 import eu.mikart.animvanish.annotations.EffectAnnotation;
 import eu.mikart.animvanish.user.OnlineUser;
 import lombok.Getter;
+import org.jetbrains.annotations.ApiStatus;
 
-public abstract class BareEffect implements IEffect {
+@ApiStatus.Internal
+public abstract class BareEffect {
 
 	private final EffectAnnotation effectAnnotation = getClass().getAnnotation(EffectAnnotation.class);
 	@Getter
@@ -16,6 +18,12 @@ public abstract class BareEffect implements IEffect {
 		if(this.canRun()) {
 			this.start(player);
 		}
+	}
+
+	public abstract void start(OnlineUser player);
+
+	public boolean canRun() {
+		return true;
 	}
 
 }
